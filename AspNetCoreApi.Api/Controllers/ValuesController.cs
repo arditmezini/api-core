@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using AspNetCoreApi.Contracts;
+using AspNetCoreApi.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreApi.Api.Controllers
@@ -10,11 +9,19 @@ namespace AspNetCoreApi.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IAuthorService authorService;
+
+        public ValuesController(IAuthorService authorService)
+        {
+            this.authorService = authorService;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<AuthorDto>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(authorService.Get());
+            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

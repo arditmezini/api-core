@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreApi.Models\AspNetCoreApi.Models.csproj" />
+  </ItemGroup>
+
 </Project>

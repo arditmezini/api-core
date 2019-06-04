@@ -1,12 +1,14 @@
-﻿using AspNetCoreApi.Dal.Core.Contracts;
+﻿using AspNetCoreApi.Contracts;
+using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
+using AspNetCoreApi.Models.Dto;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AspNetCoreApi.Service
 {
-    public class AuthorService
+    public class AuthorService : IAuthorService
     {
         private readonly IUnitOfWork<ApiContext> uow;
 
@@ -15,9 +17,18 @@ namespace AspNetCoreApi.Service
             this.uow = uow;
         }
 
-        public IEnumerable<Author> Get()
+        public IEnumerable<AuthorDto> Get()
         {
-            return uow.GetRepository<Author>().Get().ToList();
+            return uow.GetRepository<Author>().Get().Select(x => new AuthorDto
+            {
+                Id = x.Id,
+                Name = x.Name,
+                AuthorContact = new AuthorContactDto
+                {
+                    Address = x.AuthorContact.Address,
+                    ContactNumber = x.AuthorContact.ContactNumber
+                }
+            }).ToList();
         }
     }
 }
