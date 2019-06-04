@@ -1,8 +1,8 @@
-﻿using AspNetCoreApi.Contracts;
-using AspNetCoreApi.Dal.Core.Contracts;
+﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Service.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using AspNetCoreApi.Contracts;
 using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Service.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreApi.Api.Controllers

@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspNetCoreApi.Contracts\AspNetCoreApi.Contracts.csproj" />
     <ProjectReference Include="..\AspNetCoreApi.Data\AspNetCoreApi.Dal.csproj" />
   </ItemGroup>
 
