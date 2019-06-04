@@ -3,7 +3,7 @@
 	[AuthorId] INT IDENTITY(1,1) NOT NULL,
 	[ContactNumber] NVARCHAR(15) NULL,
 	[Address] NVARCHAR(100) NULL,
-	[DateCreaated] DATETIME NOT NULL,
+	[DateCreated] DATETIME NOT NULL,
 	[UserCreated] NVARCHAR(50) NOT NULL,
 	[DateModified] DATETIME NOT NULL,
 	[UserModified] NVARCHAR(50) NOT NULL,

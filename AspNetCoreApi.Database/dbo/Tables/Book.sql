@@ -4,7 +4,7 @@
 	[Title] NVARCHAR(100) NOT NULL,
 	[CategoryId] INT NOT NULL,
 	[PublisherId] INT NOT NULL,
-	[DateCreaated] DATETIME NOT NULL,
+	[DateCreated] DATETIME NOT NULL,
 	[UserCreated] NVARCHAR(50) NOT NULL,
 	[DateModified] DATETIME NOT NULL,
 	[UserModified] NVARCHAR(50) NOT NULL,
