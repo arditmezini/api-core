@@ -85,5 +85,8 @@
     <None Include="Publish\AspNetCoreApi.Database.publish.xml" />
     <None Include="DataSeed\Author-Data.sql" />
     <None Include="DataSeed\AuthorContact-Data.sql" />
+    <None Include="DataSeed\Book-Data.sql" />
+    <None Include="DataSeed\BookCategory-Data.sql" />
+    <None Include="DataSeed\Publisher-Data.sql" />
   </ItemGroup>
 </Project>
