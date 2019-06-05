@@ -74,6 +74,7 @@
     <Build Include="dbo\Tables\Publisher.sql" />
     <Build Include="dbo\Tables\Book.sql" />
     <Build Include="dbo\Tables\BookAuthors.sql" />
+    <Build Include="dbo\Tables\Countries.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\Script.PreDeployment.sql" />
@@ -88,5 +89,6 @@
     <None Include="DataSeed\Book-Data.sql" />
     <None Include="DataSeed\BookCategory-Data.sql" />
     <None Include="DataSeed\Publisher-Data.sql" />
+    <None Include="DataSeed\Countries-Data.sql" />
   </ItemGroup>
 </Project>

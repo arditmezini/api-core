@@ -22,6 +22,7 @@ namespace AspNetCoreApi.Data.DataContext
         public virtual DbSet<BookAuthors> BookAuthors { get; set; }
         public virtual DbSet<BookCategory> BookCategories { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
+        public virtual DbSet<Countries> Countries { get; set; }
 
         #endregion
 

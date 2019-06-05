@@ -12,6 +12,10 @@ Post-Deployment Script Template
 
 PRINT('Post-Deployment Script START')
 
+	PRINT('Countires Start')
+		:r ..\DataSeed\Countries-Data.sql
+	PRINT('Countries End')
+
 	PRINT('Author Data Start')
 		:r ..\DataSeed\Author-Data.sql
 	PRINT('Author Data End')

@@ -22,7 +22,8 @@ namespace AspNetCoreApi.Service
             return uow.GetRepository<Publisher>().Get().Select(x => new PublisherDto
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                Country = x.Country
             }).ToList();
         }
     }
