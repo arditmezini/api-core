@@ -20,4 +20,16 @@ PRINT('Post-Deployment Script START')
 		:r ..\DataSeed\AuthorContact-Data.sql
 	PRINT('AuthorContact End')
 
+	PRINT('Book Start')
+		:r ..\DataSeed\Book-Data.sql
+	PRINT('Book End')
+
+	PRINT('BookCategory Start')
+		:r ..\DataSeed\BookCategory-Data.sql
+	PRINT('')
+
+	PRINT('Publisher Start')
+		:r ..\DataSeed\Publisher-Data.sql
+	PRINT('Publisher End')
+
 PRINT('Post-Deployment Script END')
