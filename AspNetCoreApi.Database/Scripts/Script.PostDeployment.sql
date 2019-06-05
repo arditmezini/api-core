@@ -12,4 +12,12 @@ Post-Deployment Script Template
 
 PRINT('Post-Deployment Script START')
 
+	PRINT('Author Data Start')
+		:r ..\DataSeed\Author-Data.sql
+	PRINT('Author Data End')
+
+	PRINT('AuthorContact Start')
+		:r ..\DataSeed\AuthorContact-Data.sql
+	PRINT('AuthorContact End')
+
 PRINT('Post-Deployment Script END')

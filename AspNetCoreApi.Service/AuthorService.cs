@@ -22,9 +22,12 @@ namespace AspNetCoreApi.Service
             return uow.GetRepository<Author>().Get().Select(x => new AuthorDto
             {
                 Id = x.Id,
-                Name = x.Name,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Country = x.Country,
                 AuthorContact = new AuthorContactDto
                 {
+                    AuthorId = x.AuthorContact.AuthorId,
                     Address = x.AuthorContact.Address,
                     ContactNumber = x.AuthorContact.ContactNumber
                 }

@@ -65,6 +65,7 @@
     <Folder Include="dbo\Views" />
     <Folder Include="Scripts" />
     <Folder Include="Publish" />
+    <Folder Include="DataSeed" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Author.sql" />
@@ -82,5 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish\AspNetCoreApi.Database.publish.xml" />
+    <None Include="DataSeed\Author-Data.sql" />
+    <None Include="DataSeed\AuthorContact-Data.sql" />
   </ItemGroup>
 </Project>

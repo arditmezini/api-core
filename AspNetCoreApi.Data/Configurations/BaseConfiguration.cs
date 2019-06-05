@@ -11,11 +11,14 @@ namespace AspNetCoreApi.Dal.Configurations
         {
             builder.Property(x => x.DateCreated)
                 .IsRequired();
+
             builder.Property(x => x.UserCreated)
                 .HasMaxLength(50)
                 .IsRequired();
+
             builder.Property(x => x.UserModified)
                 .HasMaxLength(50);
+
             builder.Property(x => x.IsDeleted)
                 .IsRequired();
         }

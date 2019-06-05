@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [dbo].[AuthorContact]
 (
 	[AuthorId] INT IDENTITY(1,1) NOT NULL,
-	[ContactNumber] NVARCHAR(15) NULL,
-	[Address] NVARCHAR(100) NULL,
+	[ContactNumber] NVARCHAR(15) NOT NULL,
+	[Address] NVARCHAR(100) NOT NULL,
 	[DateCreated] DATETIME NOT NULL,
 	[UserCreated] NVARCHAR(50) NOT NULL,
-	[DateModified] DATETIME NOT NULL,
-	[UserModified] NVARCHAR(50) NOT NULL,
+	[DateModified] DATETIME NULL,
+	[UserModified] NVARCHAR(50) NULL,
 	[IsDeleted] BIT NOT NULL
 )
 GO
