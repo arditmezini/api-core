@@ -1,6 +1,7 @@
 ﻿using AspNetCoreApi.Api.Configurations;
 using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Data.DataContext;
+using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,8 @@ namespace AspNetCoreApi.Api
         {
             services.AddDbContextWithLazyLoading<ApiContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
 
             services.ConfigureCors(
                Configuration.GetGenericValue<string>("CorsOptions:PolicyName"),

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using AspNetCoreApi.Models.Dto;
-using AspNetCoreApi.Service.Contracts;
+﻿using AspNetCoreApi.Models.Common;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace AspNetCoreApi.Api.Controllers
 {
@@ -9,19 +8,18 @@ namespace AspNetCoreApi.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly IAuthorService authorService;
+        protected AppConfig AppConfig { get; set; }
 
-        public ValuesController(IAuthorService authorService)
+        public ValuesController(IOptions<AppConfig> appSettings)
         {
-            this.authorService = authorService;
+            AppConfig = appSettings.Value;
         }
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<AuthorDto>> Get()
+        public ActionResult<string[]> Get()
         {
-            return Ok(authorService.Get());
-            //return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
