@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VMD.RESTApiResponseWrapper.Core.Extensions;
 
 namespace AspNetCoreApi.Api
 {
@@ -44,6 +45,7 @@ namespace AspNetCoreApi.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseAPIResponseWrapperMiddleware();
             app.UseMvc();
         }
     }
