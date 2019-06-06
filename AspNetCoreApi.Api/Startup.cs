@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Dal.Extensions;
+﻿using AspNetCoreApi.Api.Configurations;
+using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Service;
 using Microsoft.AspNetCore.Builder;
@@ -26,9 +27,17 @@ namespace AspNetCoreApi.Api
             services.AddDbContextWithLazyLoading<ApiContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.ConfigureCors(
+               Configuration.GetGenericValue<string>("CorsOptions:PolicyName"),
+               Configuration.GetGenericValue<string>("CorsOptions:CorsOrigin"));
+
+            services.ConfigureSwagger();
+
             services.RegisterServicesDependencyInjection();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.ConfigureCorsGlobally(Configuration.GetGenericValue<string>("CorsOptions:PolicyName"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +54,17 @@ namespace AspNetCoreApi.Api
             }
 
             app.UseHttpsRedirection();
+
+            //Generic API Response
             app.UseAPIResponseWrapperMiddleware();
+
+            app.UseCorsPolicy(Configuration.GetGenericValue<string>("CorsOptions:PolicyName"));
+
+            if (env.IsDevelopment())
+            {
+                app.UseSwaggerWithUI();
+            }
+
             app.UseMvc();
         }
     }
