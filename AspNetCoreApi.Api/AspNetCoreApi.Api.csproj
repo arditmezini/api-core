@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreApi.Common\AspNetCoreApi.Common.csproj" />
     <ProjectReference Include="..\AspNetCoreApi.Service\AspNetCoreApi.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

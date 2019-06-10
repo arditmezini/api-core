@@ -1,4 +1,5 @@
 ﻿using AspNetCoreApi.Api.Configurations;
+using AspNetCoreApi.Common.Logger;
 using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Common;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 using VMD.RESTApiResponseWrapper.Core.Extensions;
 
 namespace AspNetCoreApi.Api
@@ -17,6 +20,9 @@ namespace AspNetCoreApi.Api
     {
         public Startup(IConfiguration configuration)
         {
+            var logDirectory = string.Concat(Directory.GetCurrentDirectory());
+            LoggerExtension.ConfigureNLogStartup(logDirectory);
+
             Configuration = configuration;
         }
 
@@ -35,6 +41,8 @@ namespace AspNetCoreApi.Api
                Configuration.GetGenericValue<string>("CorsOptions:CorsOrigin"));
 
             services.ConfigureSwagger();
+
+            services.RegisterNLog();
 
             services.RegisterServicesDependencyInjection();
 

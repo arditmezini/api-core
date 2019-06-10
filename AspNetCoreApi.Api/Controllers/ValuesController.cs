@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Models.Common;
+﻿using AspNetCoreApi.Common.Logger;
+using AspNetCoreApi.Models.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -9,10 +10,12 @@ namespace AspNetCoreApi.Api.Controllers
     public class ValuesController : ControllerBase
     {
         protected AppConfig AppConfig { get; set; }
+        private readonly ILogNLog logger;
 
-        public ValuesController(IOptions<AppConfig> appSettings)
+        public ValuesController(IOptions<AppConfig> appSettings, ILogNLog logger)
         {
             AppConfig = appSettings.Value;
+            this.logger = logger;
         }
 
         // GET api/values
