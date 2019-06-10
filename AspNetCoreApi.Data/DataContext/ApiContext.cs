@@ -62,12 +62,12 @@ namespace AspNetCoreApi.Data.DataContext
             {
                 if (entity.State == EntityState.Added)
                 {
-                    ((BaseEntity)entity.Entity).DateCreated = DateTime.UtcNow;
+                    ((BaseEntity)entity.Entity).DateCreated = DateTime.Now;
                     ((BaseEntity)entity.Entity).UserCreated = username;
                 }
                 else if (entity.State == EntityState.Modified)
                 {
-                    ((BaseEntity)entity.Entity).DateModified = DateTime.UtcNow;
+                    ((BaseEntity)entity.Entity).DateModified = DateTime.Now;
                     ((BaseEntity)entity.Entity).UserModified = username;
                 }
                 else if (entity.State == EntityState.Deleted)

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace AspNetCoreApi.Models.Dto
 {
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public class BookCategoryDto
     {
         public int Id { get; set; }
