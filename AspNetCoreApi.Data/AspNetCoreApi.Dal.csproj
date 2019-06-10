@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreApi.Common\AspNetCoreApi.Common.csproj" />
     <ProjectReference Include="..\AspNetCoreApi.Models\AspNetCoreApi.Models.csproj" />
   </ItemGroup>
 

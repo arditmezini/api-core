@@ -1,8 +1,8 @@
-﻿using AspNetCoreApi.Dal.Core.Contracts;
+﻿using AspNetCoreApi.Common.Logger;
+using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +17,10 @@ namespace AspNetCoreApi.Dal.Core
         where TEntity : class
     {
         protected readonly TDbContext _dbContext;
-        private readonly ILogger<Repository<TDbContext, TEntity>> _logger;
+        private readonly ILogNLog _logger;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public Repository(TDbContext dbContext, ILogger<Repository<TDbContext, TEntity>> logger)
+        public Repository(TDbContext dbContext, ILogNLog logger)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _logger = logger;
@@ -47,7 +47,7 @@ namespace AspNetCoreApi.Dal.Core
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        _logger.LogError(ex, $"Error: {nameof(Repository<TDbContext, TEntity>)}");
+                        _logger.Error(ex, $"Error: {nameof(Repository<TDbContext, TEntity>)}");
                     }
                 }
             }
