@@ -20,10 +20,6 @@ namespace AspNetCoreApi.Dal.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(x => x.Country)
-                .IsRequired()
-                .HasMaxLength(100);
-
             builder.HasOne(x => x.AuthorContact)
                 .WithOne(x => x.Author)
                 .HasForeignKey<AuthorContact>(x => x.AuthorId);

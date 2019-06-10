@@ -14,6 +14,11 @@ namespace AspNetCoreApi.Dal.Configurations
             builder.Property(x => x.Title)
                 .IsRequired()
                 .HasMaxLength(100);
+            builder.Property(x => x.Isbn)
+                .IsRequired()
+                .HasMaxLength(13);
+            builder.Property(x => x.PublishedYear)
+                .IsRequired();
             builder.Property(x => x.CategoryId)
                 .IsRequired();
             builder.Property(x => x.PublisherId)

@@ -1,12 +1,13 @@
-﻿GO
+﻿SET IDENTITY_INSERT [dbo].[Author] ON;
 
 INSERT INTO [dbo].[Author] 
-	([FirstName],[LastName],[Country],[DateCreated],[UserCreated],[DateModified],[UserModified],[IsDeleted])
+	([Id],[FirstName],[LastName],[DateCreated],[UserCreated],[DateModified],[UserModified],[IsDeleted])
 VALUES 
-	('Dritero','Agolli','Albania',GETDATE(),'admin',NULL,NULL,0),
-	('Ismail' ,'Kadare','Albania',GETDATE(),'admin',NULL,NULL,0),
-	('Faik'   ,'Konica','Albania',GETDATE(),'admin',NULL,NULL,0),
-	('Sinan'  ,'Hasani','Kosovo' ,GETDATE(),'admin',NULL,NULL,0),
-	('Rifat'  ,'Kukaj' ,'Kosovo' ,GETDATE(),'admin',NULL,NULL,0)
+	(1,'Marcel','Proust',GETDATE(),'admin',NULL,NULL,0),
+	(2,'Miguel','de Cervantes',GETDATE(),'admin',NULL,NULL,0), 
+	(3,'James','Joyce',GETDATE(),'admin',NULL,NULL,0),
+	(4,'F. Scott','Fitzgerald',GETDATE(),'admin',NULL,NULL,0),
+	(5,'Herman ','Melville' ,GETDATE(),'admin',NULL,NULL,0);
 
+SET IDENTITY_INSERT [dbo].[Author] OFF;
 GO

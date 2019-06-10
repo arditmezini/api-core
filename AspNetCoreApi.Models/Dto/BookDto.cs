@@ -5,9 +5,11 @@ namespace AspNetCoreApi.Models.Dto
     public class BookDto
     {
         public int Id { get; set; }
-        public string Title { get; set; }
         public int CategoryId { get; set; }
         public int PublisherId { get; set; }
+        public string Title { get; set; }
+        public string Isbn { get; set; }
+        public int PublishedYear { get; set; }
 
         public virtual BookCategoryDto Category { get; set; }
         public virtual PublisherDto Publisher { get; set; }

@@ -7,6 +7,7 @@ namespace AspNetCoreApi.Service
     {
         public static void RegisterServicesDependencyInjection(this IServiceCollection services)
         {
+            services.AddTransient<IGeneralDataService, GeneralDataService>();
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IPublisherService, PublisherService>();

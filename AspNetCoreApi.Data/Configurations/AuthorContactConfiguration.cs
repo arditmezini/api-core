@@ -11,12 +11,18 @@ namespace AspNetCoreApi.Dal.Configurations
             builder.ToTable("AuthorContact");
             builder.HasKey(x => x.AuthorId);
 
+            builder.Property(x => x.CountryId)
+                .IsRequired();
             builder.Property(x => x.Address)
                 .HasMaxLength(100)
                 .IsRequired();
             builder.Property(x => x.ContactNumber)
                 .HasMaxLength(15)
                 .IsRequired();
+
+            builder.HasOne(x => x.Country)
+                .WithOne(x => x.AuthorContact)
+                .HasForeignKey<Countries>(x => x.Id);
         }
     }
 }

@@ -16,24 +16,28 @@ PRINT('Post-Deployment Script START')
 		:r ..\DataSeed\Countries-Data.sql
 	PRINT('Countries End')
 
-	PRINT('Author Data Start')
+	PRINT('AuthorData Start')
 		:r ..\DataSeed\Author-Data.sql
-	PRINT('Author Data End')
+	PRINT('AuthorData End')
 
-	PRINT('AuthorContact Start')
+	PRINT('AuthorContactData Start')
 		:r ..\DataSeed\AuthorContact-Data.sql
-	PRINT('AuthorContact End')
+	PRINT('AuthorContactData End')
 
-	PRINT('Book Start')
-		:r ..\DataSeed\Book-Data.sql
-	PRINT('Book End')
-
-	PRINT('BookCategory Start')
+	PRINT('BookCategoryData Start')
 		:r ..\DataSeed\BookCategory-Data.sql
-	PRINT('')
+	PRINT('BookCategoryData End')
 
-	PRINT('Publisher Start')
+	PRINT('PublisherData Start')
 		:r ..\DataSeed\Publisher-Data.sql
-	PRINT('Publisher End')
+	PRINT('PublisherData End')
+
+	PRINT('BookData Start')
+		:r ..\DataSeed\Book-Data.sql
+	PRINT('BookData End')
+
+	PRINT('BookAuthorsData Start')
+		:r ..\DataSeed\BookAuthors-Data.sql
+	PRINT('BookAuthorsData End')
 
 PRINT('Post-Deployment Script END')

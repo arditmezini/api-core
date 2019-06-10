@@ -9,6 +9,10 @@ namespace AspNetCoreApi.Dal.Configurations
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
+            // 1.Filter not deleted entities
+            builder.HasQueryFilter(x => !x.IsDeleted);
+
+            // 2.Configure inherited properites
             builder.Property(x => x.DateCreated)
                 .IsRequired();
 

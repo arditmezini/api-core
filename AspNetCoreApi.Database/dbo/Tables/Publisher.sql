@@ -2,7 +2,6 @@
 (
 	[Id] INT IDENTITY(1,1) NOT NULL,
 	[Name] NVARCHAR(100) NOT NULL,
-	[Country] NVARCHAR(100) NOT NULL,
 	[DateCreated] DATETIME NOT NULL,
 	[UserCreated] NVARCHAR(50) NOT NULL,
 	[DateModified] DATETIME NULL,

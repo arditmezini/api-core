@@ -2,6 +2,8 @@
 (
 	[Id] INT IDENTITY(1,1) NOT NULL,
 	[Title] NVARCHAR(100) NOT NULL,
+	[Isbn] NVARCHAR(13) NOT NULL,
+	[PublishedYear] INT NOT NULL,
 	[CategoryId] INT NOT NULL,
 	[PublisherId] INT NOT NULL,
 	[DateCreated] DATETIME NOT NULL,

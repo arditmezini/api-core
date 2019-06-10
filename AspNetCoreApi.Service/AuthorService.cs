@@ -24,7 +24,6 @@ namespace AspNetCoreApi.Service
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Country = x.Country,
                 AuthorContact = new AuthorContactDto
                 {
                     AuthorId = x.AuthorContact.AuthorId,

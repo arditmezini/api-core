@@ -4,7 +4,12 @@
   [Name]  VARCHAR(80) NOT NULL,
   [Iso3]  VARCHAR(3) NULL,
   [NumCode] INT  NULL,
-  [PhoneCode] INT NOT NULL
+  [PhoneCode] INT NOT NULL,
+  [DateCreated] DATETIME NOT NULL,
+  [UserCreated] NVARCHAR(50) NOT NULL,
+  [DateModified] DATETIME NULL,
+  [UserModified] NVARCHAR(50) NULL,
+  [IsDeleted] BIT NOT NULL
 )
 GO
 
