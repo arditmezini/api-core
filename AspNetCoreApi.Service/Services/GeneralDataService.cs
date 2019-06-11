@@ -1,25 +1,23 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
-using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AspNetCoreApi.Service
+namespace AspNetCoreApi.Service.Services
 {
     public class GeneralDataService : IGeneralDataService
     {
-        private readonly IUnitOfWork<ApiContext> uow;
+        private readonly IUnitOfWork uow;
 
-        public GeneralDataService(IUnitOfWork<ApiContext> uow)
+        public GeneralDataService(IUnitOfWork uow)
         {
             this.uow = uow;
         }
 
         public IEnumerable<CountriesDto> GetCountries()
         {
-            return uow.GetRepository<Countries>().Get().Select(x => new CountriesDto
+            return uow.GeneralData.GetCountries().Select(x => new CountriesDto
             {
                 Id = x.Id,
                 Name = x.Name,

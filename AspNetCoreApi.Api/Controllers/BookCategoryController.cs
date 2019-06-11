@@ -20,7 +20,7 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<BookCategoryDto>> Get()
         {
-            return Ok(bookCategoryService.Get());
+            return Ok(bookCategoryService.GetAll());
         }
 
         [HttpGet("{id}")]
@@ -32,22 +32,19 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPost]
         public APIResponse Post([FromBody]BookCategoryDto entity)
         {
-            bookCategoryService.Add(entity);
-            return new APIResponse(200, "New book category added.");
+            return new APIResponse(200, "New book category added.", bookCategoryService.Add(entity));
         }
 
         [HttpPut]
         public APIResponse Put(int id, [FromBody]BookCategoryDto entity)
         {
-            bookCategoryService.Update(id, entity);
-            return new APIResponse(200, $"The record with {id} was updated.");
+            return new APIResponse(200, $"The record with {id} was updated.", bookCategoryService.Update(id, entity));
         }
 
         [HttpDelete("{id}")]
         public APIResponse Delete(int id)
         {
-            bookCategoryService.Delete(id);
-            return new APIResponse(200, $"The record with {id} was deleted");
+            return new APIResponse(200, $"The record with {id} was deleted", bookCategoryService.Delete(id));
         }
     }
 }

@@ -1,21 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
+﻿using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core.Contracts
 {
-    public interface IUnitOfWork<TDbContext> : IDisposable where TDbContext : DbContext
+    public interface IUnitOfWork
     {
-        IRepository<TDbContext, TEntity> GetRepository<TEntity>() where TEntity : class;
-        Task<IRepository<TDbContext, TEntity>> GetRepositoryAsync<TEntity>(CancellationToken cancellationToken = default(CancellationToken)) where TEntity : class;
+        IAuthorRepository Authors { get; }
+        IBookCategoryRepository BookCategorys { get; }
+        IBookRepository Books { get; }
+        IPublisherRepository Publishers { get; }
+        IGeneralDataRepository GeneralData { get; }
 
-        int SaveChanges();
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        bool Complete();
+        Task<bool> CompleteAsync();
 
-        IDbContextTransaction BeginTransaction();
+        #region Transaction
+
+        IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel = default(IsolationLevel));
         Task<IDbContextTransaction> BeginTransactionAsync(IsolationLevel isolationLevel = default(IsolationLevel), CancellationToken cancellationToken = default(CancellationToken));
+        void Commit();
+        void Rollback();
+
+        #endregion
     }
 }

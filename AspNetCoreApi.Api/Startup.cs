@@ -1,7 +1,6 @@
 ﻿using AspNetCoreApi.Api.Configurations;
 using AspNetCoreApi.Common.Logger;
 using AspNetCoreApi.Dal.Extensions;
-using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Service;
 using Microsoft.AspNetCore.Builder;
@@ -10,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.IO;
 using VMD.RESTApiResponseWrapper.Core.Extensions;
 
@@ -31,8 +29,9 @@ namespace AspNetCoreApi.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextWithLazyLoading<ApiContext>(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextWithLazyLoading(options =>
+                 options.UseLazyLoadingProxies()
+                        .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
 

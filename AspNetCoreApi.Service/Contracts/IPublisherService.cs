@@ -5,6 +5,6 @@ namespace AspNetCoreApi.Service.Contracts
 {
     public interface IPublisherService
     {
-        IEnumerable<PublisherDto> Get();
+        IEnumerable<PublisherDto> GetAll();
     }
 }

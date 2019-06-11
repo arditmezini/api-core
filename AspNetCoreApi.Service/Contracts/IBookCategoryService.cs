@@ -5,10 +5,10 @@ namespace AspNetCoreApi.Service.Contracts
 {
     public interface IBookCategoryService
     {
-        IEnumerable<BookCategoryDto> Get();
+        IEnumerable<BookCategoryDto> GetAll();
         BookCategoryDto GetById(int id);
-        void Add(BookCategoryDto entity);
-        void Update(int id, BookCategoryDto entity);
-        void Delete(int id);
+        bool Add(BookCategoryDto entity);
+        bool Update(int id, BookCategoryDto entity);
+        bool Delete(int id);
     }
 }

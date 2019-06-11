@@ -1,4 +1,5 @@
 ﻿using AspNetCoreApi.Service.Contracts;
+using AspNetCoreApi.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCoreApi.Service

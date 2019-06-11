@@ -1,7 +1,11 @@
 ﻿using AspNetCoreApi.Common.Logger;
 using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Service.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AspNetCoreApi.Api.Controllers
 {
@@ -11,18 +15,21 @@ namespace AspNetCoreApi.Api.Controllers
     {
         protected AppConfig AppConfig { get; set; }
         private readonly ILogNLog logger;
+        private IAuthorService _authorService;
 
-        public ValuesController(IOptions<AppConfig> appSettings, ILogNLog logger)
+        public ValuesController(IOptions<AppConfig> appSettings, ILogNLog logger, IAuthorService authorService)
         {
+            _authorService = authorService;
             AppConfig = appSettings.Value;
             this.logger = logger;
         }
 
         // GET api/values
         [HttpGet]
-        public ActionResult<string[]> Get()
+        public ActionResult<IEnumerable<AuthorDto>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_authorService.Get());
+            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

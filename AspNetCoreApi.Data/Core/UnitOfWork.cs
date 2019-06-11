@@ -1,54 +1,101 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Data;
 using System.Threading;
 using System.Threading.Tasks;
 using AspNetCoreApi.Dal.Core.Contracts;
+using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCoreApi.Dal.Core
 {
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext>
-        where TContext : DbContext
+    public class UnitOfWork : IUnitOfWork
     {
-        private readonly TContext _context;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly ConcurrentDictionary<Type, object> _repositories;
+        private readonly ApiContext _context;
 
-        public UnitOfWork(TContext context, IServiceProvider serviceProvider)
+        public UnitOfWork(ApiContext context)
         {
             _context = context;
-            _serviceProvider = serviceProvider;
-            _repositories = new ConcurrentDictionary<Type, object>();
         }
 
-        public IRepository<TContext, TEntity> GetRepository<TEntity>() where TEntity : class
+        private IAuthorRepository _authors;
+        public IAuthorRepository Authors
         {
-            var lazyRepository = new Lazy<IRepository<TContext, TEntity>>(() => _serviceProvider.GetRequiredService<IRepository<TContext, TEntity>>());
-            lazyRepository = (Lazy<IRepository<TContext, TEntity>>)_repositories.GetOrAdd(typeof(TEntity), lazyRepository);
-            return lazyRepository.Value;
+            get
+            {
+                if (_authors == null)
+                {
+                    _authors = new AuthorRepository(_context);
+                }
+                return _authors;
+            }
         }
 
-        public async Task<IRepository<TContext, TEntity>> GetRepositoryAsync<TEntity>(CancellationToken cancellationToken = default(CancellationToken)) where TEntity : class
+        private IBookCategoryRepository _bookCategorys;
+        public IBookCategoryRepository BookCategorys
         {
-            return await Task.Run(() => GetRepository<TEntity>(), cancellationToken);
+            get
+            {
+                if (_bookCategorys == null)
+                {
+                    _bookCategorys = new BookCategoryRepository(_context);
+                }
+                return _bookCategorys;
+            }
         }
 
-        public int SaveChanges()
+        private IBookRepository _books;
+        public IBookRepository Books
         {
-            return _context.SaveChanges();
+            get
+            {
+                if (_books == null)
+                {
+                    _books = new BookRepository(_context);
+                }
+                return _books;
+            }
         }
 
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        private IPublisherRepository _publishers;
+        public IPublisherRepository Publishers
         {
-            return await _context.SaveChangesAsync(cancellationToken);
+            get
+            {
+                if (_publishers == null)
+                {
+                    _publishers = new PublisherRepository(_context);
+                }
+                return _publishers;
+            }
         }
 
-        public IDbContextTransaction BeginTransaction()
+        private IGeneralDataRepository _generalData;
+        public IGeneralDataRepository GeneralData
         {
-            return _context.Database.BeginTransaction();
+            get
+            {
+                if (_generalData == null)
+                {
+                    _generalData = new GeneralDataRepository(_context);
+                }
+                return _generalData;
+            }
+        }
+
+        public bool Complete()
+        {
+            return _context.SaveChanges() > 0;
+        }
+
+        public async Task<bool> CompleteAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public IDbContextTransaction BeginTransaction(IsolationLevel isolationLevel = default(IsolationLevel))
+        {
+            return _context.Database.BeginTransaction(isolationLevel);
         }
 
         public async Task<IDbContextTransaction> BeginTransactionAsync(IsolationLevel isolationLevel = default(IsolationLevel), CancellationToken cancellationToken = default(CancellationToken))
@@ -56,10 +103,19 @@ namespace AspNetCoreApi.Dal.Core
             return isolationLevel != default(IsolationLevel) ? await _context.Database.BeginTransactionAsync(isolationLevel, cancellationToken) : await _context.Database.BeginTransactionAsync(cancellationToken);
         }
 
+        public void Commit()
+        {
+            _context.Database.CommitTransaction();
+        }
+
+        public void Rollback()
+        {
+            _context.Database.RollbackTransaction();
+        }
+
         public void Dispose()
         {
             _context?.Dispose();
-            _repositories?.Clear();
 
             GC.SuppressFinalize(this);
         }

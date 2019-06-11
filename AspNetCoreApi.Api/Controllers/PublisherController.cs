@@ -19,7 +19,7 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<PublisherDto>> Get()
         {
-            return Ok(publisherService.Get());
+            return Ok(publisherService.GetAll());
         }
     }
 }

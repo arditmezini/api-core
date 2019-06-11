@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreApi.Service", "As
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreApi.Api", "AspNetCoreApi.Api\AspNetCoreApi.Api.csproj", "{4223682E-1C36-4074-8FDE-D771C21984A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreApi.Common", "AspNetCoreApi.Common\AspNetCoreApi.Common.csproj", "{D5C2CE68-42DD-44E0-B43F-7E65429EAC2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreApi.Common", "AspNetCoreApi.Common\AspNetCoreApi.Common.csproj", "{D5C2CE68-42DD-44E0-B43F-7E65429EAC2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
