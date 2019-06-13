@@ -6,7 +6,6 @@ using Microsoft.Extensions.Options;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class BaseController : ControllerBase
     {

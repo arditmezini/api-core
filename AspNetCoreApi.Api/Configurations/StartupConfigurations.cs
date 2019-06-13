@@ -1,9 +1,9 @@
-﻿using AspNetCoreApi.Models.Common;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AspNetCoreApi.Api.Configurations
@@ -68,6 +68,19 @@ namespace AspNetCoreApi.Api.Configurations
         public static void UseCorsPolicy(this IApplicationBuilder app, string policyName)
         {
             app.UseCors(policyName);
+        }
+
+        #endregion
+
+        #region MVC Config
+
+        public static void ConfigureMvc(this IServiceCollection services)
+        {
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         #endregion
