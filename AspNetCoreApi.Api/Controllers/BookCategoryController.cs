@@ -1,6 +1,11 @@
-﻿using AspNetCoreApi.Models.Dto;
+﻿using AspNetCoreApi.Common.Logger;
+using AspNetCoreApi.Dal.Entities;
+using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
@@ -8,11 +13,12 @@ namespace AspNetCoreApi.Api.Controllers
 {
     [Route("api/book-category")]
     [ApiController]
-    public class BookCategoryController : ControllerBase
+    public class BookCategoryController : BaseController
     {
         private readonly IBookCategoryService bookCategoryService;
 
-        public BookCategoryController(IBookCategoryService bookCategoryService)
+        public BookCategoryController(IBookCategoryService bookCategoryService, IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
+            : base(mapper, logger, appConfig)
         {
             this.bookCategoryService = bookCategoryService;
         }
@@ -20,7 +26,7 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<BookCategoryDto>> Get()
         {
-            return Ok(bookCategoryService.GetAll());
+            return Ok(_mapper.Map<IEnumerable<BookCategoryDto>>(bookCategoryService.GetAll()));
         }
 
         [HttpGet("{id}")]
@@ -32,13 +38,15 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPost]
         public APIResponse Post([FromBody]BookCategoryDto entity)
         {
-            return new APIResponse(200, "New book category added.", bookCategoryService.Add(entity));
+            return new APIResponse(200, "New book category added.", 
+                bookCategoryService.Add(_mapper.Map<BookCategory>(entity)));
         }
 
         [HttpPut]
         public APIResponse Put(int id, [FromBody]BookCategoryDto entity)
         {
-            return new APIResponse(200, $"The record with {id} was updated.", bookCategoryService.Update(id, entity));
+            return new APIResponse(200, $"The record with {id} was updated.", 
+                bookCategoryService.Update(id, _mapper.Map<BookCategory>(entity)));
         }
 
         [HttpDelete("{id}")]

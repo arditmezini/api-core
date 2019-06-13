@@ -1,14 +1,14 @@
-﻿using AspNetCoreApi.Models.Dto;
+﻿using AspNetCoreApi.Dal.Entities;
 using System.Collections.Generic;
 
 namespace AspNetCoreApi.Service.Contracts
 {
     public interface IBookCategoryService
     {
-        IEnumerable<BookCategoryDto> GetAll();
-        BookCategoryDto GetById(int id);
-        bool Add(BookCategoryDto entity);
-        bool Update(int id, BookCategoryDto entity);
+        IEnumerable<BookCategory> GetAll();
+        BookCategory GetById(int id);
+        bool Add(BookCategory entity);
+        bool Update(int id, BookCategory entity);
         bool Delete(int id);
     }
 }

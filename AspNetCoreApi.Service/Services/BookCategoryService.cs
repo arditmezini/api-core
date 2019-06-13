@@ -1,6 +1,5 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
-using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -17,37 +16,23 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<BookCategoryDto> GetAll()
+        public IEnumerable<BookCategory> GetAll()
         {
-            return uow.BookCategorys.GetAll().Select(x => new BookCategoryDto
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
+            return uow.BookCategorys.GetAll().ToList();
         }
 
-        public BookCategoryDto GetById(int id)
+        public BookCategory GetById(int id)
         {
-            var entity = uow.BookCategorys.GetById(id);
-            return new BookCategoryDto
-            {
-                Id = entity.Id,
-                Name = entity.Name
-            };
+            return uow.BookCategorys.GetById(id);
         }
 
-        public bool Add(BookCategoryDto entity)
+        public bool Add(BookCategory entity)
         {
-            var newBookCategory = new BookCategory
-            {
-                Name = entity.Name
-            };
-
-            uow.BookCategorys.Add(newBookCategory);
+            uow.BookCategorys.Add(entity);
             return uow.Complete();
         }
 
-        public bool Update(int id, BookCategoryDto entity)
+        public bool Update(int id, BookCategory entity)
         {
             var oldEntity = uow.BookCategorys.GetById(id);
             if (oldEntity == null)

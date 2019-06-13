@@ -17,7 +17,7 @@ namespace AspNetCoreApi.Dal.Core
 
         public IEnumerable<Author> GetAuthors()
         {
-            return _context.Authors;
+            return _context.Authors.Include(x => x.AuthorContact);
         }
     }
 }

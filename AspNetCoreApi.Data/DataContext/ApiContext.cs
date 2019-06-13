@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Dal.Entities;
+﻿using AspNetCoreApi.Dal.Configurations;
+using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -40,15 +41,12 @@ namespace AspNetCoreApi.Data.DataContext
 
         private void AddEntityConfigurations(ModelBuilder builder)
         {
-            Assembly assemblyWithConfigurations = GetType().Assembly; //get whatever assembly you want
-            builder.ApplyConfigurationsFromAssembly(assemblyWithConfigurations);
-
-            //builder.ApplyConfiguration(new AuthorConfiguration());
-            //builder.ApplyConfiguration(new AuthorContactConfiguration());
-            //builder.ApplyConfiguration(new BookCategoryConfiguration());
-            //builder.ApplyConfiguration(new BookConfiguration());
-            //builder.ApplyConfiguration(new PublisherConfiguration());
-            //builder.ApplyConfiguration(new BookAuthorsConfiguration());
+            builder.ApplyConfiguration(new AuthorConfiguration());
+            builder.ApplyConfiguration(new AuthorContactConfiguration());
+            builder.ApplyConfiguration(new BookCategoryConfiguration());
+            builder.ApplyConfiguration(new BookConfiguration());
+            builder.ApplyConfiguration(new PublisherConfiguration());
+            builder.ApplyConfiguration(new BookAuthorsConfiguration());
         }
 
         private void OnBeforeSaving()

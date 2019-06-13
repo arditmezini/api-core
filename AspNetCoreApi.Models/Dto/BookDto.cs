@@ -11,7 +11,7 @@ namespace AspNetCoreApi.Models.Dto
         public string Isbn { get; set; }
         public int PublishedYear { get; set; }
 
-        public virtual BookCategoryDto Category { get; set; }
+        public virtual BookCategoryDto BookCategory { get; set; }
         public virtual PublisherDto Publisher { get; set; }
         public virtual ICollection<BookAuthorsDto> BookAuthors { get; set; }
     }

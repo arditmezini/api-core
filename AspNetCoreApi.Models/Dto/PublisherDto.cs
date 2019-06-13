@@ -6,7 +6,6 @@ namespace AspNetCoreApi.Models.Dto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Country { get; set; }
 
         public virtual ICollection<BookDto> Books { get; set; }
     }

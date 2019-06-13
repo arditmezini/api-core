@@ -2,6 +2,7 @@
 using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections;
@@ -11,24 +12,23 @@ namespace AspNetCoreApi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesController : BaseController
     {
-        protected AppConfig AppConfig { get; set; }
+        
         private readonly ILogNLog logger;
         private IAuthorService _authorService;
 
-        public ValuesController(IOptions<AppConfig> appSettings, ILogNLog logger, IAuthorService authorService)
+        public ValuesController(IAuthorService authorService, IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
+            :base(mapper, logger, appConfig)
         {
             _authorService = authorService;
-            AppConfig = appSettings.Value;
-            this.logger = logger;
         }
 
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<AuthorDto>> Get()
         {
-            return Ok(_authorService.Get());
+            return Ok(_mapper.Map<IEnumerable<AuthorDto>>(_authorService.Get()));
             //return new string[] { "value1", "value2" };
         }
 

@@ -1,10 +1,10 @@
-﻿using AspNetCoreApi.Models.Dto;
+﻿using AspNetCoreApi.Dal.Entities;
 using System.Collections.Generic;
 
 namespace AspNetCoreApi.Service.Contracts
 {
     public interface IBookService
     {
-        IEnumerable<BookDto> Get();
+        IEnumerable<Book> GetAll();
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Service.Contracts;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +15,9 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<CountriesDto> GetCountries()
+        public IEnumerable<Countries> GetCountries()
         {
-            return uow.GeneralData.GetCountries().Select(x => new CountriesDto
-            {
-                Id = x.Id,
-                Name = x.Name,
-            }).ToList();
+            return uow.GeneralData.GetCountries().ToList();
         }
     }
 }

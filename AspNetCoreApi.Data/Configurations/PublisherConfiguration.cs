@@ -8,13 +8,10 @@ namespace AspNetCoreApi.Dal.Configurations
     {
         public override void Configure(EntityTypeBuilder<Publisher> builder)
         {
-            builder.ToTable("Publisher");
+            builder.ToTable("Publisher", "dbo");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(100);
-            builder.Property(x => x.Country)
                 .IsRequired()
                 .HasMaxLength(100);
         }

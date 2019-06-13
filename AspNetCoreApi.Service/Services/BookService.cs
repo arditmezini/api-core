@@ -1,5 +1,5 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Service.Contracts;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,23 +15,9 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<BookDto> Get()
+        public IEnumerable<Book> GetAll()
         {
-            return uow.Books.GetAll().Select(x => new BookDto
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Category = new BookCategoryDto
-                {
-                    Id = x.Category.Id,
-                    Name = x.Category.Name
-                },
-                Publisher = new PublisherDto
-                {
-                    Id = x.Publisher.Id,
-                    Name = x.Publisher.Name
-                }
-            }).ToList();
+            return uow.Books.GetAll().ToList();
         }
     }
 }

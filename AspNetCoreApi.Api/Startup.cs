@@ -11,6 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using VMD.RESTApiResponseWrapper.Core.Extensions;
+using AutoMapper;
+using System;
+using AspNetCoreApi.Api.Mapping;
+using Newtonsoft.Json;
 
 namespace AspNetCoreApi.Api
 {
@@ -30,8 +34,9 @@ namespace AspNetCoreApi.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextWithLazyLoading(options =>
-                 options.UseLazyLoadingProxies()
-                        .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                 options
+                    //.UseLazyLoadingProxies() lazy loading disabled
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
 
@@ -45,7 +50,13 @@ namespace AspNetCoreApi.Api
 
             services.RegisterServicesDependencyInjection();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.ConfigureCorsGlobally(Configuration.GetGenericValue<string>("CorsOptions:PolicyName"));
         }

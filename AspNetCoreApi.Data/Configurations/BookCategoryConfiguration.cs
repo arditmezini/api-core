@@ -8,7 +8,7 @@ namespace AspNetCoreApi.Dal.Configurations
     {
         public override void Configure(EntityTypeBuilder<BookCategory> builder)
         {
-            builder.ToTable("BookCategory");
+            builder.ToTable("BookCategory", "dbo");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)

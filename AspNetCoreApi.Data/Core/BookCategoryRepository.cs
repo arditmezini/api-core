@@ -18,7 +18,7 @@ namespace AspNetCoreApi.Dal.Core
 
         public IEnumerable<BookCategory> GetAll()
         {
-            return _context.BookCategories;
+            return _context.BookCategories.Include(x => x.Books);
         }
 
         public BookCategory GetById(int id)

@@ -8,7 +8,7 @@ namespace AspNetCoreApi.Dal.Configurations
     {
         public override void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.ToTable("Book");
+            builder.ToTable("Book", "dbo");
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Title)
@@ -19,17 +19,16 @@ namespace AspNetCoreApi.Dal.Configurations
                 .HasMaxLength(13);
             builder.Property(x => x.PublishedYear)
                 .IsRequired();
-            builder.Property(x => x.CategoryId)
-                .IsRequired();
-            builder.Property(x => x.PublisherId)
-                .IsRequired();
 
-            builder.HasOne<Publisher>()
+            builder.HasOne(x => x.BookCategory)
                 .WithMany(x => x.Books)
-                .HasForeignKey(x => x.PublisherId);
-            builder.HasOne<BookCategory>()
+                .HasForeignKey(x => x.CategoryId)
+                .HasConstraintName("FK_Book_Category");
+
+            builder.HasOne(x => x.Publisher)
                 .WithMany(x => x.Books)
-                .HasForeignKey(x => x.CategoryId);
+                .HasForeignKey(x => x.PublisherId)
+                .HasConstraintName("FK_Book_Publisher");
         }
     }
 }

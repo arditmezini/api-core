@@ -8,7 +8,7 @@ namespace AspNetCoreApi.Dal.Configurations
     {
         public override void Configure(EntityTypeBuilder<AuthorContact> builder)
         {
-            builder.ToTable("AuthorContact");
+            builder.ToTable("AuthorContact", "dbo");
             builder.HasKey(x => x.AuthorId);
 
             builder.Property(x => x.CountryId)

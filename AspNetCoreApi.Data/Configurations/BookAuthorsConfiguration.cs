@@ -8,7 +8,7 @@ namespace AspNetCoreApi.Dal.Configurations
     {
         public void Configure(EntityTypeBuilder<BookAuthors> builder)
         {
-            builder.ToTable("BookAuthors");
+            builder.ToTable("BookAuthors", "dbo");
             builder.HasKey(x => new
             {
                 x.BookId,
