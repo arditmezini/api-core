@@ -1,15 +1,25 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AspNetCoreApi.Data.DataContext;
+using AspNetCoreApi.Models.Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace AspNetCoreApi.Api.Configurations
 {
     public static class StartupConfigurations
     {
+        public static TimeSpan Timespan { get; private set; }
+
         public static T GetGenericValue<T>(this IConfiguration configuration, string parameter)
         {
             T value = configuration.GetValue<T>(parameter);
@@ -83,6 +93,41 @@ namespace AspNetCoreApi.Api.Configurations
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
+        #endregion
+
+        #region Identity Configuration
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApiContext>()
+                .AddDefaultTokenProviders();
+        }
+        #endregion
+
+        #region Jwt Configuration
+        public static void ConfigureJwt(this IServiceCollection services, string jwtIssuer, string jwtKey)
+        {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services
+                .AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = jwtIssuer,
+                        ValidAudience = jwtIssuer,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+        }
         #endregion
     }
 }

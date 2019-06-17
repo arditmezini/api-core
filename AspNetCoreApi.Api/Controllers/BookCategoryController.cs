@@ -4,6 +4,7 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
 {
+    [Authorize]
     [Route("api/book-category")]
     [ApiController]
     public class BookCategoryController : BaseController

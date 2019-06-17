@@ -1,6 +1,8 @@
 ﻿using AspNetCoreApi.Dal.Configurations;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
+using AspNetCoreApi.Models.Common;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Reflection;
 
 namespace AspNetCoreApi.Data.DataContext
 {
-    public class ApiContext : DbContext
+    public class ApiContext : IdentityDbContext<ApplicationUser>
     {
         public ApiContext(DbContextOptions<ApiContext> options)
             : base(options)

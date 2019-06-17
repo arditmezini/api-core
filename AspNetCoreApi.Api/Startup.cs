@@ -44,6 +44,10 @@ namespace AspNetCoreApi.Api
 
             services.RegisterServicesDependencyInjection();
 
+            services.ConfigureIdentity();
+
+            services.ConfigureJwt(Configuration.GetGenericValue<string>("JwtConfig:JwtIssuer"), Configuration.GetGenericValue<string>("JwtConfig:JwtKey"));
+
             services.ConfigureMvc();
 
             services.AddAutoMapper(typeof(Startup));
