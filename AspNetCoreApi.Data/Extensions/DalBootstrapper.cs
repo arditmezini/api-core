@@ -11,9 +11,6 @@ namespace AspNetCoreApi.Dal.Extensions
     {
         public static void AddDbContextWithLazyLoading(this IServiceCollection services, Action<DbContextOptionsBuilder> options, ServiceLifetime contextLifetime = ServiceLifetime.Scoped, ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
         {
-            var optionsBuilder = new DbContextOptionsBuilder();
-            //optionsBuilder.UseLazyLoadingProxies();
-            //options(optionsBuilder);
             services.Add(new ServiceDescriptor(typeof(IUnitOfWork), typeof(UnitOfWork), contextLifetime));
             services.AddDbContext<ApiContext>(options, contextLifetime, optionsLifetime);
         }

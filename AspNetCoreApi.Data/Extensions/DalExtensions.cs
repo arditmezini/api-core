@@ -4,7 +4,7 @@
     {
         public static void SoftDelete(this object entity)
         {
-            entity.GetType().GetProperty("IsDeleted").SetValue(entity, false, null);
+            entity.GetType().GetProperty("IsDeleted").SetValue(entity, true, null);
         }
     }
 }
