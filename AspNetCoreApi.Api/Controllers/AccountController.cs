@@ -1,11 +1,9 @@
-﻿using AspNetCoreApi.Common.Logger;
-using AspNetCoreApi.Models.Common;
+﻿using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,40 +11,44 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : BaseController
+    public class AccountController : ControllerBase
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
+        protected readonly IMapper mapper;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IConfiguration configuration,
-            IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
-            : base(mapper, logger, appConfig)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
+            IConfiguration configuration, IMapper mapper)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.configuration = configuration;
+            this.mapper = mapper;
         }
 
         [HttpPost]
-        public ActionResult<object> Login([FromBody] LoginDto login)
+        [Route("/login")]
+        public ActionResult<APIResponse> Login([FromBody] LoginDto login)
         {
             var result = signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
-            if (result.IsCompletedSuccessfully)
+            if (result.Result.Succeeded)
             {
                 var appUser = userManager.Users.SingleOrDefault(x => x.Email == login.Email);
-                return GenerateJwtToken(login.Email, appUser);
+                return new APIResponse(200, "Login succesfully", GenerateJwtToken(login.Email, appUser));
             }
-            throw new ApplicationException("Invalid login credentials");
+            return new APIResponse(401, "Invalid login credentials", null, new ApiError("Invalid login credentials"));
         }
 
         [HttpPost]
-        public ActionResult<object> Register([FromBody] RegisterDto model)
+        [Route("/register")]
+        public ActionResult<APIResponse> Register([FromBody] RegisterDto model)
         {
             var appUser = new ApplicationUser
             {
@@ -57,15 +59,15 @@ namespace AspNetCoreApi.Api.Controllers
             };
 
             var result = userManager.CreateAsync(appUser, model.Password);
-            if (result.IsCompletedSuccessfully)
+            if (result.Result.Succeeded)
             {
                 signInManager.SignInAsync(appUser, false);
-                return GenerateJwtToken(model.Email, appUser);
+                return new APIResponse(200, "User registered.", GenerateJwtToken(model.Email, appUser));
             }
-            throw new ApplicationException("User registration failed");
+            return new APIResponse(400, "User non registered", null, new ApiError("User non registered"));
         }
 
-        private object GenerateJwtToken(string email, ApplicationUser user)
+        protected object GenerateJwtToken(string email, ApplicationUser user)
         {
             var claims = new List<Claim>
             {
@@ -74,17 +76,16 @@ namespace AspNetCoreApi.Api.Controllers
                 new Claim(ClaimTypes.NameIdentifier,user.Id)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtConfig:JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpiredays"]));
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtConfig:JwtExpiredays"]));
 
             var token = new JwtSecurityToken(
-                    configuration["JwtIssuer"],
-                    configuration["JwtIssuer"],
+                    configuration["JwtConfig:JwtIssuer"],
+                    configuration["JwtConfig:JwtIssuer"],
                     claims,
                     expires: expires,
-                    signingCredentials: creds
-                );
+                    signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

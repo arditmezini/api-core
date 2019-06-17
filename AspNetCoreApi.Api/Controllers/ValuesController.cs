@@ -5,22 +5,27 @@ using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace AspNetCoreApi.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : BaseController
+    public class ValuesController : ControllerBase
     {
         
-        private readonly ILogNLog logger;
         private IAuthorService _authorService;
+        protected readonly IMapper _mapper;
+        protected readonly ILogNLog _logger;
+        protected AppConfig _appConfig { get; set; }
 
         public ValuesController(IAuthorService authorService, IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
-            :base(mapper, logger, appConfig)
+            //:base(mapper, logger, appConfig)
+           
         {
+            _mapper = mapper;
+            _logger = logger;
+            _appConfig = appConfig.Value;
             _authorService = authorService;
         }
 

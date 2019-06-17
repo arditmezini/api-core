@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -18,8 +19,6 @@ namespace AspNetCoreApi.Api.Configurations
 {
     public static class StartupConfigurations
     {
-        public static TimeSpan Timespan { get; private set; }
-
         public static T GetGenericValue<T>(this IConfiguration configuration, string parameter)
         {
             T value = configuration.GetValue<T>(parameter);
@@ -52,6 +51,8 @@ namespace AspNetCoreApi.Api.Configurations
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+
+                c.DocExpansion(DocExpansion.None);
             });
         }
 

@@ -1,11 +1,8 @@
-﻿using AspNetCoreApi.Common.Logger;
-using AspNetCoreApi.Models.Common;
-using AspNetCoreApi.Models.Dto;
+﻿using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 
 namespace AspNetCoreApi.Api.Controllers
@@ -13,20 +10,21 @@ namespace AspNetCoreApi.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class PublisherController : BaseController
+    public class PublisherController : ControllerBase
     {
         private readonly IPublisherService publisherService;
+        protected readonly IMapper mapper;
 
-        public PublisherController(IPublisherService publisherService, IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
-            : base(mapper, logger, appConfig)
+        public PublisherController(IPublisherService publisherService, IMapper mapper)
         {
             this.publisherService = publisherService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<PublisherDto>> Get()
         {
-            return Ok(_mapper.Map<IEnumerable<PublisherDto>>(publisherService.GetAll()));
+            return Ok(mapper.Map<IEnumerable<PublisherDto>>(publisherService.GetAll()));
         }
     }
 }

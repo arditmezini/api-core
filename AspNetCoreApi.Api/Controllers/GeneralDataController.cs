@@ -10,23 +10,24 @@ using Microsoft.Extensions.Options;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class GeneralDataController : BaseController
+    public class GeneralDataController : ControllerBase
     {
         private readonly IGeneralDataService generalDataService;
+        protected readonly IMapper mapper;
 
-        public GeneralDataController(IGeneralDataService generalDataService, IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
-            : base(mapper, logger, appConfig)
+        public GeneralDataController(IGeneralDataService generalDataService, IMapper mapper)
         {
             this.generalDataService = generalDataService;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<CountriesDto>> GetCountries()
         {
-            return Ok(_mapper.Map<IEnumerable<CountriesDto>>(generalDataService.GetCountries()));
+            return Ok(mapper.Map<IEnumerable<CountriesDto>>(generalDataService.GetCountries()));
         }
     }
 }
