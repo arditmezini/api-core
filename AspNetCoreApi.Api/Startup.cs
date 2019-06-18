@@ -75,6 +75,8 @@ namespace AspNetCoreApi.Api
 
             app.UseCorsPolicy(Configuration.GetGenericValue<string>("CorsOptions:PolicyName"));
 
+            app.UseAuthentication();
+
             if (env.IsDevelopment())
             {
                 app.UseSwaggerWithUI();

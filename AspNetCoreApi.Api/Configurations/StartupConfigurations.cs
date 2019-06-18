@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -42,6 +43,21 @@ namespace AspNetCoreApi.Api.Configurations
                             Name = "Ardit Mezini"
                         }
                     });
+
+                s.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }},
+                };
+
+                s.AddSecurityRequirement(security);
             });
         }
 
@@ -106,6 +122,7 @@ namespace AspNetCoreApi.Api.Configurations
         #endregion
 
         #region Jwt Configuration
+
         public static void ConfigureJwt(this IServiceCollection services, string jwtIssuer, string jwtKey)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -129,6 +146,7 @@ namespace AspNetCoreApi.Api.Configurations
                     };
                 });
         }
+
         #endregion
     }
 }
