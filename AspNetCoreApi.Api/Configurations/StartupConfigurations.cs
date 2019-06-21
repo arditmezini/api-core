@@ -20,9 +20,9 @@ namespace AspNetCoreApi.Api.Configurations
 {
     public static class StartupConfigurations
     {
-        public static T GetGenericValue<T>(this IConfiguration configuration, string parameter)
+        public static T GetGeneric<T>(this IConfiguration configuration, string section)
         {
-            T value = configuration.GetValue<T>(parameter);
+            T value = configuration.GetSection(section).Get<T>();
             return value;
         }
 
@@ -113,12 +113,21 @@ namespace AspNetCoreApi.Api.Configurations
         #endregion
 
         #region Identity Configuration
+
         public static void ConfigureIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApiContext>()
-                .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt =>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 6;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<ApiContext>()
+            .AddDefaultTokenProviders();
         }
+
         #endregion
 
         #region Jwt Configuration
@@ -126,13 +135,12 @@ namespace AspNetCoreApi.Api.Configurations
         public static void ConfigureJwt(this IServiceCollection services, string jwtIssuer, string jwtKey)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            services
-                .AddAuthentication(options =>
-                    {
-                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                    })
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(cfg =>
                 {
                     cfg.RequireHttpsMetadata = false;

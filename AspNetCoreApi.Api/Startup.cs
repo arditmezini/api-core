@@ -34,9 +34,8 @@ namespace AspNetCoreApi.Api
 
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
 
-            services.ConfigureCors(
-               Configuration.GetGenericValue<string>("CorsOptions:PolicyName"),
-               Configuration.GetGenericValue<string>("CorsOptions:CorsOrigin"));
+            var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
+            services.ConfigureCors(corsOptions.PolicyName, corsOptions.CorsOrigin);
 
             services.ConfigureSwagger();
 
@@ -45,14 +44,14 @@ namespace AspNetCoreApi.Api
             services.RegisterServicesDependencyInjection();
 
             services.ConfigureIdentity();
-
-            services.ConfigureJwt(Configuration.GetGenericValue<string>("JwtConfig:JwtIssuer"), Configuration.GetGenericValue<string>("JwtConfig:JwtKey"));
+            var jwtConfig = Configuration.GetGeneric<JwtConfig>("JwtConfig");
+            services.ConfigureJwt(jwtConfig.JwtIssuer, jwtConfig.JwtKey);
 
             services.ConfigureMvc();
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.ConfigureCorsGlobally(Configuration.GetGenericValue<string>("CorsOptions:PolicyName"));
+            services.ConfigureCorsGlobally(corsOptions.PolicyName);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +72,8 @@ namespace AspNetCoreApi.Api
             //Generic API Response
             app.UseAPIResponseWrapperMiddleware();
 
-            app.UseCorsPolicy(Configuration.GetGenericValue<string>("CorsOptions:PolicyName"));
+            var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
+            app.UseCorsPolicy(corsOptions.PolicyName);
 
             app.UseAuthentication();
 
