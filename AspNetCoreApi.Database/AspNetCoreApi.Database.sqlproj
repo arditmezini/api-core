@@ -98,5 +98,6 @@
     <None Include="DataSeed\Publisher-Data.sql" />
     <None Include="DataSeed\Countries-Data.sql" />
     <None Include="DataSeed\BookAuthors-Data.sql" />
+    <None Include="DataSeed\AspNetRoles-Data.sql" />
   </ItemGroup>
 </Project>

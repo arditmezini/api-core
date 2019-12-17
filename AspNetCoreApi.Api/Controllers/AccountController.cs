@@ -15,7 +15,7 @@ using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/account/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -33,8 +33,8 @@ namespace AspNetCoreApi.Api.Controllers
             this.mapper = mapper;
         }
 
+        [ActionName("login")]
         [HttpPost]
-        [Route("/login")]
         public ActionResult<APIResponse> Login([FromBody] LoginDto login)
         {
             var result = signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
@@ -46,8 +46,8 @@ namespace AspNetCoreApi.Api.Controllers
             return new APIResponse(401, "Invalid login credentials", null, new ApiError("Invalid login credentials"));
         }
 
+        [ActionName("register")]
         [HttpPost]
-        [Route("/register")]
         public ActionResult<APIResponse> Register([FromBody] RegisterDto model)
         {
             var appUser = new ApplicationUser
@@ -61,6 +61,7 @@ namespace AspNetCoreApi.Api.Controllers
             var result = userManager.CreateAsync(appUser, model.Password);
             if (result.Result.Succeeded)
             {
+                userManager.AddToRoleAsync(appUser, model.Role);
                 signInManager.SignInAsync(appUser, false);
                 return new APIResponse(200, "User registered.", GenerateJwtToken(model.Email, appUser));
             }

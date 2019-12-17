@@ -13,15 +13,13 @@ namespace AspNetCoreApi.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        
+
         private IAuthorService _authorService;
         protected readonly IMapper _mapper;
         protected readonly ILogNLog _logger;
         protected AppConfig _appConfig { get; set; }
 
         public ValuesController(IAuthorService authorService, IMapper mapper, ILogNLog logger, IOptions<AppConfig> appConfig)
-            //:base(mapper, logger, appConfig)
-           
         {
             _mapper = mapper;
             _logger = logger;
@@ -30,11 +28,10 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         // GET api/values
-        [HttpGet]
+        [HttpGet("")]
         public ActionResult<IEnumerable<AuthorDto>> Get()
         {
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(_authorService.Get()));
-            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5

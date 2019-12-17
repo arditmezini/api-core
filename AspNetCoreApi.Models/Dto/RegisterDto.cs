@@ -5,6 +5,9 @@ namespace AspNetCoreApi.Models.Dto
     public class RegisterDto
     {
         [Required]
+        public string Role { get; set; }
+
+        [Required]
         public string FirstName { get; set; }
 
         [Required]

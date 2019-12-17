@@ -40,4 +40,8 @@ PRINT('Post-Deployment Script START')
 		:r ..\DataSeed\BookAuthors-Data.sql
 	PRINT('BookAuthorsData End')
 
+	PRINT('AspNetRoles Start')
+		:r ..\DataSeed\AspNetRoles-Data.sql
+	PRINT('AspNetRoles End')
+
 PRINT('Post-Deployment Script END')
