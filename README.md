@@ -1,5 +1,5 @@
 
-# ASP.NET Core API Sample Project 
+# ASP.NET Core API Sample Project (Work in progress...)
 (N-Tier / N-Layer Architecture)
 
  1. Common
