@@ -1,4 +1,5 @@
 ﻿using AspNetCoreApi.Dal.Entities;
+using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
@@ -11,7 +12,7 @@ using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.Admin)]
     [Route("api/book-category")]
     [ApiController]
     public class BookCategoryController : ControllerBase

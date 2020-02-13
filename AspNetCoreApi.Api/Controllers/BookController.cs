@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Models.Dto;
+﻿using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
+    [Authorize(Roles = Role.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
