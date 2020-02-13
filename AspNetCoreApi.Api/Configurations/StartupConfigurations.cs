@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
@@ -30,35 +31,62 @@ namespace AspNetCoreApi.Api.Configurations
 
         public static void ConfigureSwagger(this IServiceCollection services)
         {
-            services.AddSwaggerGen(s =>
+            services.AddSwaggerGen(sg =>
             {
-                s.SwaggerDoc("v1",
+                sg.SwaggerDoc("v1",
                     new Info
                     {
-                        Title = "Api Core",
+                        Title = "ASP.NET Core Web API",
                         Version = "v1",
-                        Description = "Web API Asp.Net Core",
+                        Description = "ASP.NET Core Web API",
                         Contact = new Contact
                         {
-                            Name = "Ardit Mezini"
-                        }
+                            Name = "API Support",
+                            Email = "support@api.com",
+                            Url = ""
+                        },
+                        License = new License
+                        {
+                            Name = "Apache 2.0",
+                            Url = "http://www.apache.org/licenses/LICENSE-2.0.html"
+                        },
+                        TermsOfService = "TOS - Url"
                     });
 
-                s.AddSecurityDefinition("Bearer", new ApiKeyScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = "header",
-                    Type = "apiKey"
-                });
+                //sg.SwaggerBasicAuth();
+                sg.SwaggerBearerAuth();
 
-                var security = new Dictionary<string, IEnumerable<string>>
+            });
+        }
+
+        private static void SwaggerBasicAuth(this SwaggerGenOptions sgo)
+        {
+            sgo.AddSecurityDefinition("Basic", new BasicAuthScheme
+            {
+                Type = "basic",
+                Description = "Basic authentication for API"
+            });
+
+            sgo.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "basic", new string[] { } }
+                });
+        }
+
+        private static void SwaggerBearerAuth(this SwaggerGenOptions sgo)
+        {
+            sgo.AddSecurityDefinition("Bearer", new ApiKeyScheme
+            {
+                Name = "Authorization",
+                Description = "Please enter into field the word 'Bearer' following by space and JWT token",
+                In = "header",
+                Type = "apiKey"
+            });
+
+            sgo.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
                 {
                     {"Bearer", new string[] { }},
-                };
-
-                s.AddSecurityRequirement(security);
-            });
+                });
         }
 
         public static void UseSwaggerWithUI(this IApplicationBuilder app)
@@ -67,7 +95,6 @@ namespace AspNetCoreApi.Api.Configurations
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-
                 c.DocExpansion(DocExpansion.None);
             });
         }
