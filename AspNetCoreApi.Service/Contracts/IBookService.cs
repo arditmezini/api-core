@@ -1,10 +1,11 @@
 ﻿using AspNetCoreApi.Dal.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Contracts
 {
     public interface IBookService
     {
-        IEnumerable<Book> GetAll();
+        Task<IEnumerable<Book>> GetAll();
     }
 }

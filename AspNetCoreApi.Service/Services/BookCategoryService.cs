@@ -3,7 +3,7 @@ using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Service.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Services
 {
@@ -16,38 +16,38 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<BookCategory> GetAll()
+        public async Task<IEnumerable<BookCategory>> GetAll()
         {
-            return uow.BookCategorys.GetAll().ToList();
+            return await uow.BookCategorys.GetAll();
         }
 
-        public BookCategory GetById(int id)
+        public async Task<BookCategory> GetById(int id)
         {
-            return uow.BookCategorys.GetById(id);
+            return await uow.BookCategorys.GetById(id);
         }
 
-        public bool Add(BookCategory entity)
+        public async Task<bool> Add(BookCategory entity)
         {
-            uow.BookCategorys.Add(entity);
-            return uow.Complete();
+            await uow.BookCategorys.Add(entity);
+            return await uow.CompleteAsync();
         }
 
-        public bool Update(int id, BookCategory entity)
+        public async Task<bool> Update(int id, BookCategory entity)
         {
-            var oldEntity = uow.BookCategorys.GetById(id);
+            var oldEntity = await uow.BookCategorys.GetById(id);
             if (oldEntity == null)
                 throw new Exception("Entity to update not found");
 
             oldEntity.Name = entity.Name;
 
             uow.BookCategorys.Update(oldEntity);
-            return uow.Complete();
+            return await uow.CompleteAsync();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            uow.BookCategorys.Delete(id);
-            return uow.Complete();
+            await uow.BookCategorys.Delete(id);
+            return await uow.CompleteAsync();
         }
     }
 }

@@ -3,11 +3,12 @@ using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
@@ -17,14 +18,14 @@ namespace AspNetCoreApi.Api.Controllers
 
         public BookController(IBookService bookService, IMapper mapper)
         {
-            this.bookService = bookService;
-            this.mapper = mapper;
+            this.bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BookDto>> Get()
+        public async Task<ActionResult<IEnumerable<BookDto>>> Get()
         {
-            return Ok(mapper.Map<IEnumerable<BookDto>>(bookService.GetAll()));
+            return Ok(mapper.Map<IEnumerable<BookDto>>(await bookService.GetAll()));
         }
     }
 }

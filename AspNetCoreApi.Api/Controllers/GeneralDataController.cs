@@ -1,16 +1,13 @@
-﻿using System.Collections.Generic;
-using AspNetCoreApi.Common.Logger;
-using AspNetCoreApi.Models.Common;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GeneralDataController : ControllerBase
@@ -20,14 +17,14 @@ namespace AspNetCoreApi.Api.Controllers
 
         public GeneralDataController(IGeneralDataService generalDataService, IMapper mapper)
         {
-            this.generalDataService = generalDataService;
-            this.mapper = mapper;
+            this.generalDataService = generalDataService ?? throw new ArgumentNullException(nameof(generalDataService));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CountriesDto>> GetCountries()
+        public async Task<ActionResult<IEnumerable<CountriesDto>>> GetCountries()
         {
-            return Ok(mapper.Map<IEnumerable<CountriesDto>>(generalDataService.GetCountries()));
+            return Ok(mapper.Map<IEnumerable<CountriesDto>>(await generalDataService.GetCountries()));
         }
     }
 }

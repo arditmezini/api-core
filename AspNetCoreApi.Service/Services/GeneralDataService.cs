@@ -2,7 +2,7 @@
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Service.Contracts;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Services
 {
@@ -15,9 +15,9 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<Countries> GetCountries()
+        public async Task<IEnumerable<Countries>> GetCountries()
         {
-            return uow.GeneralData.GetCountries().ToList();
+            return await uow.GeneralData.GetCountries();
         }
     }
 }

@@ -4,7 +4,9 @@ using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
@@ -19,40 +21,40 @@ namespace AspNetCoreApi.Api.Controllers
 
         public BookCategoryController(IBookCategoryService bookCategoryService, IMapper mapper)
         {
-            this.bookCategoryService = bookCategoryService;
-            this.mapper = mapper;
+            this.bookCategoryService = bookCategoryService ?? throw new ArgumentNullException(nameof(bookCategoryService));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<BookCategoryDto>> Get()
+        public async Task<ActionResult<IEnumerable<BookCategoryDto>>> Get()
         {
-            return Ok(mapper.Map<IEnumerable<BookCategoryDto>>(bookCategoryService.GetAll()));
+            return Ok(mapper.Map<IEnumerable<BookCategoryDto>>(await bookCategoryService.GetAll()));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<APIResponse> Get(int id)
+        public async Task<ActionResult<APIResponse>> Get(int id)
         {
-            return new APIResponse(200, $"Book category with {id} retrived.", bookCategoryService.GetById(id));
+            return new APIResponse(200, $"Book category with {id} retrived.", await bookCategoryService.GetById(id));
         }
 
         [HttpPost]
-        public ActionResult<APIResponse> Post([FromBody]BookCategoryDto entity)
+        public async Task<ActionResult<APIResponse>> Post([FromBody]BookCategoryDto entity)
         {
             return new APIResponse(200, "New book category added.",
-                bookCategoryService.Add(mapper.Map<BookCategory>(entity)));
+                await bookCategoryService.Add(mapper.Map<BookCategory>(entity)));
         }
 
         [HttpPut]
-        public ActionResult<APIResponse> Put(int id, [FromBody]BookCategoryDto entity)
+        public async Task<ActionResult<APIResponse>> Put(int id, [FromBody]BookCategoryDto entity)
         {
             return new APIResponse(200, $"The record with {id} was updated.",
-                bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)));
+                await bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<APIResponse> Delete(int id)
+        public async Task<ActionResult<APIResponse>> Delete(int id)
         {
-            return new APIResponse(200, $"The record with {id} was deleted", bookCategoryService.Delete(id));
+            return new APIResponse(200, $"The record with {id} was deleted", await bookCategoryService.Delete(id));
         }
     }
 }

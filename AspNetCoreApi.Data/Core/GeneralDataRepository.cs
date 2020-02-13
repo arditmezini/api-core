@@ -1,7 +1,9 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {
@@ -14,9 +16,9 @@ namespace AspNetCoreApi.Dal.Core
             _context = context;
         }
 
-        public IEnumerable<Countries> GetCountries()
+        public async Task<IEnumerable<Countries>> GetCountries()
         {
-            return _context.Countries;
+            return await _context.Countries.ToListAsync();
         }
     }
 }

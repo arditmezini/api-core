@@ -3,6 +3,7 @@ using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {
@@ -15,11 +16,11 @@ namespace AspNetCoreApi.Dal.Core
             _context = context;
         }
 
-        public IEnumerable<Book> GetAll()
+        public async Task<IEnumerable<Book>> GetAll()
         {
-            return _context.Books
+            return await _context.Books
                 .Include(x => x.BookCategory)
-                .Include(x => x.Publisher);
+                .Include(x => x.Publisher).ToListAsync();
         }
     }
 }

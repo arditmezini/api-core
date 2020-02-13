@@ -1,9 +1,8 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
-using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Services
 {
@@ -16,9 +15,9 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<Author> Get()
+        public async Task<IEnumerable<Author>> Get()
         {
-            return uow.Authors.GetAuthors().ToList();
+            return await uow.Authors.GetAuthors();
         }
     }
 }

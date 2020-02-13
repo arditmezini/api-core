@@ -1,10 +1,11 @@
 ﻿using AspNetCoreApi.Dal.Entities;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Contracts
 {
     public interface IAuthorService
     {
-        IEnumerable<Author> Get();
+        Task<IEnumerable<Author>> Get();
     }
 }

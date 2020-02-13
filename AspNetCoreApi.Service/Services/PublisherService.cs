@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Service.Contracts;
@@ -15,9 +15,9 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public IEnumerable<Publisher> GetAll()
+        public async Task<IEnumerable<Publisher>> GetAll()
         {
-            return uow.Publishers.GetAll().ToList();
+            return await uow.Publishers.GetAll();
         }
     }
 }

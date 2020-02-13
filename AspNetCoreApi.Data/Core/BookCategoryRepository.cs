@@ -4,6 +4,7 @@ using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {
@@ -16,19 +17,19 @@ namespace AspNetCoreApi.Dal.Core
             _context = context;
         }
 
-        public IEnumerable<BookCategory> GetAll()
+        public async Task<IEnumerable<BookCategory>> GetAll()
         {
-            return _context.BookCategories.Include(x => x.Books);
+            return await _context.BookCategories.Include(x => x.Books).ToListAsync();
         }
 
-        public BookCategory GetById(int id)
+        public async Task<BookCategory> GetById(int id)
         {
-            return _context.BookCategories.Find(id);
+            return await _context.BookCategories.FindAsync(id);
         }
 
-        public void Add(BookCategory bookCategory)
+        public async Task Add(BookCategory bookCategory)
         {
-            _context.BookCategories.Add(bookCategory);
+            await _context.BookCategories.AddAsync(bookCategory);
         }
 
         public void Update(BookCategory bookCategory)
@@ -36,9 +37,9 @@ namespace AspNetCoreApi.Dal.Core
             _context.Entry(bookCategory).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            BookCategory entity = GetById(id);
+            BookCategory entity = await GetById(id);
 
             if (entity != null)
             {

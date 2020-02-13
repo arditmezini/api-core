@@ -1,7 +1,9 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {
@@ -14,9 +16,9 @@ namespace AspNetCoreApi.Dal.Core
             _context = context;
         }
 
-        public IEnumerable<Publisher> GetAll()
+        public async Task<IEnumerable<Publisher>> GetAll()
         {
-            return _context.Publishers;
+            return await _context.Publishers.ToListAsync();
         }
     }
 }
