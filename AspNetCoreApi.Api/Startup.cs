@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
-using VMD.RESTApiResponseWrapper.Core.Extensions;
 using AutoMapper;
+using AspNetCoreApi.Models.Common.Emails;
+using AutoWrapper;
 
 namespace AspNetCoreApi.Api
 {
@@ -49,6 +50,9 @@ namespace AspNetCoreApi.Api
 
             services.ConfigureMvc();
 
+            var mailConfig = Configuration.GetGeneric<EmailConfiguration>("EmailConfiguration");
+            services.ConfigureMailKit(mailConfig);
+
             services.AddAutoMapper(typeof(Startup));
 
             services.ConfigureCorsGlobally(corsOptions.PolicyName);
@@ -70,7 +74,7 @@ namespace AspNetCoreApi.Api
             app.UseHttpsRedirection();
 
             //Generic API Response
-            app.UseAPIResponseWrapperMiddleware();
+            app.UseApiResponseAndExceptionWrapper();
 
             var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
             app.UseCorsPolicy(corsOptions.PolicyName);

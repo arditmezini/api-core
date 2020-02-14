@@ -8,4 +8,8 @@
     <PackageReference Include="NLog.Extensions.Logging" Version="1.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AspNetCoreApi.Models\AspNetCoreApi.Models.csproj" />
+  </ItemGroup>
+
 </Project>

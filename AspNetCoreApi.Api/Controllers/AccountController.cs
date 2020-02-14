@@ -1,6 +1,9 @@
-﻿using AspNetCoreApi.Models.Common;
+﻿using AspNetCoreApi.Common.Mail;
+using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +15,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
 {
@@ -20,14 +22,16 @@ namespace AspNetCoreApi.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IEmailService emailService;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
         protected readonly IMapper mapper;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
-            IConfiguration configuration, IMapper mapper)
+        public AccountController(IEmailService emailService, SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager, IConfiguration configuration, IMapper mapper)
         {
+            this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
@@ -36,20 +40,21 @@ namespace AspNetCoreApi.Api.Controllers
 
         [ActionName("login")]
         [HttpPost]
-        public async Task<ActionResult<APIResponse>> Login([FromBody] LoginDto login)
+        public async Task<ActionResult<ApiResponse>> Login([FromBody] LoginDto login)
         {
             var result = await signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
             if (result.Succeeded)
             {
                 var appUser = userManager.Users.SingleOrDefault(x => x.Email == login.Email);
-                return new APIResponse(200, "Login succesfully", await GenerateJwtToken(login.Email, appUser));
+                await emailService.Send(MailHelper.BuildMail(MailTypeEnum.NewUser));
+                return new ApiResponse("Login succesfully", await GenerateJwtToken(appUser), 200);
             }
-            return new APIResponse(401, "Invalid login credentials", null, new ApiError("Invalid login credentials"));
+            return new ApiResponse(401, new ApiError("Invalid login credentials"));
         }
 
         [ActionName("register")]
         [HttpPost]
-        public async Task<APIResponse> Register([FromBody] RegisterDto model)
+        public async Task<ApiResponse> Register([FromBody] RegisterDto model)
         {
             var appUser = new ApplicationUser
             {
@@ -64,16 +69,24 @@ namespace AspNetCoreApi.Api.Controllers
             {
                 await userManager.AddToRoleAsync(appUser, model.Role);
                 await signInManager.SignInAsync(appUser, false);
-                return new APIResponse(200, "User registered.", await GenerateJwtToken(model.Email, appUser));
+                await emailService.Send(MailHelper.BuildMail(MailTypeEnum.LoginUser));
+                return new ApiResponse("User registered.", await GenerateJwtToken(appUser), 200);
             }
-            return new APIResponse(400, "User non registered", null, new ApiError("User non registered"));
+            return new ApiResponse(400, new ApiError("User non registered"));
         }
 
-        protected async Task<object> GenerateJwtToken(string email, ApplicationUser user)
+        protected async Task<object> GenerateJwtToken(ApplicationUser user)
+        {
+            var userClaims = await GenerateUserClaims(user);
+
+            return GenerateUserToken(userClaims);
+        }
+
+        private async Task<List<Claim>> GenerateUserClaims(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier,user.Id)
             };
@@ -84,6 +97,11 @@ namespace AspNetCoreApi.Api.Controllers
                 claims.Add(new Claim(ClaimTypes.Role, userRole));
             }
 
+            return claims;
+        }
+
+        private object GenerateUserToken(List<Claim> userClaims)
+        {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtConfig:JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtConfig:JwtExpiredays"]));
@@ -91,7 +109,7 @@ namespace AspNetCoreApi.Api.Controllers
             var token = new JwtSecurityToken(
                     issuer: configuration["JwtConfig:JwtIssuer"],
                     audience: configuration["JwtConfig:JwtIssuer"],
-                    claims: claims,
+                    claims: userClaims,
                     notBefore: DateTime.UtcNow,
                     expires: expires,
                     signingCredentials: creds);

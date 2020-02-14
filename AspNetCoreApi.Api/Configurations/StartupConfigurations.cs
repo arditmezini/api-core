@@ -1,5 +1,6 @@
 ﻿using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Common.Emails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -180,6 +181,15 @@ namespace AspNetCoreApi.Api.Configurations
                         ClockSkew = TimeSpan.Zero
                     };
                 });
+        }
+
+        #endregion
+
+        #region Configure MailKit
+
+        public static void ConfigureMailKit(this IServiceCollection services, EmailConfiguration emailConfiguration)
+        {
+            services.AddSingleton(emailConfiguration);
         }
 
         #endregion

@@ -3,12 +3,12 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VMD.RESTApiResponseWrapper.Core.Wrappers;
 
 namespace AspNetCoreApi.Api.Controllers
 {
@@ -33,29 +33,29 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<APIResponse>> Get(int id)
+        public async Task<ActionResult<ApiResponse>> Get(int id)
         {
-            return new APIResponse(200, $"Book category with {id} retrived.", await bookCategoryService.GetById(id));
+            return new ApiResponse($"Book category with {id} retrived.", await bookCategoryService.GetById(id), 200);
         }
 
         [HttpPost]
-        public async Task<ActionResult<APIResponse>> Post([FromBody]BookCategoryDto entity)
+        public async Task<ActionResult<ApiResponse>> Post([FromBody]BookCategoryDto entity)
         {
-            return new APIResponse(200, "New book category added.",
-                await bookCategoryService.Add(mapper.Map<BookCategory>(entity)));
+            return new ApiResponse("New book category added.",
+                await bookCategoryService.Add(mapper.Map<BookCategory>(entity)), 200);
         }
 
         [HttpPut]
-        public async Task<ActionResult<APIResponse>> Put(int id, [FromBody]BookCategoryDto entity)
+        public async Task<ActionResult<ApiResponse>> Put(int id, [FromBody]BookCategoryDto entity)
         {
-            return new APIResponse(200, $"The record with {id} was updated.",
-                await bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)));
+            return new ApiResponse($"The record with {id} was updated.",
+                await bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)), 200);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<APIResponse>> Delete(int id)
+        public async Task<ActionResult<ApiResponse>> Delete(int id)
         {
-            return new APIResponse(200, $"The record with {id} was deleted", await bookCategoryService.Delete(id));
+            return new ApiResponse($"The record with {id} was deleted", await bookCategoryService.Delete(id), 200);
         }
     }
 }
