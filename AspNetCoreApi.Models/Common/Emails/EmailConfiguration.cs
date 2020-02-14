@@ -2,6 +2,9 @@
 {
     public class EmailConfiguration
     {
+        //Status
+        public bool MailServiceActive { get; set; }
+
         //Send
         public string SmtpServer { get; set; }
         public int SmtpPort { get; set; }
