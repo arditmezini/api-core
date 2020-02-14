@@ -18,6 +18,7 @@ namespace AspNetCoreApi.Dal.Core
             _context = context;
         }
 
+        #region Repos
         private IAuthorRepository _authors;
         public IAuthorRepository Authors
         {
@@ -82,7 +83,9 @@ namespace AspNetCoreApi.Dal.Core
                 return _generalData;
             }
         }
+        #endregion
 
+        #region Methods
         public bool Complete()
         {
             return _context.SaveChanges() > 0;
@@ -119,5 +122,6 @@ namespace AspNetCoreApi.Dal.Core
 
             GC.SuppressFinalize(this);
         }
+        #endregion
     }
 }

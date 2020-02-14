@@ -15,15 +15,14 @@ namespace AspNetCoreApi.Api.Controllers
     [Authorize(Roles = Role.Admin)]
     [Route("api/book-category")]
     [ApiController]
-    public class BookCategoryController : ControllerBase
+    public class BookCategoryController : BaseController
     {
         private readonly IBookCategoryService bookCategoryService;
-        protected readonly IMapper mapper;
 
         public BookCategoryController(IBookCategoryService bookCategoryService, IMapper mapper)
+            : base(mapper)
         {
             this.bookCategoryService = bookCategoryService ?? throw new ArgumentNullException(nameof(bookCategoryService));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]

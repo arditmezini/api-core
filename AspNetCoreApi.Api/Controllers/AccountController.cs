@@ -20,22 +20,21 @@ namespace AspNetCoreApi.Api.Controllers
 {
     [Route("api/account/[action]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
         private readonly IEmailService emailService;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
-        protected readonly IMapper mapper;
 
         public AccountController(IEmailService emailService, SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager, IConfiguration configuration, IMapper mapper)
+            : base(mapper)
         {
             this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [ActionName("login")]

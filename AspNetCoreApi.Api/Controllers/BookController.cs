@@ -13,15 +13,14 @@ namespace AspNetCoreApi.Api.Controllers
     [Authorize(Roles = Role.User)]
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : ControllerBase
+    public class BookController : BaseController
     {
         private readonly IBookService bookService;
-        protected readonly IMapper mapper;
 
         public BookController(IBookService bookService, IMapper mapper)
+            : base(mapper)
         {
             this.bookService = bookService ?? throw new ArgumentNullException(nameof(bookService));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]

@@ -13,15 +13,14 @@ namespace AspNetCoreApi.Api.Controllers
     [Authorize(Roles = Role.Admin)]
     [Route("api/[controller]")]
     [ApiController]
-    public class PublisherController : ControllerBase
+    public class PublisherController : BaseController
     {
         private readonly IPublisherService publisherService;
-        protected readonly IMapper mapper;
 
         public PublisherController(IPublisherService publisherService, IMapper mapper)
+            : base(mapper)
         {
             this.publisherService = publisherService ?? throw new ArgumentNullException(nameof(publisherService));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]

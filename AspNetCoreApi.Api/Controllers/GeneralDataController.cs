@@ -13,15 +13,14 @@ namespace AspNetCoreApi.Api.Controllers
     [Authorize(Roles = Role.Admin)]
     [Route("api/[controller]")]
     [ApiController]
-    public class GeneralDataController : ControllerBase
+    public class GeneralDataController : BaseController
     {
         private readonly IGeneralDataService generalDataService;
-        protected readonly IMapper mapper;
 
         public GeneralDataController(IGeneralDataService generalDataService, IMapper mapper)
+            : base(mapper)
         {
             this.generalDataService = generalDataService ?? throw new ArgumentNullException(nameof(generalDataService));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
