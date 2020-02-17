@@ -4,6 +4,7 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Common.Emails;
 using Hangfire;
 using Hangfire.Dashboard;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -204,14 +205,26 @@ namespace AspNetCoreApi.Api.Configurations
         {
             services.AddHangfire(config =>
             {
-                config.UseSqlServerStorage(connectionString);
+                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170);
+                config.UseSimpleAssemblyNameTypeSerializer();
+                config.UseRecommendedSerializerSettings();
+
+                var options = new SqlServerStorageOptions
+                {
+                    PrepareSchemaIfNecessary = false,
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true
+                };
+                config.UseSqlServerStorage(connectionString, options);
             });
         }
 
         public static void UseHangfire(this IApplicationBuilder app)
         {
-            app.UseHangfireServer();
-
             var options = new DashboardOptions
             {
                 Authorization = new IDashboardAuthorizationFilter[]
@@ -220,6 +233,8 @@ namespace AspNetCoreApi.Api.Configurations
                 }
             };
             app.UseHangfireDashboard("/hangfire", options);
+
+            app.UseHangfireServer();
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using Hangfire.Annotations;
 using Hangfire.Dashboard;
+using System.Security.Claims;
 
 namespace AspNetCoreApi.Api.Filters
 {
@@ -14,12 +15,13 @@ namespace AspNetCoreApi.Api.Filters
 
         public bool Authorize([NotNull] DashboardContext context)
         {
-        #if DEBUG
-            return true;
-        #else
-            //todo
-            return false;
-        #endif
+            #if DEBUG
+                return true;
+            #else
+                var httpContext = context.GetHttpContext();
+                var userRole = httpContext.User.FindFirst(ClaimTypes.Role)?.Value;
+                return userRole == role;
+            #endif
         }
     }
 }
