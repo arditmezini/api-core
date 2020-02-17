@@ -1,6 +1,5 @@
 ﻿using AspNetCoreApi.Models.Common.Emails;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AspNetCoreApi.Common.Mail
 {

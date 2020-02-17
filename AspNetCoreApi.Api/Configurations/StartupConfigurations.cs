@@ -1,8 +1,12 @@
-﻿using AspNetCoreApi.Data.DataContext;
+﻿using AspNetCoreApi.Api.Filters;
+using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Common.Emails;
+using Hangfire;
+using Hangfire.Dashboard;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
@@ -17,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Configurations
 {
@@ -185,13 +190,37 @@ namespace AspNetCoreApi.Api.Configurations
 
         #endregion
 
-        #region Configure MailKit
+        #region MailKit
 
         public static void ConfigureMailKit(this IServiceCollection services, EmailConfiguration emailConfiguration)
         {
             services.AddSingleton(emailConfiguration);
         }
 
+        #endregion
+
+        #region Hangfire
+        public static void ConfigureHangfire(this IServiceCollection services, string connectionString)
+        {
+            services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(connectionString);
+            });
+        }
+
+        public static void UseHangfire(this IApplicationBuilder app)
+        {
+            app.UseHangfireServer();
+
+            var options = new DashboardOptions
+            {
+                Authorization = new IDashboardAuthorizationFilter[]
+                {
+                    new HangfireAuthorizationFilter(Role.Admin)
+                }
+            };
+            app.UseHangfireDashboard("/hangfire", options);
+        }
         #endregion
     }
 }

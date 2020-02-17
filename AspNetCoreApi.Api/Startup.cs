@@ -33,6 +33,8 @@ namespace AspNetCoreApi.Api
             services.AddDbContextWithLazyLoading(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.ConfigureHangfire(Configuration.GetConnectionString("HangfireConnection"));
+
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
 
             var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
@@ -74,12 +76,14 @@ namespace AspNetCoreApi.Api
             app.UseHttpsRedirection();
 
             //Generic API Response
-            app.UseApiResponseAndExceptionWrapper();
+            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { IsApiOnly = false });
 
             var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
             app.UseCorsPolicy(corsOptions.PolicyName);
 
             app.UseAuthentication();
+
+            app.UseHangfire();
 
             if (env.IsDevelopment())
             {
