@@ -2,12 +2,13 @@
 using AspNetCoreApi.Data.DataContext;
 using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Common.Emails;
+using AspNetCoreApi.Models.Dto.Validators;
+using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
@@ -22,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Configurations
 {
@@ -133,15 +133,19 @@ namespace AspNetCoreApi.Api.Configurations
 
         #endregion
 
-        #region MVC Config
+        #region MVC Config and FluentValidations
 
         public static void ConfigureMvc(this IServiceCollection services)
         {
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .AddFluentValidation()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.RegisterValidators();
         }
 
         #endregion

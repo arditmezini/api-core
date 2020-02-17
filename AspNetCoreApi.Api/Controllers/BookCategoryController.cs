@@ -3,6 +3,7 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Extensions;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,9 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> Post([FromBody]BookCategoryDto entity)
         {
+            if (!ModelState.IsValid)
+                throw new ApiException(ModelState.AllErrors());
+
             return new ApiResponse("New book category added.",
                 await bookCategoryService.Add(mapper.Map<BookCategory>(entity)), 200);
         }
@@ -47,6 +51,9 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPut]
         public async Task<ActionResult<ApiResponse>> Put(int id, [FromBody]BookCategoryDto entity)
         {
+            if (!ModelState.IsValid)
+                throw new ApiException(ModelState.AllErrors());
+
             return new ApiResponse($"The record with {id} was updated.",
                 await bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)), 200);
         }
