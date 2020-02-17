@@ -1,6 +1,7 @@
 ﻿using AspNetCoreApi.Dal.Core;
 using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Data.DataContext;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,6 +14,8 @@ namespace AspNetCoreApi.Dal.Extensions
         {
             services.Add(new ServiceDescriptor(typeof(IUnitOfWork), typeof(UnitOfWork), contextLifetime));
             services.AddDbContext<ApiContext>(options, contextLifetime, optionsLifetime);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 }

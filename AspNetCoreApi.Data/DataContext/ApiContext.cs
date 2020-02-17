@@ -2,18 +2,27 @@
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
 using AspNetCoreApi.Models.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Data.DataContext
 {
     public class ApiContext : IdentityDbContext<ApplicationUser>
     {
-        public ApiContext(DbContextOptions<ApiContext> options)
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public ApiContext(DbContextOptions<ApiContext> options, IHttpContextAccessor httpContextAccessor)
             : base(options)
-        { }
+        {
+            this.httpContextAccessor = httpContextAccessor;
+        }
 
         #region DbSets
 
@@ -40,6 +49,12 @@ namespace AspNetCoreApi.Data.DataContext
             return base.SaveChanges();
         }
 
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            OnBeforeSaving();
+            return await base.SaveChangesAsync(true, cancellationToken);
+        }
+
         private void AddEntityConfigurations(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new AuthorConfiguration());
@@ -55,7 +70,7 @@ namespace AspNetCoreApi.Data.DataContext
             var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity &&
                     (x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted));
 
-            var username = "todo";
+            var username = httpContextAccessor?.HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
             foreach (var entity in entities)
             {
