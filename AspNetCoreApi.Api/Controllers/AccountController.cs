@@ -23,15 +23,18 @@ namespace AspNetCoreApi.Api.Controllers
     public class AccountController : BaseController
     {
         private readonly IEmailService emailService;
+        private readonly IHangfireJobService hangfireJobService;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
 
-        public AccountController(IEmailService emailService, SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager, IConfiguration configuration, IMapper mapper)
+        public AccountController(IEmailService emailService, IHangfireJobService hangfireJobService, 
+            SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager, 
+            IConfiguration configuration, IMapper mapper)
             : base(mapper)
         {
             this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+            this.hangfireJobService = hangfireJobService ?? throw new ArgumentNullException(nameof(hangfireJobService));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
@@ -45,7 +48,8 @@ namespace AspNetCoreApi.Api.Controllers
             if (result.Succeeded)
             {
                 var appUser = userManager.Users.SingleOrDefault(x => x.Email == login.Email);
-                await emailService.Send(MailHelper.BuildMail(MailTypeEnum.NewUser));
+                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
+                hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
                 return new ApiResponse("Login succesfully", await GenerateJwtToken(appUser), 200);
             }
             return new ApiResponse(401, new ApiError("Invalid login credentials"));
@@ -68,7 +72,8 @@ namespace AspNetCoreApi.Api.Controllers
             {
                 await userManager.AddToRoleAsync(appUser, model.Role);
                 await signInManager.SignInAsync(appUser, false);
-                await emailService.Send(MailHelper.BuildMail(MailTypeEnum.LoginUser));
+                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.LoginUser);
+                hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
                 return new ApiResponse("User registered.", await GenerateJwtToken(appUser), 200);
             }
             return new ApiResponse(400, new ApiError("User non registered"));
