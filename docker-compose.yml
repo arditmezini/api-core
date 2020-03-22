@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  aspnetcoreapi.api:
+    image: ${DOCKER_REGISTRY-}aspnetcoreapiapi
+    build:
+      context: .
+      dockerfile: AspNetCoreApi.Api/Dockerfile
+      depends_on:
+        - db
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "YourStrong!Passw0rd"
+        ACCEPT_EULA: "Y"
+    ports:
+        - "1443:1443"
