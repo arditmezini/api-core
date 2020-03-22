@@ -2,6 +2,7 @@
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,9 +25,10 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PublisherDto>>> Get()
+        public async Task<ActionResult<ApiResponse>> Get()
         {
-            return Ok(mapper.Map<IEnumerable<PublisherDto>>(await publisherService.GetAll()));
+            return new ApiResponse("Publishers retrived", 
+                mapper.Map<IEnumerable<PublisherDto>>(await publisherService.GetAll()), 200);
         }
     }
 }

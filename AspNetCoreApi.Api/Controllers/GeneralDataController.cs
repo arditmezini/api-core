@@ -5,6 +5,7 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +25,10 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CountriesDto>>> GetCountries()
+        public async Task<ActionResult<ApiResponse>> GetCountries()
         {
-            return Ok(mapper.Map<IEnumerable<CountriesDto>>(await generalDataService.GetCountries()));
+            return new ApiResponse("Countries retrived",
+                mapper.Map<IEnumerable<CountriesDto>>(await generalDataService.GetCountries()), 200);
         }
     }
 }

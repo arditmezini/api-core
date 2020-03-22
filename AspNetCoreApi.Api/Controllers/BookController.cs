@@ -2,6 +2,7 @@
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,9 +25,10 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDto>>> Get()
+        public async Task<ActionResult<ApiResponse>> Get()
         {
-            return Ok(mapper.Map<IEnumerable<BookDto>>(await bookService.GetAll()));
+            return new ApiResponse("Books retrived", 
+                mapper.Map<IEnumerable<BookDto>>(await bookService.GetAll()), 200);
         }
     }
 }

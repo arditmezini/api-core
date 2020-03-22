@@ -28,8 +28,8 @@ namespace AspNetCoreApi.Api.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
 
-        public AccountController(IEmailService emailService, IHangfireJobService hangfireJobService, 
-            SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager, 
+        public AccountController(IEmailService emailService, IHangfireJobService hangfireJobService,
+            SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
             IConfiguration configuration, IMapper mapper)
             : base(mapper)
         {
@@ -57,7 +57,7 @@ namespace AspNetCoreApi.Api.Controllers
 
         [ActionName("register")]
         [HttpPost]
-        public async Task<ApiResponse> Register([FromBody] RegisterDto model)
+        public async Task<ActionResult<ApiResponse>> Register([FromBody] RegisterDto model)
         {
             var appUser = new ApplicationUser
             {

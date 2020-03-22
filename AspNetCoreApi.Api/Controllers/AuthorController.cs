@@ -27,15 +27,17 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AuthorDto>>> Get()
+        public async Task<ActionResult<ApiResponse>> Get()
         {
-            return Ok(mapper.Map<IEnumerable<AuthorDto>>(await authorService.Get()));
+            return new ApiResponse("Authors retrived",
+                mapper.Map<IEnumerable<AuthorDto>>(await authorService.Get()), 200);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> Get(int id)
         {
-            return new ApiResponse($"Author with {id} retrived", await authorService.GetById(id), 200);
+            return new ApiResponse($"Author with {id} retrived", 
+                mapper.Map<AuthorDto>(await authorService.GetById(id)), 200);
         }
 
         [HttpPost]
