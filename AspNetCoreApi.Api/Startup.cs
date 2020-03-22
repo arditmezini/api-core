@@ -12,6 +12,7 @@ using System.IO;
 using AutoMapper;
 using AspNetCoreApi.Models.Common.Emails;
 using AutoWrapper;
+using Microsoft.Extensions.Hosting;
 
 namespace AspNetCoreApi.Api
 {
@@ -40,6 +41,8 @@ namespace AspNetCoreApi.Api
             var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
             services.ConfigureCors(corsOptions.PolicyName, corsOptions.CorsOrigin);
 
+            services.AddControllers();
+
             services.ConfigureSwagger();
 
             services.RegisterNLog();
@@ -56,12 +59,10 @@ namespace AspNetCoreApi.Api
             services.ConfigureMailKit(mailConfig);
 
             services.AddAutoMapper(typeof(Startup));
-
-            services.ConfigureCorsGlobally(corsOptions.PolicyName);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +83,12 @@ namespace AspNetCoreApi.Api
             app.UseCorsPolicy(corsOptions.PolicyName);
 
             app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(ep =>
+            {
+                ep.MapControllers();
+            });
 
             app.UseHangfire();
 
@@ -90,7 +97,7 @@ namespace AspNetCoreApi.Api
                 app.UseSwaggerWithUI();
             }
 
-            app.UseMvc();
+            //app.UseMvc();
         }
     }
 }

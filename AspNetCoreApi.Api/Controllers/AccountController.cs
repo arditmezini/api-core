@@ -106,19 +106,22 @@ namespace AspNetCoreApi.Api.Controllers
 
         private object GenerateUserToken(List<Claim> userClaims)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtConfig:JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtConfig:JwtExpiredays"]));
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtConfig:JwtKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+            var expires = DateTime.UtcNow.AddDays(Convert.ToDouble(configuration["JwtConfig:JwtExpireDays"]));
 
-            var token = new JwtSecurityToken(
-                    issuer: configuration["JwtConfig:JwtIssuer"],
-                    audience: configuration["JwtConfig:JwtIssuer"],
-                    claims: userClaims,
-                    notBefore: DateTime.UtcNow,
-                    expires: expires,
-                    signingCredentials: creds);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(userClaims),
+                Issuer = configuration["JwtConfig:JwtIssuer"],
+                Audience = configuration["JwtConfig:JwtIssuer"],
+                Expires = expires,
+                SigningCredentials = creds
+            };
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

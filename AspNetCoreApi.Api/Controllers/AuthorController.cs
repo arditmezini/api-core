@@ -36,7 +36,7 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> Get(int id)
         {
-            return new ApiResponse($"Author with {id} retrived", 
+            return new ApiResponse($"Author with {id} retrived",
                 mapper.Map<AuthorDto>(await authorService.GetById(id)), 200);
         }
 
