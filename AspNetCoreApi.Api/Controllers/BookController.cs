@@ -27,7 +27,7 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> Get()
         {
-            return new ApiResponse("Books retrived", 
+            return new ApiResponse("Books retrived",
                 mapper.Map<IEnumerable<BookDto>>(await bookService.GetAll()), 200);
         }
     }

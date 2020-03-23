@@ -1,11 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
-using AspNetCoreApi.Dal.Core.Contracts;
+﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
+using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {

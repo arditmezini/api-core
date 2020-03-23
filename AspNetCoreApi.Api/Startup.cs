@@ -2,17 +2,17 @@
 using AspNetCoreApi.Common.Logger;
 using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Common.Emails;
 using AspNetCoreApi.Service;
+using AutoMapper;
+using AutoWrapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
-using AutoMapper;
-using AspNetCoreApi.Models.Common.Emails;
-using AutoWrapper;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace AspNetCoreApi.Api
 {

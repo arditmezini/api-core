@@ -36,7 +36,7 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> Get(int id)
         {
-            return new ApiResponse($"Book category with {id} retrived.", 
+            return new ApiResponse($"Book category with {id} retrived.",
                 mapper.Map<BookCategoryDto>(await bookCategoryService.GetById(id)), 200);
         }
 

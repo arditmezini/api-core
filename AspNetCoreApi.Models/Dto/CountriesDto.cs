@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AspNetCoreApi.Models.Dto
+﻿namespace AspNetCoreApi.Models.Dto
 {
     public class CountriesDto : BaseEntity
     {

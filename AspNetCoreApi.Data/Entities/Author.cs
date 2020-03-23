@@ -15,6 +15,6 @@ namespace AspNetCoreApi.Dal.Entities
         public string LastName { get; set; }
 
         public virtual AuthorContact AuthorContact { get; set; }
-        public virtual ICollection<BookAuthors> BookAuthors { get; set; } 
+        public virtual ICollection<BookAuthors> BookAuthors { get; set; }
     }
 }
