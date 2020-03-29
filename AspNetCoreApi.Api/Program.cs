@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore;
+﻿using AspNetCoreApi.Common.Logger;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace AspNetCoreApi.Api
 {
@@ -8,6 +11,8 @@ namespace AspNetCoreApi.Api
     {
         public static void Main(string[] args)
         {
+            LoggerHelper.ConfigureNLogStartup();
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
@@ -27,6 +32,11 @@ namespace AspNetCoreApi.Api
                     optional: true,
                     reloadOnChange: true);
             })
+            .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                })
+            .UseNLog()
             .UseStartup<Startup>();
     }
 }

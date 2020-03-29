@@ -1,5 +1,4 @@
 ﻿using AspNetCoreApi.Api.Configurations;
-using AspNetCoreApi.Common.Logger;
 using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Common.Emails;
@@ -12,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IO;
 
 namespace AspNetCoreApi.Api
 {
@@ -20,9 +18,6 @@ namespace AspNetCoreApi.Api
     {
         public Startup(IConfiguration configuration)
         {
-            var logDirectory = string.Concat(Directory.GetCurrentDirectory());
-            LoggerExtension.ConfigureNLogStartup(logDirectory);
-
             Configuration = configuration;
         }
 
@@ -44,8 +39,6 @@ namespace AspNetCoreApi.Api
             services.AddControllers();
 
             services.ConfigureSwagger();
-
-            services.RegisterNLog();
 
             services.RegisterServicesDependencyInjection();
 
@@ -77,7 +70,12 @@ namespace AspNetCoreApi.Api
             app.UseHttpsRedirection();
 
             //Generic API Response
-            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions { IsApiOnly = false });
+            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
+            {
+                IsApiOnly = false,
+                EnableResponseLogging = true,
+                EnableExceptionLogging = true
+            });
 
             var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
             app.UseCorsPolicy(corsOptions.PolicyName);
