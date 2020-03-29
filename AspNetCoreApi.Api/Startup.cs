@@ -29,12 +29,11 @@ namespace AspNetCoreApi.Api
             services.AddDbContextWithLazyLoading(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.ConfigureHangfire(Configuration.GetConnectionString("HangfireConnection"));
+            services.ConfigureHangfire(Configuration);
 
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
 
-            var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
-            services.ConfigureCors(corsOptions.PolicyName, corsOptions.CorsOrigin);
+            services.ConfigureCors(Configuration);
 
             services.AddControllers();
 
@@ -43,13 +42,12 @@ namespace AspNetCoreApi.Api
             services.RegisterServicesDependencyInjection();
 
             services.ConfigureIdentity();
-            var jwtConfig = Configuration.GetGeneric<JwtConfig>("JwtConfig");
-            services.ConfigureJwt(jwtConfig.JwtIssuer, jwtConfig.JwtKey);
+            
+            services.ConfigureJwt(Configuration);
 
             services.ConfigureMvc();
 
-            var mailConfig = Configuration.GetGeneric<EmailConfiguration>("EmailConfiguration");
-            services.ConfigureMailKit(mailConfig);
+            services.ConfigureMailKit(Configuration);
 
             services.AddAutoMapper(typeof(Startup));
         }
@@ -77,8 +75,7 @@ namespace AspNetCoreApi.Api
                 EnableExceptionLogging = true
             });
 
-            var corsOptions = Configuration.GetGeneric<CorsOptions>("CorsOptions");
-            app.UseCorsPolicy(corsOptions.PolicyName);
+            app.UseCorsPolicy(Configuration);
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -94,8 +91,6 @@ namespace AspNetCoreApi.Api
             {
                 app.UseSwaggerWithUI();
             }
-
-            //app.UseMvc();
         }
     }
 }

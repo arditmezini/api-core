@@ -4,5 +4,30 @@
         <name>AspNetCoreApi.Api</name>
     </assembly>
     <members>
+        <member name="T:AspNetCoreApi.Api.Configurations.CorsConfiguration">
+            <summary>
+            Cors Configuration
+            </summary>
+        </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.HangfireConfiguration">
+            <summary>
+            Hangfire Configuration
+            </summary>
+        </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.IdentityConfiguration">
+            <summary>
+            Identity Configuration
+            </summary>
+        </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.JwtConfiguration">
+            <summary>
+            JWT Configuration
+            </summary>
+        </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.MailKitConfiguration">
+            <summary>
+            MailKit Configuration
+            </summary>
+        </member>
     </members>
 </doc>
