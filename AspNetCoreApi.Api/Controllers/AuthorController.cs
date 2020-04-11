@@ -3,7 +3,6 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
-using AutoWrapper.Extensions;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,9 +42,6 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> Post([FromBody]AuthorDto entity)
         {
-            if (!ModelState.IsValid)
-                throw new ApiException(ModelState.AllErrors());
-
             return new ApiResponse("New author added.",
                 await authorService.Add(mapper.Map<Author>(entity)));
         }
@@ -53,9 +49,6 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPut]
         public async Task<ActionResult<ApiResponse>> Put(int id, [FromBody]AuthorDto entity)
         {
-            if (!ModelState.IsValid)
-                throw new ApiException(ModelState.AllErrors());
-
             return new ApiResponse($"The record with {id} was updated.",
                 await authorService.Update(id, mapper.Map<Author>(entity)));
         }

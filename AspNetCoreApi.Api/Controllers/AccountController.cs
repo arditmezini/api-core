@@ -3,6 +3,7 @@ using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
+using AutoWrapper.Extensions;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
