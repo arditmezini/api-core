@@ -9,6 +9,7 @@ namespace AspNetCoreApi.Models.Dto.Validators
         {
             services.AddTransient<IValidator<BookCategoryDto>, BookCategoryValidator>();
             services.AddTransient<IValidator<AuthorDto>, AuthorValidator>();
+            services.AddTransient<IValidator<PublisherDto>, PublisherValidator>();
             services.AddTransient<IValidator<RegisterDto>, RegisterValidator>();
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
         }
