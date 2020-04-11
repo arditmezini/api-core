@@ -30,14 +30,14 @@ namespace AspNetCoreApi.Api.Controllers
         public async Task<ActionResult<ApiResponse>> Get()
         {
             return new ApiResponse("Authors retrived",
-                mapper.Map<IEnumerable<AuthorDto>>(await authorService.Get()), 200);
+                mapper.Map<IEnumerable<AuthorDto>>(await authorService.Get()));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> Get(int id)
         {
             return new ApiResponse($"Author with {id} retrived",
-                mapper.Map<AuthorDto>(await authorService.GetById(id)), 200);
+                mapper.Map<AuthorDto>(await authorService.GetById(id)));
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace AspNetCoreApi.Api.Controllers
                 throw new ApiException(ModelState.AllErrors());
 
             return new ApiResponse("New author added.",
-                await authorService.Add(mapper.Map<Author>(entity)), 200);
+                await authorService.Add(mapper.Map<Author>(entity)));
         }
 
         [HttpPut]
@@ -57,13 +57,13 @@ namespace AspNetCoreApi.Api.Controllers
                 throw new ApiException(ModelState.AllErrors());
 
             return new ApiResponse($"The record with {id} was updated.",
-                await authorService.Update(id, mapper.Map<Author>(entity)), 200);
+                await authorService.Update(id, mapper.Map<Author>(entity)));
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApiResponse>> Delete(int id)
         {
-            return new ApiResponse($"The record with {id} was deleted.", await authorService.Delete(id), 200);
+            return new ApiResponse($"The record with {id} was deleted.", await authorService.Delete(id));
         }
     }
 }

@@ -50,7 +50,7 @@ namespace AspNetCoreApi.Api.Controllers
                 var appUser = userManager.Users.SingleOrDefault(x => x.Email == login.Email);
                 var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
-                return new ApiResponse("Login succesfully", await GenerateJwtToken(appUser), 200);
+                return new ApiResponse("Login succesfully", await GenerateJwtToken(appUser));
             }
             return new ApiResponse(401, new ApiError("Invalid login credentials"));
         }
@@ -74,7 +74,7 @@ namespace AspNetCoreApi.Api.Controllers
                 await signInManager.SignInAsync(appUser, false);
                 var mailBuilder = MailHelper.BuildMail(MailTypeEnum.LoginUser);
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
-                return new ApiResponse("User registered.", await GenerateJwtToken(appUser), 200);
+                return new ApiResponse("User registered.", await GenerateJwtToken(appUser));
             }
             return new ApiResponse(400, new ApiError("User non registered"));
         }

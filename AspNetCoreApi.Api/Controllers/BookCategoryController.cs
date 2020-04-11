@@ -30,14 +30,14 @@ namespace AspNetCoreApi.Api.Controllers
         public async Task<ActionResult<ApiResponse>> Get()
         {
             return new ApiResponse("Book Categories retrived",
-                mapper.Map<IEnumerable<BookCategoryDto>>(await bookCategoryService.GetAll()), 200);
+                mapper.Map<IEnumerable<BookCategoryDto>>(await bookCategoryService.GetAll()));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ApiResponse>> Get(int id)
         {
             return new ApiResponse($"Book category with {id} retrived.",
-                mapper.Map<BookCategoryDto>(await bookCategoryService.GetById(id)), 200);
+                mapper.Map<BookCategoryDto>(await bookCategoryService.GetById(id)));
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace AspNetCoreApi.Api.Controllers
                 throw new ApiException(ModelState.AllErrors());
 
             return new ApiResponse("New book category added.",
-                await bookCategoryService.Add(mapper.Map<BookCategory>(entity)), 200);
+                await bookCategoryService.Add(mapper.Map<BookCategory>(entity)));
         }
 
         [HttpPut]
@@ -57,13 +57,13 @@ namespace AspNetCoreApi.Api.Controllers
                 throw new ApiException(ModelState.AllErrors());
 
             return new ApiResponse($"The record with {id} was updated.",
-                await bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)), 200);
+                await bookCategoryService.Update(id, mapper.Map<BookCategory>(entity)));
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApiResponse>> Delete(int id)
         {
-            return new ApiResponse($"The record with {id} was deleted", await bookCategoryService.Delete(id), 200);
+            return new ApiResponse($"The record with {id} was deleted", await bookCategoryService.Delete(id));
         }
     }
 }

@@ -28,7 +28,7 @@ namespace AspNetCoreApi.Api.Controllers
         public async Task<ActionResult<ApiResponse>> GetCountries()
         {
             return new ApiResponse("Countries retrived",
-                mapper.Map<IEnumerable<CountriesDto>>(await generalDataService.GetCountries()), 200);
+                mapper.Map<IEnumerable<CountriesDto>>(await generalDataService.GetCountries()));
         }
     }
 }

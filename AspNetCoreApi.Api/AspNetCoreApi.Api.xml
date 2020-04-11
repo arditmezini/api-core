@@ -29,5 +29,10 @@
             MailKit Configuration
             </summary>
         </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.SwaggerConfiguration">
+            <summary>
+            Swagger Configuration
+            </summary>
+        </member>
     </members>
 </doc>
