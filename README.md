@@ -1,4 +1,3 @@
-
 # ASP.NET Core API Sample Project (Work in progress...)
 
 ### (N-Tier / N-Layer Architecture)
@@ -19,3 +18,7 @@
  - *[EntityFrameworkCore](https://github.com/dotnet/efcore)*
  - *[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)*
  - *[MailKit](https://github.com/jstedfast/MailKit)*
+ 
+ # Xamarin.Forms Sample Project (Work in progress...)
+ 
+ ### Packages used:
