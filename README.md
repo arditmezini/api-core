@@ -1,4 +1,6 @@
-# ASP.NET Core API Sample Project (Work in progress...)
+# Work in progress...
+
+## ASP.NET Core API Sample Project
 
 ### (N-Tier / N-Layer Architecture)
  - Common
@@ -19,6 +21,6 @@
  - *[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)*
  - *[MailKit](https://github.com/jstedfast/MailKit)*
  
- # Xamarin.Forms Sample Project (Work in progress...)
+ ## Xamarin.Forms Sample Project 
  
  ### Packages used:
