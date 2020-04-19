@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core.Contracts
 {
-    public interface IAuthorRepository
+    public interface IAuthorRepository : IRepositoryBase<Author>
     {
         Task<IEnumerable<Author>> GetAuthors();
-        Task<Author> GetById(int id);
-        Task Add(Author author);
-        void Update(Author author);
-        Task Delete(int id);
     }
 }
