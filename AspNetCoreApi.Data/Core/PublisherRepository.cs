@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {
-    public class PublisherRepository : IPublisherRepository
+    public class PublisherRepository : RepositoryBase<Publisher>, IPublisherRepository
     {
-        private readonly ApiContext _context;
-
         public PublisherRepository(ApiContext context)
-        {
-            _context = context;
-        }
+            : base(context)
+        { }
 
         public async Task<IEnumerable<Publisher>> GetAll()
         {

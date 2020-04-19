@@ -4,12 +4,8 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core.Contracts
 {
-    public interface IBookCategoryRepository
+    public interface IBookCategoryRepository : IRepositoryBase<BookCategory>
     {
         Task<IEnumerable<BookCategory>> GetAll();
-        Task<BookCategory> GetById(int id);
-        Task Add(BookCategory bookCategory);
-        void Update(BookCategory bookCategory);
-        Task Delete(int id);
     }
 }
