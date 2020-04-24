@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AspNetCoreApi.Api.Filters;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -78,11 +79,8 @@ namespace AspNetCoreApi.Api.Configurations
                     Type = ReferenceType.SecurityScheme
                 }
             };
-            OpenApiSecurityRequirement securityRequirement = new OpenApiSecurityRequirement()
-            {
-                {securityScheme, new string[] { }},
-            };
-            sgo.AddSecurityRequirement(securityRequirement);
+
+            sgo.OperationFilter<UnauthorizedResponsesOperationFilter>(true, securityScheme);
         }
     }
 }
