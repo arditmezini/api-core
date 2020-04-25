@@ -1,7 +1,6 @@
 ﻿using AspNetCoreApi.Api.Configurations;
 using AspNetCoreApi.Dal.Extensions;
-using AspNetCoreApi.Models.Common;
-using AspNetCoreApi.Models.Common.Emails;
+using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Service;
 using AutoMapper;
 using AutoWrapper;
@@ -26,6 +25,8 @@ namespace AspNetCoreApi.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureHealthChecks();
+
             services.AddDbContextWithLazyLoading(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -91,6 +92,8 @@ namespace AspNetCoreApi.Api
             {
                 app.UseSwaggerWithUI();
             }
+
+            app.UseHealthChecks(Configuration);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using AspNetCoreApi.Api.Filters;
-using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Common.Identity;
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
@@ -15,6 +15,11 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class HangfireConfiguration
     {
+        /// <summary>
+        /// Configure Hangfire
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("HangfireConnection");
@@ -39,6 +44,10 @@ namespace AspNetCoreApi.Api.Configurations
             });
         }
 
+        /// <summary>
+        /// Use Hangfire
+        /// </summary>
+        /// <param name="app"></param>
         public static void UseHangfire(this IApplicationBuilder app)
         {
             var options = new DashboardOptions

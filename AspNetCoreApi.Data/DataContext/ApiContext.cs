@@ -1,7 +1,7 @@
 ﻿using AspNetCoreApi.Dal.Configurations;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
-using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Common.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

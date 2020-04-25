@@ -1,4 +1,4 @@
-﻿using AspNetCoreApi.Models.Common;
+﻿using AspNetCoreApi.Models.Common.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +12,11 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class JwtConfiguration
     {
+        /// <summary>
+        /// Configure Jwt
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtConfig = configuration.GetGeneric<JwtConfig>("JwtConfig");
@@ -31,7 +36,9 @@ namespace AspNetCoreApi.Api.Configurations
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = key,
+                        ValidateIssuer = true,
                         ValidIssuer = jwtConfig.JwtIssuer,
+                        ValidateAudience = true,
                         ValidAudience = jwtConfig.JwtIssuer,
                     };
                 });

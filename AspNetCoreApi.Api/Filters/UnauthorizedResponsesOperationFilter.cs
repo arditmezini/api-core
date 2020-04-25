@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoWrapper.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
@@ -8,12 +9,10 @@ namespace AspNetCoreApi.Api.Filters
 {
     public class UnauthorizedResponsesOperationFilter : IOperationFilter
     {
-        private readonly bool includeUnauthorizedAndForbiddenResponses;
         private readonly OpenApiSecurityScheme schemeName;
 
-        public UnauthorizedResponsesOperationFilter(bool includeUnauthorizedAndForbiddenResponses, OpenApiSecurityScheme schemeName)
+        public UnauthorizedResponsesOperationFilter(OpenApiSecurityScheme schemeName)
         {
-            this.includeUnauthorizedAndForbiddenResponses = includeUnauthorizedAndForbiddenResponses;
             this.schemeName = schemeName;
         }
 
@@ -36,17 +35,11 @@ namespace AspNetCoreApi.Api.Filters
             if (hasAnonymousControllerOrAction) return;
             if (!hasAuthorizeControllerOrAction) return;
 
-            if (includeUnauthorizedAndForbiddenResponses)
-            {
-                operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
-                operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
-            }
-
             operation.Security = new List<OpenApiSecurityRequirement>
             {
                 new OpenApiSecurityRequirement {
                     {
-                      schemeName ,new List<string>()
+                      schemeName , new List<string>()
                     }
                 }
             };

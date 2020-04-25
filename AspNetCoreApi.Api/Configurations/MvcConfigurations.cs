@@ -1,22 +1,20 @@
 ﻿using AspNetCoreApi.Models.Dto.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace AspNetCoreApi.Api.Configurations
 {
-    public static class StartupConfigurations
+    /// <summary>
+    /// MVC Config, FluentValidations and NewtonsoftJson
+    /// </summary>
+    public static class MvcConfigurations
     {
-        public static T GetGeneric<T>(this IConfiguration configuration, string section)
-        {
-            T value = configuration.GetSection(section).Get<T>();
-            return value;
-        }
-
-        #region MVC Config, FluentValidations and NewtonsoftJson
-
+        /// <summary>
+        /// Configure Mvc
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureMvc(this IServiceCollection services)
         {
             services.AddMvc()
@@ -29,7 +27,5 @@ namespace AspNetCoreApi.Api.Configurations
 
             services.RegisterValidators();
         }
-
-        #endregion
     }
 }

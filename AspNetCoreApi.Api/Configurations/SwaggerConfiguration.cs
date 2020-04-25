@@ -15,6 +15,10 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class SwaggerConfiguration
     {
+        /// <summary>
+        /// Configure Swagger
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(sg =>
@@ -48,6 +52,10 @@ namespace AspNetCoreApi.Api.Configurations
             });
         }
 
+        /// <summary>
+        /// Use SwaggerWithUI
+        /// </summary>
+        /// <param name="app"></param>
         public static void UseSwaggerWithUI(this IApplicationBuilder app)
         {
             app.UseSwagger();
@@ -58,6 +66,10 @@ namespace AspNetCoreApi.Api.Configurations
             });
         }
 
+        /// <summary>
+        /// Swagger Bearer Auth
+        /// </summary>
+        /// <param name="sgo"></param>
         private static void SwaggerBearerAuth(this SwaggerGenOptions sgo)
         {
             var securitySchemeDefinition = new OpenApiSecurityScheme
@@ -80,7 +92,7 @@ namespace AspNetCoreApi.Api.Configurations
                 }
             };
 
-            sgo.OperationFilter<UnauthorizedResponsesOperationFilter>(true, securityScheme);
+            sgo.OperationFilter<UnauthorizedResponsesOperationFilter>(securityScheme);
         }
     }
 }

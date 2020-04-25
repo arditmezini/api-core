@@ -1,5 +1,5 @@
 ﻿using AspNetCoreApi.Data.DataContext;
-using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Common.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +10,10 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class IdentityConfiguration
     {
+        /// <summary>
+        /// Configure Identity
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureIdentity(this IServiceCollection services)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>(opt =>

@@ -1,5 +1,5 @@
 ﻿using AspNetCoreApi.Dal.Entities;
-using AspNetCoreApi.Models.Common;
+using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;

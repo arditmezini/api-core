@@ -1,4 +1,4 @@
-﻿using AspNetCoreApi.Models.Common;
+﻿using AspNetCoreApi.Models.Common.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +10,11 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class CorsConfiguration
     {
+        /// <summary>
+        /// Configure Cors
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureCors(this IServiceCollection services, IConfiguration configuration)
         {
             var cors = configuration.GetGeneric<CorsOptions>("CorsOptions");
@@ -21,6 +26,11 @@ namespace AspNetCoreApi.Api.Configurations
             });
         }
 
+        /// <summary>
+        /// Use CorsPolicy
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="configuration"></param>
         public static void UseCorsPolicy(this IApplicationBuilder app, IConfiguration configuration)
         {
             app.UseRouting();

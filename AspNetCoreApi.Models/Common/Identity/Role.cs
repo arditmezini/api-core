@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreApi.Models.Common
+﻿namespace AspNetCoreApi.Models.Common.Identity
 {
     public class Role
     {

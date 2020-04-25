@@ -9,6 +9,11 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class MailKitConfiguration
     {
+        /// <summary>
+        /// Configure MailKit
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureMailKit(this IServiceCollection services, IConfiguration configuration)
         {
             var emailConfiguration = configuration.GetGeneric<EmailConfiguration>("EmailConfiguration");

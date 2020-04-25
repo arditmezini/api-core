@@ -9,30 +9,124 @@
             Cors Configuration
             </summary>
         </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.CorsConfiguration.ConfigureCors(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure Cors
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.CorsConfiguration.UseCorsPolicy(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Use CorsPolicy
+            </summary>
+            <param name="app"></param>
+            <param name="configuration"></param>
+        </member>
         <member name="T:AspNetCoreApi.Api.Configurations.HangfireConfiguration">
             <summary>
             Hangfire Configuration
             </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.HangfireConfiguration.ConfigureHangfire(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure Hangfire
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.HangfireConfiguration.UseHangfire(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use Hangfire
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.HealthChecksConfiguration">
+            <summary>
+            HealthChecks Configuration
+            </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.HealthChecksConfiguration.ConfigureHealthChecks(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure HealthChecks
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.HealthChecksConfiguration.UseHealthChecks(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Use HealthChecks
+            </summary>
+            <param name="app"></param>
+            <param name="configuration"></param>
         </member>
         <member name="T:AspNetCoreApi.Api.Configurations.IdentityConfiguration">
             <summary>
             Identity Configuration
             </summary>
         </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.IdentityConfiguration.ConfigureIdentity(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Identity
+            </summary>
+            <param name="services"></param>
+        </member>
         <member name="T:AspNetCoreApi.Api.Configurations.JwtConfiguration">
             <summary>
             JWT Configuration
             </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.JwtConfiguration.ConfigureJwt(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure Jwt
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
         </member>
         <member name="T:AspNetCoreApi.Api.Configurations.MailKitConfiguration">
             <summary>
             MailKit Configuration
             </summary>
         </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.MailKitConfiguration.ConfigureMailKit(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Configure MailKit
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="T:AspNetCoreApi.Api.Configurations.MvcConfigurations">
+            <summary>
+            MVC Config, FluentValidations and NewtonsoftJson
+            </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.MvcConfigurations.ConfigureMvc(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Mvc
+            </summary>
+            <param name="services"></param>
+        </member>
         <member name="T:AspNetCoreApi.Api.Configurations.SwaggerConfiguration">
             <summary>
             Swagger Configuration
             </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.ConfigureSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Swagger
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.UseSwaggerWithUI(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use SwaggerWithUI
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.SwaggerBearerAuth(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <summary>
+            Swagger Bearer Auth
+            </summary>
+            <param name="sgo"></param>
         </member>
     </members>
 </doc>
