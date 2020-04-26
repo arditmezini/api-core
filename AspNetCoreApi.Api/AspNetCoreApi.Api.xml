@@ -46,7 +46,7 @@
             HealthChecks Configuration
             </summary>
         </member>
-        <member name="M:AspNetCoreApi.Api.Configurations.HealthChecksConfiguration.ConfigureHealthChecks(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:AspNetCoreApi.Api.Configurations.HealthChecksConfiguration.ConfigureHealthChecks(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Configure HealthChecks
             </summary>
