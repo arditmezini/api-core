@@ -25,6 +25,7 @@ namespace AspNetCoreApi.Api.Configurations
         /// Configure HealthChecks
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="configuration"></param>
         public static void ConfigureHealthChecks(this IServiceCollection services, IConfiguration configuration)
         {
             var healthCheck = configuration.GetGeneric<HealthChecksConfig>("HealthCheck");

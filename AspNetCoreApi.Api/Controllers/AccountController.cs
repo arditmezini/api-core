@@ -1,4 +1,5 @@
 ﻿using AspNetCoreApi.Common.Mail;
+using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
@@ -6,7 +7,7 @@ using AutoMapper;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -26,18 +27,18 @@ namespace AspNetCoreApi.Api.Controllers
         private readonly IHangfireJobService hangfireJobService;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IConfiguration configuration;
+        private readonly IOptions<JwtConfig> jwtOptions;
 
         public AccountController(IEmailService emailService, IHangfireJobService hangfireJobService,
             SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
-            IConfiguration configuration, IMapper mapper)
+            IOptions<JwtConfig> jwtOptions, IMapper mapper)
             : base(mapper)
         {
             this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
             this.hangfireJobService = hangfireJobService ?? throw new ArgumentNullException(nameof(hangfireJobService));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            this.jwtOptions = jwtOptions ?? throw new ArgumentNullException(nameof(jwtOptions));
         }
 
         [ActionName("login")]
@@ -106,16 +107,16 @@ namespace AspNetCoreApi.Api.Controllers
 
         private object GenerateUserToken(List<Claim> userClaims)
         {
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtConfig:JwtKey"]));
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Value.JwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-            var expires = DateTime.UtcNow.AddDays(Convert.ToDouble(configuration["JwtConfig:JwtExpireDays"]));
+            var expires = DateTime.UtcNow.AddDays(Convert.ToDouble(jwtOptions.Value.JwtExpireDays));
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(userClaims),
-                Issuer = configuration["JwtConfig:JwtIssuer"],
-                Audience = configuration["JwtConfig:JwtIssuer"],
+                Issuer = jwtOptions.Value.JwtIssuer,
+                Audience = jwtOptions.Value.JwtIssuer,
                 Expires = expires,
                 SigningCredentials = creds
             };

@@ -4,6 +4,17 @@
         <name>AspNetCoreApi.Api</name>
     </assembly>
     <members>
+        <member name="T:AspNetCoreApi.Api.Configurations.AutoWrapperConfiguration">
+            <summary>
+            AutoWrapper Configuration
+            </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.AutoWrapperConfiguration.UseAutoWrapper(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use AutoWrapper
+            </summary>
+            <param name="app"></param>
+        </member>
         <member name="T:AspNetCoreApi.Api.Configurations.CorsConfiguration">
             <summary>
             Cors Configuration
@@ -51,6 +62,7 @@
             Configure HealthChecks
             </summary>
             <param name="services"></param>
+            <param name="configuration"></param>
         </member>
         <member name="M:AspNetCoreApi.Api.Configurations.HealthChecksConfiguration.UseHealthChecks(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>

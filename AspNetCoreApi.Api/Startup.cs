@@ -3,7 +3,6 @@ using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Service;
 using AutoMapper;
-using AutoWrapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,11 +27,13 @@ namespace AspNetCoreApi.Api
             services.ConfigureHealthChecks(Configuration);
 
             services.AddDbContextWithLazyLoading(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
 
             services.ConfigureHangfire(Configuration);
 
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
+            services.Configure<JwtConfig>(Configuration.GetSection(nameof(JwtConfig)));
 
             services.ConfigureCors(Configuration);
 
@@ -43,7 +44,7 @@ namespace AspNetCoreApi.Api
             services.RegisterServicesDependencyInjection();
 
             services.ConfigureIdentity();
-            
+
             services.ConfigureJwt(Configuration);
 
             services.ConfigureMvc();
@@ -68,13 +69,7 @@ namespace AspNetCoreApi.Api
 
             app.UseHttpsRedirection();
 
-            //Generic API Response
-            app.UseApiResponseAndExceptionWrapper(new AutoWrapperOptions
-            {
-                IsApiOnly = false,
-                EnableResponseLogging = true,
-                EnableExceptionLogging = true
-            });
+            app.UseAutoWrapper();
 
             app.UseCorsPolicy(Configuration);
 
