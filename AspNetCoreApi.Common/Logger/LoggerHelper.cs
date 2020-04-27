@@ -9,13 +9,10 @@ namespace AspNetCoreApi.Common.Logger
         public static void ConfigureNLogStartup()
         {
             //Set base path for NLog
-            GlobalDiagnosticsContext
-                .Set("appbasepath", Directory.GetCurrentDirectory());
+            GlobalDiagnosticsContext.Set("appbasepath", Directory.GetCurrentDirectory());
 
             //Read the config file and get the logger class
-            NLogBuilder
-                .ConfigureNLog("nlog.config")
-                .GetCurrentClassLogger();
+            NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
         }
     }
 }
