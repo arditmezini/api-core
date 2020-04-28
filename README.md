@@ -1,4 +1,4 @@
-![Build Status](https://github.com/arditmezini/api-core/workflows/.NET%20Core/badge.svg?branch=github-actions) 
+![Build Status](https://github.com/arditmezini/api-core/workflows/.NET%20Core/badge.svg?branch=master) 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/arditmezini/api-core/blob/master/LICENSE)
 
 # Work in progress...
