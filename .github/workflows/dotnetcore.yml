@@ -21,5 +21,3 @@ jobs:
       run: dotnet restore AspNetCoreApi.Api
     - name: Build
       run: dotnet build AspNetCoreApi.Api --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
