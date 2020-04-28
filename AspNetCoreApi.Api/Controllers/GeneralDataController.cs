@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize(Roles = Role.Admin)]
+    [Authorize(Policy = Role.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class GeneralDataController : BaseController

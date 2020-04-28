@@ -51,7 +51,9 @@ namespace AspNetCoreApi.Api.Controllers
                 var appUser = userManager.Users.SingleOrDefault(x => x.Email == login.Email);
                 var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
-                return new ApiResponse("Login succesfully", await GenerateJwtToken(appUser));
+                var user = mapper.Map<UserDto>(appUser);
+                user.Token = (string)await GenerateJwtToken(appUser);
+                return new ApiResponse("Login succesfully", user);
             }
             return new ApiResponse(401, new ApiError("Invalid login credentials"));
         }
@@ -116,9 +118,9 @@ namespace AspNetCoreApi.Api.Controllers
             {
                 Subject = new ClaimsIdentity(userClaims),
                 Issuer = jwtOptions.Value.JwtIssuer,
-                Audience = jwtOptions.Value.JwtIssuer,
+                Audience = jwtOptions.Value.JwtAudience,
                 Expires = expires,
-                SigningCredentials = creds
+                SigningCredentials = creds,
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

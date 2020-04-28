@@ -1,8 +1,10 @@
 ﻿using AspNetCoreApi.Models.Common.Configurations;
+using AspNetCoreApi.Models.Common.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace AspNetCoreApi.Api.Configurations
@@ -39,9 +41,27 @@ namespace AspNetCoreApi.Api.Configurations
                         ValidateIssuer = true,
                         ValidIssuer = jwtConfig.JwtIssuer,
                         ValidateAudience = true,
-                        ValidAudience = jwtConfig.JwtIssuer,
+                        ValidAudience = jwtConfig.JwtAudience,
                     };
                 });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Role.Admin, policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, new[] { Role.Admin });
+                });
+
+                options.AddPolicy(Role.Manager, policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, new[] { Role.Admin, Role.Manager });
+                });
+
+                options.AddPolicy(Role.User, policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, new[] { Role.Admin, Role.Manager, Role.User });
+                });
+            });
         }
     }
 }
