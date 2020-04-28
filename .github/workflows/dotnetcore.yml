@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore AspNetCoreApi.sln
+      run: dotnet restore AspNetCoreApi.Api
     - name: Build
-      run: dotnet build AspNetCoreApi.sln --configuration Release --no-restore
+      run: dotnet build AspNetCoreApi.Api --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
