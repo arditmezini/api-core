@@ -117,9 +117,14 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:AspNetCoreApi.Api.Configurations.ResponseCompressionConfiguration.ConfigureResponseCompression(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="T:AspNetCoreApi.Api.Configurations.ResponseCompressionConfiguration">
             <summary>
             Response Compression
+            </summary>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.ResponseCompressionConfiguration.ConfigureResponseCompression(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Response Compression
             </summary>
             <param name="services"></param>
         </member>

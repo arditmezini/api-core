@@ -41,6 +41,32 @@ namespace AspNetCoreApi.Api.Controllers
             this.jwtOptions = jwtOptions.Value ?? throw new ArgumentNullException(nameof(jwtOptions));
         }
 
+        [ActionName("validate-token")]
+        [HttpGet]
+        public async Task<ActionResult<ApiResponse>> ValidateToken(string token)
+        {
+            try
+            {
+                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.JwtKey));
+                var tokenHandler = new JwtSecurityTokenHandler();
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = jwtOptions.JwtIssuer,
+                    ValidAudience = jwtOptions.JwtAudience,
+                    IssuerSigningKey = key
+                }, out SecurityToken validatedToken);
+
+                return new ApiResponse("Token validated succesfully", true);
+            }
+            catch (Exception)
+            {
+                return new ApiResponse("Token failed validation", false);
+            }
+        }
+
         [ActionName("login")]
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> Login([FromBody] LoginDto login)
