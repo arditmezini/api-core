@@ -117,6 +117,12 @@
             </summary>
             <param name="services"></param>
         </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.ResponseCompressionConfiguration.ConfigureResponseCompression(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Response Compression
+            </summary>
+            <param name="services"></param>
+        </member>
         <member name="T:AspNetCoreApi.Api.Configurations.SwaggerConfiguration">
             <summary>
             Swagger Configuration

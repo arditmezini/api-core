@@ -35,6 +35,8 @@ namespace AspNetCoreApi.Api
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
             services.Configure<JwtConfig>(Configuration.GetSection(nameof(JwtConfig)));
 
+            services.ConfigureResponseCompression();
+
             services.ConfigureCors(Configuration);
 
             services.AddControllers();
@@ -68,6 +70,8 @@ namespace AspNetCoreApi.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseResponseCompression();
 
             app.UseAutoWrapper();
 

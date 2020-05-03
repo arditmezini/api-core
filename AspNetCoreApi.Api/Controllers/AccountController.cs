@@ -27,7 +27,7 @@ namespace AspNetCoreApi.Api.Controllers
         private readonly IHangfireJobService hangfireJobService;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IOptions<JwtConfig> jwtOptions;
+        private readonly JwtConfig jwtOptions;
 
         public AccountController(IEmailService emailService, IHangfireJobService hangfireJobService,
             SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
@@ -38,7 +38,7 @@ namespace AspNetCoreApi.Api.Controllers
             this.hangfireJobService = hangfireJobService ?? throw new ArgumentNullException(nameof(hangfireJobService));
             this.signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            this.jwtOptions = jwtOptions ?? throw new ArgumentNullException(nameof(jwtOptions));
+            this.jwtOptions = jwtOptions.Value ?? throw new ArgumentNullException(nameof(jwtOptions));
         }
 
         [ActionName("login")]
@@ -109,16 +109,16 @@ namespace AspNetCoreApi.Api.Controllers
 
         private object GenerateUserToken(List<Claim> userClaims)
         {
-            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Value.JwtKey));
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.JwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-            var expires = DateTime.UtcNow.AddDays(Convert.ToDouble(jwtOptions.Value.JwtExpireDays));
+            var expires = DateTime.UtcNow.AddDays(Convert.ToDouble(jwtOptions.JwtExpireDays));
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(userClaims),
-                Issuer = jwtOptions.Value.JwtIssuer,
-                Audience = jwtOptions.Value.JwtAudience,
+                Issuer = jwtOptions.JwtIssuer,
+                Audience = jwtOptions.JwtAudience,
                 Expires = expires,
                 SigningCredentials = creds,
             };
