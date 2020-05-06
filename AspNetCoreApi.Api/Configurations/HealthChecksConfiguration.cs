@@ -1,7 +1,5 @@
 ﻿using AspNetCoreApi.Models.Common;
 using AspNetCoreApi.Models.Common.Configurations;
-using HealthChecks.Hangfire;
-using HealthChecks.System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +19,9 @@ namespace AspNetCoreApi.Api.Configurations
     /// </summary>
     public static class HealthChecksConfiguration
     {
+        public const string HEALTH_QUERY = "SELECT 1";
+        public static TimeSpan Timeout = new TimeSpan(0, 0, 0, 30, 0);
+
         /// <summary>
         /// Configure HealthChecks
         /// </summary>
@@ -33,17 +34,17 @@ namespace AspNetCoreApi.Api.Configurations
             var connDb = configuration.GetConnectionString("DefaultConnection");
 
             services.AddHealthChecks()
-                .AddDiskStorageHealthCheck(delegate (DiskStorageOptions options)
+                .AddDiskStorageHealthCheck((diskOptions) => 
                 {
-                    options.AddDrive(healthCheck.Drive.Letter, healthCheck.Drive.MinSpace);
-                }, "Application Drive", HealthStatus.Degraded, tags: new[] { "drive_check" }, new TimeSpan(0, 0, 0, 30, 0))
-                .AddSqlServer(connDb, "SELECT 1", "Application Database", HealthStatus.Unhealthy, tags: new[] { "application_database_check" }, new TimeSpan(0, 0, 0, 30, 0))
-                .AddSqlServer(connHangfire, "SELECT 1", "Hangfire Database", HealthStatus.Unhealthy, tags: new[] { "hangfire_database_check" }, new TimeSpan(0, 0, 0, 30, 0))
-                .AddHangfire(delegate (HangfireOptions options)
+                    diskOptions.AddDrive(healthCheck.Drive.Letter, healthCheck.Drive.MinSpace);
+                }, "Application Drive", HealthStatus.Degraded, new[] { "drive_check" }, Timeout)
+                .AddSqlServer(connDb, HEALTH_QUERY, "Application Database", HealthStatus.Unhealthy, new[] { "application_database_check" }, Timeout)
+                .AddSqlServer(connHangfire, HEALTH_QUERY, "Hangfire Database", HealthStatus.Unhealthy, new[] { "hangfire_database_check" }, Timeout)
+                .AddHangfire((hangfireOptions) =>
                 {
-                    options.MinimumAvailableServers = 1;
-                    options.MaximumJobsFailed = 1;
-                }, "Hangfire Server", HealthStatus.Unhealthy, tags: new[] { "hangfire_server_check" }, new TimeSpan(0, 0, 0, 30, 0));
+                    hangfireOptions.MinimumAvailableServers = 1;
+                    hangfireOptions.MaximumJobsFailed = 1;
+                }, "Hangfire Server", HealthStatus.Unhealthy, new[] { "hangfire_server_check" }, Timeout);
         }
 
         /// <summary>
