@@ -10,6 +10,7 @@
         public int SmtpPort { get; set; }
         public string SmtpUsername { get; set; }
         public string SmtpPassword { get; set; }
+        public bool EnableSsl { get; set; }
 
         //Recive
         public string PopServer { get; set; }

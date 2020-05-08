@@ -1,5 +1,6 @@
 ﻿using AspNetCoreApi.Common.Mail;
 using AspNetCoreApi.Models.Common.Configurations;
+using AspNetCoreApi.Models.Common.Emails;
 using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
@@ -75,7 +76,10 @@ namespace AspNetCoreApi.Api.Controllers
             if (result.Succeeded)
             {
                 var appUser = userManager.Users.SingleOrDefault(x => x.Email == login.Email);
-                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
+                var mailBuilder = MailHelper.BuildMail(
+                    MailTypeEnum.LoginUser,
+                    new EmailAddress { Name = "Support", Address = "support@site.com" },
+                    new EmailAddress { Name = appUser.FirstName, Address = appUser.Email });
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
                 var user = mapper.Map<UserDto>(appUser);
                 user.Token = (string)await GenerateJwtToken(appUser);
@@ -101,7 +105,7 @@ namespace AspNetCoreApi.Api.Controllers
             {
                 await userManager.AddToRoleAsync(appUser, model.Role);
                 await signInManager.SignInAsync(appUser, false);
-                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.LoginUser);
+                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
                 return new ApiResponse("User registered.", await GenerateJwtToken(appUser));
             }

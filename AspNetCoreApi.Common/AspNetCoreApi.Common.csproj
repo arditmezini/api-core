@@ -13,4 +13,13 @@
     <ProjectReference Include="..\AspNetCoreApi.Models\AspNetCoreApi.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Mail\EmailTemplates\LoginUser.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Mail\EmailTemplates\NewUser.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
