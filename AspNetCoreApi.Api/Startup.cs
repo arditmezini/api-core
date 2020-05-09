@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace AspNetCoreApi.Api
 {
@@ -27,7 +28,16 @@ namespace AspNetCoreApi.Api
             services.ConfigureHealthChecks(Configuration);
 
             services.AddDbContextWithLazyLoading(options =>
-                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null
+                        );
+                    }
+                 )
             );
 
             services.ConfigureHangfire(Configuration);
