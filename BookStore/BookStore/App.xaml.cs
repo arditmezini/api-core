@@ -1,8 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using BookStore.Services;
-using BookStore.Views;
+﻿using Xamarin.Forms;
 
 namespace BookStore
 {
@@ -12,9 +8,6 @@ namespace BookStore
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()
