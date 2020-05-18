@@ -15,6 +15,7 @@ namespace AspNetCoreApi.Service
             services.AddTransient<IBookCategoryService, BookCategoryService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IHangfireJobService, HangfireJobService>();
+            services.AddTransient<IStatisticsService, StatisticsService>();
         }
     }
 }

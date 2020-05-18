@@ -26,6 +26,7 @@ namespace AspNetCoreApi.Data.DataContext
 
         #region DbSets
 
+        //Tables
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<AuthorContact> AuthorContacts { get; set; }
         public virtual DbSet<Book> Books { get; set; }
@@ -33,6 +34,9 @@ namespace AspNetCoreApi.Data.DataContext
         public virtual DbSet<BookCategory> BookCategories { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
         public virtual DbSet<Countries> Countries { get; set; }
+
+        //Views
+        public virtual DbSet<Statistics> Statistics { get; set; }
 
         #endregion
 
@@ -63,6 +67,7 @@ namespace AspNetCoreApi.Data.DataContext
             builder.ApplyConfiguration(new BookConfiguration());
             builder.ApplyConfiguration(new PublisherConfiguration());
             builder.ApplyConfiguration(new BookAuthorsConfiguration());
+            builder.ApplyConfiguration(new StatisticsConfiguration());
         }
 
         private void OnBeforeSaving()

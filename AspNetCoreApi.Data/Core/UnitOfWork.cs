@@ -83,6 +83,19 @@ namespace AspNetCoreApi.Dal.Core
                 return _generalData;
             }
         }
+
+        private IStatisticsRepository _statisticsRepository;
+        public IStatisticsRepository StatisticsRepository
+        {
+            get
+            {
+                if (_statisticsRepository == null)
+                {
+                    _statisticsRepository = new StatisticsRepository(_context);
+                }
+                return _statisticsRepository;
+            }
+        }
         #endregion
 
         #region Methods
