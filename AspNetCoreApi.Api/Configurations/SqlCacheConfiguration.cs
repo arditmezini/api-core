@@ -4,7 +4,7 @@ using System;
 
 namespace AspNetCoreApi.Api.Configurations
 {
-    public static class SqlCacheCongiguration
+    public static class SqlCacheConfiguration
     {
         public static void ConfigureSqlCache(this IServiceCollection services, IConfiguration configuration)
         {
