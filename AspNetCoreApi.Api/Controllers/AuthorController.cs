@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
@@ -33,13 +32,8 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> Get()
         {
-            var cacheAuthors = await cacheService.GetAsync<IEnumerable<AuthorDto>>(CacheConstants.AuthorList);
-            IEnumerable<AuthorDto> authors;
-            if (cacheAuthors.AnyOrDefault())
-            {
-                authors = cacheAuthors;
-            }
-            else
+            var authors = await cacheService.GetAsync<IEnumerable<AuthorDto>>(CacheConstants.AuthorList);
+            if (!authors.AnyOrDefault())
             {
                 authors = mapper.Map<IEnumerable<AuthorDto>>(await authorService.Get());
                 await cacheService.SetAsync(CacheConstants.AuthorList, authors);
@@ -57,21 +51,34 @@ namespace AspNetCoreApi.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<ApiResponse>> Post([FromBody]AuthorDto entity)
         {
-            return new ApiResponse("New author added.",
-                await authorService.Add(mapper.Map<Author>(entity)));
+            var createdAuthor = await authorService.Add(mapper.Map<Author>(entity));
+
+            if (createdAuthor)
+                await cacheService.RemoveAsync(CacheConstants.AuthorList);
+
+            return new ApiResponse("New author added.", createdAuthor);
         }
 
         [HttpPut]
         public async Task<ActionResult<ApiResponse>> Put(int id, [FromBody]AuthorDto entity)
         {
-            return new ApiResponse($"The record with {id} was updated.",
-                await authorService.Update(id, mapper.Map<Author>(entity)));
+            var updatedAuthor = await authorService.Update(id, mapper.Map<Author>(entity));
+
+            if (updatedAuthor)
+                await cacheService.RemoveAsync(CacheConstants.AuthorList);
+
+            return new ApiResponse($"The record with {id} was updated.", updatedAuthor);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ApiResponse>> Delete(int id)
         {
-            return new ApiResponse($"The record with {id} was deleted.", await authorService.Delete(id));
+            var deletedAuthor = await authorService.Delete(id);
+
+            if (deletedAuthor)
+                await cacheService.RemoveAsync(CacheConstants.AuthorList);
+
+            return new ApiResponse($"The record with {id} was deleted.", deletedAuthor);
         }
     }
 }
