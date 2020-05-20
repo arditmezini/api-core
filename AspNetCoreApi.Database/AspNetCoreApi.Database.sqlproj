@@ -83,6 +83,7 @@
     <Build Include="dbo\Tables\AspNetUsers.sql" />
     <Build Include="dbo\Tables\AspNetUserTokens.sql" />
     <Build Include="dbo\Views\Statistics.sql" />
+    <Build Include="dbo\Tables\SqlCache.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\Script.PreDeployment.sql" />

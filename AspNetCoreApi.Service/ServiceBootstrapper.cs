@@ -16,6 +16,7 @@ namespace AspNetCoreApi.Service
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IHangfireJobService, HangfireJobService>();
             services.AddTransient<IStatisticsService, StatisticsService>();
+            services.AddTransient<ICacheService, CacheService>();
         }
     }
 }

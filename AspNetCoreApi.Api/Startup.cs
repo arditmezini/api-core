@@ -40,6 +40,8 @@ namespace AspNetCoreApi.Api
                  )
             );
 
+            services.ConfigureSqlCache(Configuration);
+
             services.ConfigureHangfire(Configuration);
 
             services.Configure<AppConfig>(Configuration.GetSection(nameof(AppConfig)));
