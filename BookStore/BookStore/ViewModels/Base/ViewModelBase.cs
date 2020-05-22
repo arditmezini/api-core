@@ -1,31 +1,22 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using BookStore.Contracts.Services.General;
 using System.Threading.Tasks;
 
 namespace BookStore.ViewModels.Base
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : NotifyPropertyChangedBase
     {
-        public ViewModelBase()
-        { }
+        public readonly INavigationService _navigationService;
+
+        public ViewModelBase(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
 
         private bool _isBusy;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public bool IsBusy
         {
             get => _isBusy;
-            set
-            {
-                _isBusy = value;
-                OnPropertyChanged(nameof(IsBusy));
-            }
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            set => SetProperty(ref _isBusy, value);
         }
 
         public virtual Task InitializeAsync(object data)

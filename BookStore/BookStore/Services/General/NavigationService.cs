@@ -1,4 +1,5 @@
 ﻿using BookStore.Bootstrap;
+using BookStore.Contracts.Services.Data;
 using BookStore.Contracts.Services.General;
 using BookStore.ViewModels;
 using BookStore.ViewModels.Base;
@@ -12,27 +13,29 @@ namespace BookStore.Services.General
 {
     public class NavigationService : INavigationService
     {
+        private readonly IAuthenticationService _authenticationService;
         private readonly Dictionary<Type, Type> _mappings;
 
         protected Application CurrentApplication => Application.Current;
 
-        public NavigationService()
+        public NavigationService(IAuthenticationService authenticationService)
         {
             _mappings = new Dictionary<Type, Type>();
+            _authenticationService = authenticationService;
 
             CreatePageViewModelMappings();
         }
 
         public async Task InitializeAsync()
         {
-            //if (_authenticationService.IsUserAuthenticated())
-            //{
-            //    await NavigateToAsync<MainViewModel>();
-            //}
-            //else
-            //{
-            //    await NavigateToAsync<LoginViewModel>();
-            //}
+            if (_authenticationService.IsUserAuthenticated())
+            {
+                await NavigateToAsync<MainViewModel>();
+            }
+            else
+            {
+                await NavigateToAsync<LoginViewModel>();
+            }
         }
 
         public Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase

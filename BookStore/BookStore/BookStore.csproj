@@ -18,12 +18,10 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Repository\" />
-    <Folder Include="Contracts\Services\Data\" />
     <Folder Include="Models\Dto\" />
     <Folder Include="Models\Enum\" />
     <Folder Include="Models\Response\" />
     <Folder Include="Models\Request\" />
-    <Folder Include="Services\Data\" />
     <Folder Include="Templates\" />
   </ItemGroup>
 

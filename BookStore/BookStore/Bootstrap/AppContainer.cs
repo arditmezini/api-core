@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using BookStore.Contracts.Services.Data;
 using BookStore.Contracts.Services.General;
+using BookStore.Services.Data;
 using BookStore.Services.General;
+using BookStore.ViewModels;
 using System;
 
 namespace BookStore.Bootstrap
@@ -32,13 +35,17 @@ namespace BookStore.Bootstrap
 
         private static void RegisterViewModels(ContainerBuilder builder)
         {
-            //builder.RegisterType<LoginViewModel>();
+            builder.RegisterType<RegistrationViewModel>();
+            builder.RegisterType<LoginViewModel>();
+            builder.RegisterType<MainViewModel>();
+            builder.RegisterType<MenuViewModel>();
+            builder.RegisterType<HomeViewModel>();
         }
 
         private static void RegisterServices(ContainerBuilder builder)
         {
             //services - data
-            //builder.RegisterType<AuthenticationService>().As<IAuthenticationService>();
+            builder.RegisterType<AuthenticationService>().As<IAuthenticationService>();
 
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();

@@ -7,9 +7,10 @@
              x:Class="BookStore.Views.LoginView">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Login Page"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Register" Command="{Binding GoToRegistrationPage}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

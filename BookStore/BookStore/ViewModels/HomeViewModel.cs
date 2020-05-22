@@ -1,12 +1,12 @@
-﻿using BookStore.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BookStore.Contracts.Services.General;
+using BookStore.ViewModels.Base;
 
 namespace BookStore.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-
+        public HomeViewModel(INavigationService navigationService) 
+            : base(navigationService)
+        { }
     }
 }
