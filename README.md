@@ -30,3 +30,4 @@
  - *[Autofac](https://github.com/autofac/Autofac)*
  - *[ConnectivityPlugin](https://github.com/jamesmontemagno/ConnectivityPlugin)*
  - *[ACR User Dialogs](https://github.com/aritchie/userdialogs)*
+ - *[Xam.Plugins.Settings](https://github.com/jamesmontemagno/SettingsPlugin)*
