@@ -27,3 +27,4 @@
  ## Xamarin.Forms Sample Project 
  
  ### Packages used:
+ - *[Autofac](https://github.com/autofac/Autofac)*
