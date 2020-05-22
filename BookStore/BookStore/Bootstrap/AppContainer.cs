@@ -49,6 +49,8 @@ namespace BookStore.Bootstrap
 
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
+            builder.RegisterType<ConnectionService>().As<IConnectionService>();
+            builder.RegisterType<DialogService>().As<IDialogService>();
 
             //General
             //builder.RegisterType<GenericRepository>().As<IGenericRepository>();
