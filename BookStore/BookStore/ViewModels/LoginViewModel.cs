@@ -1,7 +1,7 @@
 ﻿using BookStore.Contracts.Services.General;
+using BookStore.Utility.AsyncCommands;
 using BookStore.ViewModels.Base;
-using System.Windows.Input;
-using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace BookStore.ViewModels
 {
@@ -11,8 +11,8 @@ namespace BookStore.ViewModels
             : base(navigationService)
         { }
 
-        public ICommand GoToRegistrationPage => new Command(OnRegistrationPage);
-        private async void OnRegistrationPage()
+        public IAsyncCommand GoToRegistrationPage => new AsyncCommand(OnRegistrationPage);
+        private async Task OnRegistrationPage()
         {
             await _navigationService.NavigateToAsync<RegistrationViewModel>();
         }
