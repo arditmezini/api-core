@@ -4,13 +4,59 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BookStore.Views.LoginView">
+             x:Class="BookStore.Views.LoginView"  
+             Visual="Material">
+
+    <ContentPage.Resources>
+        <Style x:Key="LoginForm" TargetType="Grid">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="25,0,25,0" />
+        </Style>
+        <Style x:Key="Username" TargetType="Entry">
+            <Setter Property="ClearButtonVisibility" Value="WhileEditing" />
+        </Style>
+        <Style x:Key="Password" TargetType="Entry">
+            <Setter Property="ClearButtonVisibility" Value="WhileEditing" />
+            <Setter Property="IsPassword" Value="True" />
+        </Style>
+        <Style x:Key="LoginBtn" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style x:Key="RegisterBtn" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Login Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Register" Command="{Binding GoToRegistrationPage}" />
-        </StackLayout>
+        <Grid BackgroundColor="LightCyan">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" VerticalOptions="Center">
+                <Label Style="{StaticResource Title}">Book Store</Label>
+            </StackLayout>
+
+            <Grid Grid.Row="1" Style="{StaticResource LoginForm}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Entry Grid.Row="0" Placeholder="Username" Text="{Binding Username}" Style="{StaticResource Username}" />
+                <Entry Grid.Row="1" Placeholder="Password" Text="{Binding Password}" Style="{StaticResource Password}" />
+                <Button Grid.Row="2" Text="Sign in" Style="{StaticResource LoginBtn}" Command="{Binding SignInCommand}"/>
+            </Grid>
+
+            <StackLayout Grid.Row="2" VerticalOptions="End">
+                <Button Grid.Row="2" Text="Register" Style="{StaticResource RegisterBtn}" Command="{Binding GoToRegistrationPage}"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

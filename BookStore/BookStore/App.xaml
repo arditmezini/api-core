@@ -7,6 +7,11 @@
              x:Class="BookStore.App">
 
     <Application.Resources>
+        <Style x:Key="Title" TargetType="Label">
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
     </Application.Resources>
-    
 </Application>

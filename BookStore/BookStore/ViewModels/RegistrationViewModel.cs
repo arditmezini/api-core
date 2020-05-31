@@ -7,14 +7,20 @@ namespace BookStore.ViewModels
 {
     public class RegistrationViewModel : ViewModelBase
     {
-        public RegistrationViewModel(INavigationService navigationService) 
+        public RegistrationViewModel(INavigationService navigationService)
             : base(navigationService)
-        { }
+        {
+            GoToLoginPage = new AsyncCommand(OnLoginPage);
+        }
 
-        public IAsyncCommand GoToLoginPage => new AsyncCommand(OnLoginPage);
+        #region Commands
+
+        public IAsyncCommand GoToLoginPage { get; set; }
         private async Task OnLoginPage()
         {
             await _navigationService.NavigateToAsync<LoginViewModel>();
         }
+
+        #endregion
     }
 }

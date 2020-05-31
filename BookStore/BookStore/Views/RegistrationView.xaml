@@ -4,13 +4,37 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BookStore.Views.RegistrationView">
+             x:Class="BookStore.Views.RegistrationView"
+             Visual="Material">
+    
+    <ContentPage.Resources>
+        <Style x:Key="RegisterBtn" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Registration Page"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Login" Command="{Binding GoToLoginPage}" />
-        </StackLayout>
+        <Grid BackgroundColor="LightCyan" Padding="20">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" Text="Register" Style="{StaticResource Title}"/>
+            <Entry Grid.Row="1" Placeholder="FirstName" />
+            <Entry Grid.Row="2" Placeholder="LastName" />
+            <Entry Grid.Row="3" Placeholder="Email" />
+            <Entry Grid.Row="4" Placeholder="Password" IsPassword="True"/>
+            <Button Grid.Row="5" Text="Register" Style="{StaticResource RegisterBtn}"></Button>
+            <Button Grid.Row="6" Text="Back to login" Command="{Binding GoToLoginPage}" Style="{StaticResource RegisterBtn}"></Button>
+        </Grid>
     </ContentPage.Content>
+    
 </ContentPage>

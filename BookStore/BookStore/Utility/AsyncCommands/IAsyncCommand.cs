@@ -7,11 +7,13 @@ namespace BookStore.Utility.AsyncCommands
     {
         Task ExecuteAsync();
         bool CanExecute();
+        void RaiseCanExecuteChanged();
     }
 
     public interface IAsyncCommand<T> : ICommand
     {
         Task ExecuteAsync(T parameter);
         bool CanExecute(T parameter);
+        void RaiseCanExecuteChanged();
     }
 }

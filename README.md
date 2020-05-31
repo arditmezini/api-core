@@ -25,7 +25,7 @@
  - *[MailKit](https://github.com/jstedfast/MailKit)*
  
  ## Xamarin.Forms Sample Project 
- 
+ - Material renderers
  ### Packages used:
  - *[Autofac](https://github.com/autofac/Autofac)*
  - *[ConnectivityPlugin](https://github.com/jamesmontemagno/ConnectivityPlugin)*
