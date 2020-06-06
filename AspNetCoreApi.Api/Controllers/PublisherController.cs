@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace AspNetCoreApi.Api.Controllers
 {
     [Authorize(Policy = Role.Admin)]
-    [Route("api/[controller]")]
+    [Route("api/publisher")]
     [ApiController]
     public class PublisherController : BaseController
     {

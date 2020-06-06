@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace AspNetCoreApi.Api.Controllers
 {
     [Authorize(Policy = Role.User)]
-    [Route("api/[controller]")]
+    [Route("api/book")]
     [ApiController]
     public class BookController : BaseController
     {
