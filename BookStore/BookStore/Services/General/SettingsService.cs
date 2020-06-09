@@ -40,5 +40,11 @@ namespace BookStore.Services.General
             get => _settings.GetValueOrDefault(nameof(RememberMe), false);
             set => _settings.AddOrUpdateValue(nameof(RememberMe), value);
         }
+
+        public string Token
+        {
+            get => GetString(nameof(Token));
+            set => SetString(nameof(Token), value);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using BookStore.Contracts.Services.General;
+﻿using BookStore.Contracts.Services.Data;
+using BookStore.Contracts.Services.General;
+using BookStore.Models.Dto;
 using BookStore.Utility.AsyncCommands;
 using BookStore.ViewModels.Base;
 using System.Threading.Tasks;
@@ -7,6 +9,8 @@ namespace BookStore.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        private readonly IAuthenticationService _authenticationService;
+
         #region Bindable Properties
 
         private string _username;
@@ -27,9 +31,11 @@ namespace BookStore.ViewModels
 
         #endregion
 
-        public LoginViewModel(INavigationService navigationService)
+        public LoginViewModel(INavigationService navigationService, IAuthenticationService authenticationService)
             : base(navigationService)
         {
+            _authenticationService = authenticationService;
+
             SignInCommand = new AsyncCommand(OnSignIn, CanSignIn);
             GoToRegistrationPage = new AsyncCommand(OnRegistrationPage);
         }
@@ -48,7 +54,12 @@ namespace BookStore.ViewModels
 
         private async Task OnSignIn()
         {
-
+            var login = new LoginDto { Email = Username, Password = Password };
+            var response = await _authenticationService.Login(login);
+            if (response != null)
+            {
+                await _navigationService.NavigateToAsync<HomeViewModel>();
+            }
         }
         
         private async Task OnRegistrationPage()

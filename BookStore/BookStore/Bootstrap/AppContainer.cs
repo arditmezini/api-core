@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using BookStore.Contracts.Repository;
 using BookStore.Contracts.Services.Data;
 using BookStore.Contracts.Services.General;
+using BookStore.Repository;
 using BookStore.Services.Data;
 using BookStore.Services.General;
 using BookStore.ViewModels;
@@ -49,12 +51,12 @@ namespace BookStore.Bootstrap
 
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
-            builder.RegisterType<ConnectionService>().As<IConnectionService>();
+            builder.RegisterType<ConnectionService>().As<IConnectionService>().SingleInstance();
             builder.RegisterType<DialogService>().As<IDialogService>();
-            builder.RegisterType<SettingsService>().As<ISettingsService>();
+            builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
 
             //General
-            //builder.RegisterType<GenericRepository>().As<IGenericRepository>();
+            builder.RegisterType<GenericRepository>().As<IGenericRepository>();
         }
     }
 }

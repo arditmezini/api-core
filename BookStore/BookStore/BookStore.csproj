@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.442" />
     <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.6.0.772" />  
@@ -20,10 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Repository\" />
-    <Folder Include="Models\Dto\" />
     <Folder Include="Models\Enum\" />
-    <Folder Include="Models\Response\" />
     <Folder Include="Models\Request\" />
     <Folder Include="Templates\" />
   </ItemGroup>
