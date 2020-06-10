@@ -3,11 +3,16 @@
     public class MessagingConstants
     {
         #region RestApiClient
-        //Event Sender
         public const string RestApiClient = "RestApiClient";
 
-        //Event Message
+        #region Event NoInternet
         public const string NoInternet = "NoInternet";
+        public const string NoInternetTitle = "No internet connection";
+        public const string NoInternetMessage = "Device not connected to an active network.";
         #endregion
+
+        #endregion
+
+        public const string Cancel = "Cancel";
     }
 }

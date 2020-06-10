@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:BookStore.Constants"
              mc:Ignorable="d"
              x:Class="BookStore.Views.LoginView"  
              Visual="Material">
@@ -40,7 +41,7 @@
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="0" VerticalOptions="Center">
-                <Label Style="{StaticResource Title}">Book Store</Label>
+                <Label Style="{StaticResource Title}" Text="{x:Static local:StringConstants.LPTitle}"></Label>
             </StackLayout>
 
             <Grid Grid.Row="1" Style="{StaticResource LoginForm}">
@@ -49,13 +50,13 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Entry Grid.Row="0" Placeholder="Username" Text="{Binding Username}" Style="{StaticResource Username}" />
-                <Entry Grid.Row="1" Placeholder="Password" Text="{Binding Password}" Style="{StaticResource Password}" />
-                <Button Grid.Row="2" Text="Sign in" Style="{StaticResource LoginBtn}" Command="{Binding SignInCommand}"/>
+                <Entry Grid.Row="0" Placeholder="{x:Static local:StringConstants.LPUsername}" Text="{Binding Username}" Style="{StaticResource Username}" />
+                <Entry Grid.Row="1" Placeholder="{x:Static local:StringConstants.LPPassword}" Text="{Binding Password}" Style="{StaticResource Password}" />
+                <Button Grid.Row="2" Text="{x:Static local:StringConstants.LPSignIn}" Style="{StaticResource LoginBtn}" Command="{Binding SignInCommand}"/>
             </Grid>
 
             <StackLayout Grid.Row="2" VerticalOptions="End">
-                <Button Grid.Row="2" Text="Register" Style="{StaticResource RegisterBtn}" Command="{Binding GoToRegistrationPage}"/>
+                <Button Grid.Row="2" Text="{x:Static local:StringConstants.LPRegister}" Style="{StaticResource RegisterBtn}" Command="{Binding GoToRegistrationPage}"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

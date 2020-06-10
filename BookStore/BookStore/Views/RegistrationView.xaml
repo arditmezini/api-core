@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:BookStore.Constants"
              mc:Ignorable="d"
              x:Class="BookStore.Views.RegistrationView"
              Visual="Material">
@@ -26,14 +27,14 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <Label Grid.Row="0" Text="Register" Style="{StaticResource Title}"/>
-            <Entry Grid.Row="1" Placeholder="FirstName" />
-            <Entry Grid.Row="2" Placeholder="LastName" />
-            <Entry Grid.Row="3" Placeholder="Email" />
-            <Entry Grid.Row="4" Placeholder="Password" IsPassword="True"/>
-            <Button Grid.Row="5" Text="Register" Style="{StaticResource RegisterBtn}"></Button>
-            <Button Grid.Row="6" Text="Back to login" Command="{Binding GoToLoginPage}" Style="{StaticResource RegisterBtn}"></Button>
+
+            <Label Grid.Row="0" Text="{x:Static local:StringConstants.RPTitle}" Style="{StaticResource Title}"/>
+            <Entry Grid.Row="1" Placeholder="{x:Static local:StringConstants.RPFirstName}" />
+            <Entry Grid.Row="2" Placeholder="{x:Static local:StringConstants.RPLastName}" />
+            <Entry Grid.Row="3" Placeholder="{x:Static local:StringConstants.RPEmail}" />
+            <Entry Grid.Row="4" Placeholder="{x:Static local:StringConstants.RPPassword}" IsPassword="True"/>
+            <Button Grid.Row="5" Text="{x:Static local:StringConstants.RPRegister}" Style="{StaticResource RegisterBtn}"></Button>
+            <Button Grid.Row="6" Text="{x:Static local:StringConstants.RPBackLogin}" Command="{Binding GoToLoginPage}" Style="{StaticResource RegisterBtn}"></Button>
         </Grid>
     </ContentPage.Content>
     

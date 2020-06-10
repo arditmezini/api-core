@@ -1,4 +1,5 @@
 ﻿using BookStore.Bootstrap;
+using BookStore.Constants;
 using BookStore.Contracts.Services.General;
 using BookStore.Utility;
 using System.Threading.Tasks;
@@ -20,6 +21,17 @@ namespace BookStore
         private void InitializeApp()
         {
             AppContainer.RegisterDependencies();
+
+            RegisterDeviceInternetAlertCallback();
+        }
+
+        private void RegisterDeviceInternetAlertCallback()
+        {
+            var dialogService = AppContainer.Resolve<IDialogService>();
+            MessagingCenter.Subscribe<string>(this, MessagingConstants.NoInternet, async (eventSender) =>
+            {
+                await dialogService.ShowDialog(MessagingConstants.NoInternetTitle, MessagingConstants.NoInternetMessage, MessagingConstants.Cancel);
+            });
         }
 
         private async Task InitializeNavigation()
