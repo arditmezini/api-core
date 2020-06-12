@@ -31,8 +31,9 @@ namespace BookStore.ViewModels
 
         #endregion
 
-        public LoginViewModel(INavigationService navigationService, IAuthenticationService authenticationService)
-            : base(navigationService)
+        public LoginViewModel(INavigationService navigationService, IDialogService dialogService,
+            IAuthenticationService authenticationService)
+            : base(navigationService, dialogService)
         {
             _authenticationService = authenticationService;
 
@@ -54,14 +55,16 @@ namespace BookStore.ViewModels
 
         private async Task OnSignIn()
         {
+            _dialogService.ShowLoading();
             var login = new LoginDto { Email = Username, Password = Password };
             var response = await _authenticationService.Login(login);
             if (response != null)
             {
+                _dialogService.HideLoading();
                 await _navigationService.NavigateToAsync<HomeViewModel>();
             }
         }
-        
+
         private async Task OnRegistrationPage()
         {
             await _navigationService.NavigateToAsync<RegistrationViewModel>();

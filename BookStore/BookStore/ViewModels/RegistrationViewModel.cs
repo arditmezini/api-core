@@ -7,8 +7,8 @@ namespace BookStore.ViewModels
 {
     public class RegistrationViewModel : ViewModelBase
     {
-        public RegistrationViewModel(INavigationService navigationService)
-            : base(navigationService)
+        public RegistrationViewModel(INavigationService navigationService, IDialogService dialogService)
+            : base(navigationService, dialogService)
         {
             GoToLoginPage = new AsyncCommand(OnLoginPage);
         }

@@ -8,8 +8,8 @@ namespace BookStore.ViewModels
     {
         private MenuViewModel _menuViewModel;
 
-        public MainViewModel(INavigationService navigationService, MenuViewModel menuViewModel)
-            : base(navigationService)
+        public MainViewModel(INavigationService navigationService, MenuViewModel menuViewModel, IDialogService dialogService)
+            : base(navigationService, dialogService)
         {
             _menuViewModel = menuViewModel;
         }

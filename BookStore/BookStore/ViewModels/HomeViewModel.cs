@@ -5,8 +5,8 @@ namespace BookStore.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel(INavigationService navigationService) 
-            : base(navigationService)
+        public HomeViewModel(INavigationService navigationService, IDialogService dialogService)
+            : base(navigationService, dialogService)
         { }
     }
 }
