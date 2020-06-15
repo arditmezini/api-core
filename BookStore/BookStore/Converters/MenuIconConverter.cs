@@ -1,0 +1,28 @@
+﻿using BookStore.Models.Enum;
+using System;
+using System.Globalization;
+using Xamarin.Forms;
+
+namespace BookStore.Converters
+{
+    public class MenuIconConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var type = (MenuItemType)value;
+
+            switch (type)
+            {
+                case MenuItemType.Logout:
+                    return string.Empty;
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

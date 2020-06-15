@@ -13,5 +13,27 @@
             <Setter Property="TextDecorations" Value="Underline"/>
             <Setter Property="HorizontalOptions" Value="Center" />
         </Style>
+        
+        <!--FontSize-->
+        <OnPlatform x:Key="LargeFontSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="20" />
+            <On Platform="Android, UWP, WinRT, WinPhone" Value="18" />
+        </OnPlatform>
+        <OnPlatform x:Key="MediumFontSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="18" />
+            <On Platform="Android, UWP, WinRT, WinPhone" Value="16" />
+        </OnPlatform>
+        <OnPlatform x:Key="SmallFontSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="14" />
+            <On Platform="Android, UWP, WinRT, WinPhone" Value="11" />
+        </OnPlatform>
+        <OnPlatform x:Key="XSmallFontSize" x:TypeArguments="x:Double">
+            <On Platform="iOS" Value="11" />
+            <On Platform="Android, UWP, WinRT, WinPhone" Value="9" />
+        </OnPlatform>
+
+        <!--Color-->
+        <Color x:Key="Grey">#aaaaaa</Color>
+        
     </Application.Resources>
 </Application>

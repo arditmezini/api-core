@@ -49,8 +49,7 @@ namespace AspNetCoreApi.Api.Controllers
             try
             {
                 var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.JwtKey));
-                var tokenHandler = new JwtSecurityTokenHandler();
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                var validationParams = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
@@ -58,7 +57,9 @@ namespace AspNetCoreApi.Api.Controllers
                     ValidIssuer = jwtOptions.JwtIssuer,
                     ValidAudience = jwtOptions.JwtAudience,
                     IssuerSigningKey = key
-                }, out SecurityToken validatedToken);
+                };
+                var principal = new JwtSecurityTokenHandler()
+                    .ValidateToken(token, validationParams, out SecurityToken validatedToken);
 
                 return new ApiResponse("Token validated succesfully", true);
             }

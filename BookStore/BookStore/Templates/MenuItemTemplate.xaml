@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:converters="clr-namespace:BookStore.Converters"
+             mc:Ignorable="d"
+             x:Class="BookStore.Templates.MenuItemTemplate"
+             Visual="Material">
+
+    <ContentView.Resources>
+        <Style x:Key="GridMenu" TargetType="Grid">
+            <Setter Property="ColumnSpacing" Value="12" />
+            <Setter Property="Padding" Value="10,10,0,10" />
+        </Style>
+        <Style x:Key="ImageMenu" TargetType="Image">
+            <Setter Property="WidthRequest" Value="30" />
+            <Setter Property="HeightRequest" Value="30" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style x:Key="TextMenu" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        
+        <converters:MenuIconConverter x:Key="MenuIconConverter"></converters:MenuIconConverter>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid Style="{StaticResource GridMenu}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Style="{StaticResource ImageMenu}"
+                Source="{Binding MenuItemType, Converter={StaticResource MenuIconConverter}}"/>
+            <Label Grid.Column="1" Text="{Binding MenuText}" Style="{StaticResource TextMenu}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
