@@ -7,8 +7,8 @@ namespace AspNetCoreApi.Models.Dto.Validators
         public BookCategoryValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Book category name cannot be blank.")
-                .Length(3, 50).WithMessage("Book category name length should be between 3 and 50 chars");
+                .PropertyNotEmpty()
+                .PropertyLength(3, 50);
         }
     }
 }

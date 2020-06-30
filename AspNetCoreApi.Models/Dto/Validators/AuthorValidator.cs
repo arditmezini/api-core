@@ -7,12 +7,13 @@ namespace AspNetCoreApi.Models.Dto.Validators
         public AuthorValidator()
         {
             RuleFor(x => x.FirstName)
-                .NotEmpty().WithMessage("FirstName cannot be blank.")
-                .Length(3, 50).WithMessage("FirstName length should be between 3 and 50 chars");
+                .PropertyNotEmpty()
+                .PropertyLength(3, 50)
+                .PropertyAllLetter();
 
             RuleFor(x => x.LastName)
-                .NotEmpty().WithMessage("LastName cannot be blank.")
-                .Length(3, 50).WithMessage("LastName length should be between 3 and 50 chars");
+                .PropertyNotEmpty()
+                .PropertyLength(3, 50);
 
             RuleFor(x => x.AuthorContact)
                 .NotNull();

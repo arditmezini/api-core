@@ -7,12 +7,12 @@ namespace AspNetCoreApi.Models.Dto.Validators
         public LoginValidator()
         {
             RuleFor(x => x.Email)
-               .NotEmpty().WithMessage("Email cannot be blank.")
-               .EmailAddress().WithMessage("Email is not in valid format.");
+               .PropertyNotEmpty()
+               .PropertyEmailAddress();
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Password cannot be blank.")
-                .Length(6, 100).WithMessage("Password length should be between 6 and 100 chars");
+                .PropertyNotEmpty()
+                .PropertyLength(6, 100);
         }
     }
 }
