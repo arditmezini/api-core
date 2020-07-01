@@ -1,12 +1,12 @@
 ﻿using AspNetCoreApi.Dal.Entities;
-using System.Collections.Generic;
+using AspNetCoreApi.Models.Common.Paging;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Contracts
 {
     public interface IBookService
     {
-        Task<IEnumerable<Book>> GetAll();
+        Task<PagedList<Book>> GetAll(PagedParams bookParams);
         Task<Book> GetById(int id);
         Task<bool> Add(Book book);
         Task<bool> Update(int id, Book book);

@@ -1,8 +1,9 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
+using AspNetCoreApi.Models.Common.Paging;
 using AspNetCoreApi.Service.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Services
@@ -16,9 +17,9 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public async Task<IEnumerable<Book>> GetAll()
+        public async Task<PagedList<Book>> GetAll(PagedParams bookParams)
         {
-            return await uow.Books.GetAll();
+            return await uow.Books.Get(include: x => x.Include(y => y.BookCategory).Include(y => y.Publisher), filter: null, orderBy: null, bookParams.PageNumber, bookParams.PageSize);
         }
 
         public async Task<Book> GetById(int id)

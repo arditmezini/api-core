@@ -42,8 +42,8 @@ namespace AspNetCoreApi.Api.Controllers
             this.jwtOptions = jwtOptions.Value ?? throw new ArgumentNullException(nameof(jwtOptions));
         }
 
-        [ActionName("validate-token")]
-        [HttpGet]
+        [ActionName("validate")]
+        [HttpGet("{token}")]
         public async Task<ActionResult<ApiResponse>> ValidateToken(string token)
         {
             try

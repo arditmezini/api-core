@@ -1,5 +1,6 @@
 ﻿using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Identity;
+using AspNetCoreApi.Models.Common.Paging;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
@@ -7,7 +8,6 @@ using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
@@ -26,10 +26,10 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> Get()
+        public async Task<ActionResult<ApiResponsePagination>> Get([FromQuery] PagedParams bookParams)
         {
-            return new ApiResponse("Books retrived",
-                mapper.Map<IEnumerable<BookDto>>(await bookService.GetAll()));
+            var books = mapper.Map<PagedList<BookDto>>(await bookService.GetAll(bookParams));
+            return new ApiResponsePagination("Books retrived", books.Items, books.Pagination);
         }
 
         [HttpGet("{id}")]
@@ -40,14 +40,14 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponse>> Post([FromBody]BookDto entity)
+        public async Task<ActionResult<ApiResponse>> Post([FromBody] BookDto entity)
         {
             return new ApiResponse("New book added.",
                 await bookService.Add(mapper.Map<Book>(entity)));
         }
 
         [HttpPut]
-        public async Task<ActionResult<ApiResponse>> Put(int id, [FromBody]BookDto entity)
+        public async Task<ActionResult<ApiResponse>> Put(int id, [FromBody] BookDto entity)
         {
             return new ApiResponse($"The record with {id} was updated.",
                 await bookService.Update(id, mapper.Map<Book>(entity)));
