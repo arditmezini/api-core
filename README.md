@@ -1,4 +1,5 @@
-![Build Status](https://github.com/arditmezini/api-core/workflows/.NET%20Core/badge.svg?branch=master) 
+![.NET Core API](https://github.com/arditmezini/api-core/workflows/.NET%20Core%20API/badge.svg)
+![Xamarin Forms](https://github.com/arditmezini/api-core/workflows/Xamarin%20Forms/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/arditmezini/api-core/blob/master/LICENSE)
 
 # Work in progress...
