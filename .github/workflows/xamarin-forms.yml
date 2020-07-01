@@ -1,4 +1,4 @@
-name: CI on Push/Pull
+name: Xamarin Forms
 
 on: [push, pull_request]
 
