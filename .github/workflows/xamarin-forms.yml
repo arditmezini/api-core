@@ -1,0 +1,27 @@
+name: CI on Push/Pull
+
+on: [push, pull_request]
+
+jobs:      
+  
+  Android:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Android
+      run: |
+        nuget restore
+        cd BookStore
+        cd BookStore.Android
+        msbuild BookStore.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+        
+  iOS:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: iOS
+      run: |
+        nuget restore
+        cd BookStore
+        cd BookStore.iOS
+        msbuild BookStore.iOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
