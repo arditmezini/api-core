@@ -24,32 +24,25 @@ namespace AspNetCoreApi.Dal.Core
         public virtual async Task<PagedList<T>> Get(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
             Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int pageNumber = 0, int pageSize = 0)
         {
-            try
-            {
-                IQueryable<T> query = dbSet;
+            IQueryable<T> query = dbSet;
 
-                if (include != null)
-                    query = include(query);
+            if (include != null)
+                query = include(query);
 
-                if (filter != null)
-                    query = query.Where(filter);
+            if (filter != null)
+                query = query.Where(filter);
 
-                if (orderBy != null)
-                    query = orderBy(query);
+            if (orderBy != null)
+                query = orderBy(query);
 
-                if (pageNumber > 0)
-                    query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var count = await query.CountAsync();
 
-                var count = await query.CountAsync();
-                var items = await query.ToListAsync();
+            if (pageNumber > 0)
+                query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            
+            var items = await query.ToListAsync();
 
-                return new PagedList<T>(items, count, pageNumber, pageSize);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            return new PagedList<T>(items, count, pageNumber, pageSize);
         }
 
         public virtual async Task<T> GetById(int id)
