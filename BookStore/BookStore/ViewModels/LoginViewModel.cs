@@ -61,7 +61,7 @@ namespace BookStore.ViewModels
             if (response != null)
             {
                 _dialogService.HideLoading();
-                await _navigationService.NavigateToAsync<HomeViewModel>();
+                await _navigationService.NavigateToAsync<MainViewModel>();
             }
         }
 

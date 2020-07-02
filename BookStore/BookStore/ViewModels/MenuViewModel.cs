@@ -51,7 +51,7 @@ namespace BookStore.ViewModels
                 {
                     case MenuConstants.LogOut:
                         _settingsService.Token = null;
-                        await _navigationService.ClearBackStack();
+                        await _navigationService.PopToRootAsync();
                         break;
                     default:
                         break;
