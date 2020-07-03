@@ -1,6 +1,6 @@
 ﻿using BookStore.Contracts.Services.Data;
 using BookStore.Contracts.Services.General;
-using BookStore.Models.Dto;
+using BookStore.Models.Request;
 using BookStore.Utility.AsyncCommands;
 using BookStore.ViewModels.Base;
 using System.Threading.Tasks;
@@ -56,13 +56,14 @@ namespace BookStore.ViewModels
         private async Task OnSignIn()
         {
             _dialogService.ShowLoading();
-            var login = new LoginDto { Email = Username, Password = Password };
+            var login = new LoginRequest { Email = Username, Password = Password };
             var response = await _authenticationService.Login(login);
             if (response != null)
             {
                 _dialogService.HideLoading();
                 await _navigationService.NavigateToAsync<MainViewModel>();
             }
+            _dialogService.HideLoading();
         }
 
         private async Task OnRegistrationPage()

@@ -1,7 +1,7 @@
 ﻿using AspNetCoreApi.Common.Mail;
+using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Models.Common.Emails;
-using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
@@ -108,7 +108,9 @@ namespace AspNetCoreApi.Api.Controllers
                 await signInManager.SignInAsync(appUser, false);
                 var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
-                return new ApiResponse("User registered.", await GenerateJwtToken(appUser));
+                var user = mapper.Map<UserDto>(appUser);
+                user.Token = (string)await GenerateJwtToken(appUser);
+                return new ApiResponse("User registered.", user);
             }
             return new ApiResponse(400, new ApiError("User non registered"));
         }

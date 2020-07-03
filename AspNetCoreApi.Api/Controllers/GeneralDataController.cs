@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Models.Common.Identity;
+﻿using AspNetCoreApi.Common.LinqExtensions;
+using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
@@ -37,12 +38,13 @@ namespace AspNetCoreApi.Api.Controllers
                 mapper.Map<IEnumerable<CountriesDto>>(await generalDataService.GetCountries()));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ActionName("roles")]
         public async Task<ActionResult<ApiResponse>> GetRoles()
         {
-            return new ApiResponse("Roles retrived",
-                mapper.Map<IEnumerable<RoleDto>>(roleManager.Roles.ToList()));
+            var roles = roleManager.Roles.WhereIf(UserRole == Role.User || UserRole == null, x => x.Name == Role.User).ToList();
+            return new ApiResponse("Roles retrived", mapper.Map<IEnumerable<RoleDto>>(roles));
         }
     }
 }

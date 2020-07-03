@@ -1,6 +1,6 @@
-﻿namespace BookStore.Models.Dto
+﻿namespace BookStore.Models.Response
 {
-    public class UserDto
+    public class UserResponse
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

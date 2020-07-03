@@ -2,7 +2,9 @@
 using BookStore.Contracts.Repository;
 using BookStore.Contracts.Services.Data;
 using BookStore.Contracts.Services.General;
-using BookStore.Models.Dto;
+using BookStore.Models.Request;
+using BookStore.Models.Response;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookStore.Services.Data
@@ -20,13 +22,29 @@ namespace BookStore.Services.Data
             _connectionService = connectionService;
         }
 
-        public async Task<UserDto> Login(LoginDto login)
+        public async Task<UserResponse> Login(LoginRequest login)
         {
-            var response = await _genericRepository.Post<UserDto, LoginDto>(ApiConstants.AccountLogin, login);
+            var response = await _genericRepository.Post<UserResponse, LoginRequest>(ApiConstants.AccountLogin, login);
             if (response != null)
             {
                 _settingsService.Token = response.Token;
             }
+            return response;
+        }
+
+        public async Task<UserResponse> Register(RegisterRequest register)
+        {
+            var response = await _genericRepository.Post<UserResponse, RegisterRequest>(ApiConstants.AccountRegister, register);
+            if (response != null)
+            {
+                _settingsService.Token = response.Token;
+            }
+            return response;
+        }
+
+        public async Task<List<RoleResponse>> GetRoles()
+        {
+            var response = await _genericRepository.Get<List<RoleResponse>>(ApiConstants.DataRoles);
             return response;
         }
 

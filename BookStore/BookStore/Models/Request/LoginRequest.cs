@@ -1,6 +1,6 @@
-﻿namespace BookStore.Models.Dto
+﻿namespace BookStore.Models.Request
 {
-    public class LoginDto
+    public class LoginRequest
     {
         public string Email { get; set; }
         public string Password { get; set; }

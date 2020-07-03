@@ -1,7 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace AspNetCoreApi.Models.Common.Identity
+namespace AspNetCoreApi.Dal.Entities
 {
     public class ApplicationUser : IdentityUser
     {

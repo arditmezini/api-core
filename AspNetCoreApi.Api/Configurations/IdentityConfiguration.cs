@@ -1,5 +1,5 @@
-﻿using AspNetCoreApi.Data.DataContext;
-using AspNetCoreApi.Models.Common.Identity;
+﻿using AspNetCoreApi.Dal.Entities;
+using AspNetCoreApi.Data.DataContext;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 

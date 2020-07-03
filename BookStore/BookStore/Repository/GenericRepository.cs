@@ -50,6 +50,31 @@ namespace BookStore.Repository
             client.DefaultRequestHeaders.Add(ApiConstants.JwtAuthHeader, _settingsService.Token);
         }
 
+        public async Task<T> Get<T>(string url)
+        {
+            try
+            {
+                if (!_connectionService.IsConnected)
+                {
+                    MessagingCenter.Send(MessagingConstants.RestApiClient, MessagingConstants.NoInternet);
+                    return default;
+                }
+
+                var responseRequest = await client.GetAsync(url).ConfigureAwait(false);
+
+                if (!responseRequest.IsSuccessStatusCode)
+                    return default;
+
+                var responseData = await responseRequest.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var response = JsonConvert.DeserializeObject<ApiResponse<T>>(responseData);
+                return response.Result;
+            }
+            catch (Exception ex)
+            {
+                return default;
+            }
+        }
+
         public async Task<TOut> Post<TOut, TIn>(string url, TIn content)
         {
             try

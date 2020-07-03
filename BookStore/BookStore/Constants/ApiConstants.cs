@@ -12,8 +12,14 @@ namespace BookStore.Constants
         public const string BaseAccount = "account";
 
         public const string AccountLogin = BaseAccount + "/login";
-        public static string AccountRegister = BaseAccount + "/register";
-        public static string AccountValidateToken = BaseAccount + "/validate-token?token={token}";
+        public const string AccountRegister = BaseAccount + "/register";
+        public const string AccountValidateToken = BaseAccount + "/validate-token?token={token}";
+        #endregion
+
+        #region General Data
+        public const string BaseData = "data";
+
+        public const string DataRoles = BaseData + "/roles";
         #endregion
     }
 }

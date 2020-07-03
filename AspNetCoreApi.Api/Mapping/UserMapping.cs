@@ -1,4 +1,4 @@
-﻿using AspNetCoreApi.Models.Common.Identity;
+﻿using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Dto;
 using AutoMapper;
 

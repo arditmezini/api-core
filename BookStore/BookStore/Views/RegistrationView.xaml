@@ -33,7 +33,7 @@
             <Entry Grid.Row="2" Placeholder="{x:Static local:StringConstants.RPLastName}" />
             <Entry Grid.Row="3" Placeholder="{x:Static local:StringConstants.RPEmail}" />
             <Entry Grid.Row="4" Placeholder="{x:Static local:StringConstants.RPPassword}" IsPassword="True"/>
-            <Button Grid.Row="5" Text="{x:Static local:StringConstants.RPRegister}" Style="{StaticResource RegisterBtn}"></Button>
+            <Button Grid.Row="5" Text="{x:Static local:StringConstants.RPRegister}" Command="{Binding RegisterUser}" Style="{StaticResource RegisterBtn}"></Button>
             <Button Grid.Row="6" Text="{x:Static local:StringConstants.RPBackLogin}" Command="{Binding GoToLoginPage}" Style="{StaticResource RegisterBtn}"></Button>
         </Grid>
     </ContentPage.Content>
