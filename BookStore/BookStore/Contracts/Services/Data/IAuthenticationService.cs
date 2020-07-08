@@ -10,6 +10,7 @@ namespace BookStore.Contracts.Services.Data
         Task<UserResponse> Login(LoginRequest login);
         Task<UserResponse> Register(RegisterRequest register);
         Task<List<RoleResponse>> GetRoles();
-        bool IsUserAuthenticated();
+        Task<bool> ValidateToken(string token);
+        Task<bool> IsUserAuthenticated();
     }
 }

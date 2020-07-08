@@ -42,16 +42,25 @@ namespace BookStore.Services.Data
             return response;
         }
 
+        public async Task<bool> ValidateToken(string token)
+        {
+            var url = ApiConstants.AccountValidateToken.Replace("{token}", token);
+            var response = await _genericRepository.Get<bool>(url);
+            return response;
+        }
+
         public async Task<List<RoleResponse>> GetRoles()
         {
             var response = await _genericRepository.Get<List<RoleResponse>>(ApiConstants.DataRoles);
             return response;
         }
 
-        public bool IsUserAuthenticated()
+        public async Task<bool> IsUserAuthenticated()
         {
-            return !string.IsNullOrWhiteSpace(_settingsService.Token) &&
-                   _connectionService.IsConnected;
+            if (!string.IsNullOrWhiteSpace(_settingsService.Token) && _connectionService.IsConnected)
+                return await ValidateToken(_settingsService.Token);
+
+            return false;
         }
     }
 }

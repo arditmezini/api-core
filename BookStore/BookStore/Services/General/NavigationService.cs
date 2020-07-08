@@ -28,7 +28,8 @@ namespace BookStore.Services.General
 
         public async Task InitializeAsync()
         {
-            if (_authenticationService.IsUserAuthenticated())
+            var isAuthenticated = await _authenticationService.IsUserAuthenticated();
+            if (isAuthenticated)
             {
                 await NavigateToAsync<MainViewModel>();
             }
