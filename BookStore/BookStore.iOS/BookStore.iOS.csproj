@@ -144,4 +144,10 @@
       <Name>BookStore</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sm_logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sm_logo.png" />
+  </ItemGroup>
 </Project>

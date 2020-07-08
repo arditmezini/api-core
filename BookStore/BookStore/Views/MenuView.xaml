@@ -30,8 +30,7 @@
                 <RowDefinition Height="8*" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Image Source="carousel1.jpg" Aspect="AspectFill"></Image>
-                <Grid BackgroundColor="#444444" Opacity="0.8"/>
+                <Image Source="sm_logo.png" Aspect="Fill"></Image>
                 <Label Text="{Binding WelcomeText}" Style="{StaticResource MenuLabelStyle}"/>
             </Grid>
             <Grid Grid.Row="1">

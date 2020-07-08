@@ -1,4 +1,5 @@
-﻿using BookStore.Models.Enum;
+﻿using BookStore.Constants;
+using BookStore.Models.Enum;
 using System;
 using System.Globalization;
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace BookStore.Converters
             switch (type)
             {
                 case MenuItemType.Logout:
-                    return string.Empty;
+                    return IconConstants.Logout;
                 default:
                     return string.Empty;
             }
