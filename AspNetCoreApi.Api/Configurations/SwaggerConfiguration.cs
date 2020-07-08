@@ -46,7 +46,7 @@ namespace AspNetCoreApi.Api.Configurations
 
                 sg.SwaggerBearerAuth();
 
-                sg.AddFluentValidationRules();
+                //sg.AddFluentValidationRules();
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

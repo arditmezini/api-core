@@ -106,7 +106,9 @@ namespace AspNetCoreApi.Api.Controllers
             {
                 await userManager.AddToRoleAsync(appUser, model.Role);
                 await signInManager.SignInAsync(appUser, false);
-                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser);
+                var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser,
+                    new EmailAddress { Name = "Support", Address = "support@site.com" },
+                    new EmailAddress { Name = appUser.FirstName, Address = appUser.Email });
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
                 var user = mapper.Map<UserDto>(appUser);
                 user.Token = (string)await GenerateJwtToken(appUser);
