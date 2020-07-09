@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AspNetCoreApi.Api.Controllers
 {
     [Authorize(Policy = Role.User)]
-    [Route("api/statistics")]
+    [Route("api/statistics/[action]")]
     [ApiController]
     public class StatisticsController : BaseController
     {
@@ -22,6 +22,7 @@ namespace AspNetCoreApi.Api.Controllers
             this.statisticsService = statisticsService ?? throw new ArgumentNullException(nameof(statisticsService));
         }
 
+        [ActionName("dashboard")]
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetStatistics()
         {

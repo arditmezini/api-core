@@ -58,7 +58,7 @@ namespace BookStore.Services.Data
         public async Task<bool> IsUserAuthenticated()
         {
             if (!string.IsNullOrWhiteSpace(_settingsService.Token) && _connectionService.IsConnected)
-                return await ValidateToken(_settingsService.Token);
+                return true;// await ValidateToken(_settingsService.Token); 
 
             return false;
         }

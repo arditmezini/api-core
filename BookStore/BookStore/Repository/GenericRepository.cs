@@ -47,7 +47,7 @@ namespace BookStore.Repository
                 BaseAddress = new Uri(ApiConstants.BaseUrl)
             };
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(ApiConstants.JsonMediaType));
-            client.DefaultRequestHeaders.Add(ApiConstants.JwtAuthHeader, _settingsService.Token);
+            client.DefaultRequestHeaders.Add(ApiConstants.JwtAuthHeader, ApiConstants.JwtBarer + _settingsService.Token);
         }
 
         public async Task<T> Get<T>(string url)

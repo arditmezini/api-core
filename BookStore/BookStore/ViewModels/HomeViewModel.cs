@@ -1,12 +1,34 @@
-﻿using BookStore.Contracts.Services.General;
+﻿using BookStore.Contracts.Services.Data;
+using BookStore.Contracts.Services.General;
+using BookStore.Models.Response;
 using BookStore.ViewModels.Base;
+using System.Threading.Tasks;
 
 namespace BookStore.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
-        public HomeViewModel(INavigationService navigationService, IDialogService dialogService)
+        private readonly IStatisticsService _statisticsService;
+
+        #region Bindable Properties
+        private StatisticsResponse _statistics;
+        public StatisticsResponse Statistics
+        {
+            get => _statistics;
+            set => SetProperty(ref _statistics, value);
+        }
+        #endregion
+
+        public HomeViewModel(INavigationService navigationService, IDialogService dialogService,
+            IStatisticsService statisticsService)
             : base(navigationService, dialogService)
-        { }
+        {
+            _statisticsService = statisticsService;
+        }
+
+        public override async Task InitializeAsync(object data)
+        {
+            Statistics = await _statisticsService.GetStatistics();
+        }
     }
 }

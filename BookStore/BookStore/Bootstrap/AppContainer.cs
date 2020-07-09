@@ -48,6 +48,7 @@ namespace BookStore.Bootstrap
         {
             //services - data
             builder.RegisterType<AuthenticationService>().As<IAuthenticationService>();
+            builder.RegisterType<StatisticsService>().As<IStatisticsService>();
 
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
