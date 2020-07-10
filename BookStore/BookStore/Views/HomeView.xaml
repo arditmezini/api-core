@@ -4,7 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BookStore.Views.HomeView">
+             x:Class="BookStore.Views.HomeView"
+             Visual="Material">
 
     <ContentPage.Resources>
         <Style x:Key="Card" TargetType="Frame">

@@ -44,8 +44,8 @@ namespace BookStore.Services.Data
 
         public async Task<bool> ValidateToken(string token)
         {
-            var url = ApiConstants.AccountValidateToken.Replace("{token}", token);
-            var response = await _genericRepository.Get<bool>(url);
+            var tokenRequest = new TokenRequest { Token = token };
+            var response = await _genericRepository.Post<bool, TokenRequest>(ApiConstants.AccountValidateToken, tokenRequest);
             return response;
         }
 
@@ -58,7 +58,7 @@ namespace BookStore.Services.Data
         public async Task<bool> IsUserAuthenticated()
         {
             if (!string.IsNullOrWhiteSpace(_settingsService.Token) && _connectionService.IsConnected)
-                return true;// await ValidateToken(_settingsService.Token); 
+                return await ValidateToken(_settingsService.Token);
 
             return false;
         }

@@ -43,8 +43,8 @@ namespace AspNetCoreApi.Api.Controllers
         }
 
         [ActionName("validate")]
-        [HttpGet("{token}")]
-        public async Task<ActionResult<ApiResponse>> ValidateToken(string token)
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> ValidateToken(TokenDto token)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace AspNetCoreApi.Api.Controllers
                     IssuerSigningKey = key
                 };
                 var principal = new JwtSecurityTokenHandler()
-                    .ValidateToken(token, validationParams, out SecurityToken validatedToken);
+                    .ValidateToken(token.Token, validationParams, out SecurityToken validatedToken);
 
                 return new ApiResponse("Token validated succesfully", true);
             }
