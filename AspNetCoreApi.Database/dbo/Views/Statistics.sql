@@ -1,7 +1,9 @@
 ﻿CREATE VIEW [dbo].[Statistics]
 AS
-	SELECT
-        (SELECT DISTINCT COUNT(*) FROM Book) AS BookCount,
-        (SELECT DISTINCT COUNT(*) FROM Author) AS AuthorCount,
-		(SELECT DISTINCT COUNT(*) FROM BookCategory) AS CategoryCount,
-		(SELECT DISTINCT COUNT(*) FROM Publisher) AS PublisherCount
+	SELECT DISTINCT COUNT(*) AS Count, 'Book' As Description FROM Book 
+	UNION ALL
+	SELECT DISTINCT COUNT(*) AS Count, 'Author' As Description FROM Author 
+	UNION ALL
+	SELECT DISTINCT COUNT(*) AS Count, 'Category' As Description FROM BookCategory 
+	UNION ALL
+	SELECT DISTINCT COUNT(*) AS Count, 'Publisher' As Description FROM Publisher 

@@ -2,6 +2,7 @@
 using BookStore.Contracts.Services.General;
 using BookStore.Models.Response;
 using BookStore.ViewModels.Base;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace BookStore.ViewModels
@@ -11,8 +12,8 @@ namespace BookStore.ViewModels
         private readonly IStatisticsService _statisticsService;
 
         #region Bindable Properties
-        private StatisticsResponse _statistics;
-        public StatisticsResponse Statistics
+        private ObservableCollection<StatisticsResponse> _statistics;
+        public ObservableCollection<StatisticsResponse> Statistics
         {
             get => _statistics;
             set => SetProperty(ref _statistics, value);
@@ -28,7 +29,7 @@ namespace BookStore.ViewModels
 
         public override async Task InitializeAsync(object data)
         {
-            Statistics = await _statisticsService.GetStatistics();
+            Statistics = new ObservableCollection<StatisticsResponse>(await _statisticsService.GetStatistics());
         }
     }
 }

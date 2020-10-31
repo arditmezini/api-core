@@ -2,6 +2,7 @@
 using BookStore.Contracts.Repository;
 using BookStore.Contracts.Services.Data;
 using BookStore.Models.Response;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookStore.Services.Data
@@ -15,9 +16,9 @@ namespace BookStore.Services.Data
             _genericRepository = genericRepository;
         }
 
-        public async Task<StatisticsResponse> GetStatistics()
+        public async Task<List<StatisticsResponse>> GetStatistics()
         {
-            var response = await _genericRepository.Get<StatisticsResponse>(ApiConstants.StatisticsDashboard);
+            var response = await _genericRepository.Get<List<StatisticsResponse>>(ApiConstants.StatisticsDashboard);
             return response;
         }
     }

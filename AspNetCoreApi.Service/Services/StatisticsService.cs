@@ -1,6 +1,7 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Service.Contracts;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Services
@@ -14,7 +15,7 @@ namespace AspNetCoreApi.Service.Services
             this.uow = uow;
         }
 
-        public async Task<Statistics> GetStatistics()
+        public async Task<List<Statistics>> GetStatistics()
         {
             return await uow.StatisticsRepository.GetStatistics();
         }

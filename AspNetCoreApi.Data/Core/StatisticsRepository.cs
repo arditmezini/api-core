@@ -2,6 +2,7 @@
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
@@ -15,9 +16,9 @@ namespace AspNetCoreApi.Dal.Core
             _context = context;
         }
 
-        public async Task<Statistics> GetStatistics()
+        public async Task<List<Statistics>> GetStatistics()
         {
-            return await _context.Statistics.SingleOrDefaultAsync();
+            return await _context.Statistics.ToListAsync();
         }
     }
 }

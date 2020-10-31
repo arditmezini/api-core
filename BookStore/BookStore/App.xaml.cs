@@ -2,6 +2,7 @@
 using BookStore.Constants;
 using BookStore.Contracts.Services.General;
 using BookStore.Utility;
+using DLToolkit.Forms.Controls;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -13,9 +14,16 @@ namespace BookStore
         {
             InitializeComponent();
 
+            InitializeCustomComponents();
+
             InitializeApp();
 
             AsyncUtil.RunSync(() => InitializeNavigation());
+        }
+
+        private void InitializeCustomComponents()
+        {
+            FlowListView.Init();
         }
 
         private void InitializeApp()
