@@ -32,4 +32,4 @@
  - *[ConnectivityPlugin](https://github.com/jamesmontemagno/ConnectivityPlugin)*
  - *[ACR User Dialogs](https://github.com/aritchie/userdialogs)*
  - *[Xam.Plugins.Settings](https://github.com/jamesmontemagno/SettingsPlugin)*
- - *[FlowListView] (https://github.com/daniel-luberda/DLToolkit.Forms.Controls/tree/master/FlowListView)*
+ - *[FlowListView](https://github.com/daniel-luberda/DLToolkit.Forms.Controls/tree/master/FlowListView)*
