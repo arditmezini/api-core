@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
+using Android.Views;
 
 namespace BookStore.Droid
 {
@@ -29,6 +30,23 @@ namespace BookStore.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnResume()
+        {
+            #region Protecting Sensitive Data in the Background
+            Window.ClearFlags(WindowManagerFlags.Secure);
+            #endregion
+
+            base.OnResume();
+        }
+        protected override void OnPause()
+        {
+            #region Protecting Sensitive Data in the Background
+            Window.SetFlags(WindowManagerFlags.Secure, WindowManagerFlags.Secure);
+            #endregion
+
+            base.OnPause();
         }
     }
 }
