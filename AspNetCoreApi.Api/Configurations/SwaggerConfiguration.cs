@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -27,9 +26,9 @@ namespace AspNetCoreApi.Api.Configurations
                 sg.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "ASP.NET Core Web API",
+                        Title = "ASP.NET 5 Web API",
                         Version = "v1",
-                        Description = "ASP.NET Core Web API",
+                        Description = "ASP.NET 5 Web API",
                         Contact = new OpenApiContact
                         {
                             Name = "API Support",
