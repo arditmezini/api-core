@@ -178,6 +178,7 @@ namespace BookStore.Services.General
             _mappings.Add(typeof(MainViewModel), typeof(MainView));
             _mappings.Add(typeof(MenuViewModel), typeof(MenuView));
             _mappings.Add(typeof(HomeViewModel), typeof(HomeView));
+            _mappings.Add(typeof(ProfileViewModel), typeof(ProfileView));
         }
     }
 }

@@ -16,6 +16,7 @@ namespace BookStore.Constants
         public const string AccountLogin = BaseAccount + "/login";
         public const string AccountRegister = BaseAccount + "/register";
         public const string AccountValidateToken = BaseAccount + "/validate";
+        public const string AccountProfile = BaseAccount + "/profile/{email}";
         #endregion
 
         #region General Data

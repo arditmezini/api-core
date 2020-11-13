@@ -6,6 +6,7 @@ using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using AutoWrapper.Wrappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -115,6 +116,22 @@ namespace AspNetCoreApi.Api.Controllers
                 return new ApiResponse("User registered.", user);
             }
             return new ApiResponse(400, new ApiError("User non registered"));
+        }
+
+        [Authorize]
+        [ActionName("profile")]
+        [HttpGet("{email}")]
+        public async Task<ActionResult<ApiResponse>> Profile(string email)
+        {
+            var appUser = userManager.Users.SingleOrDefault(x => x.Email == email);
+            if (appUser == null)
+                return new ApiResponse(404, new ApiError("User not found"));
+
+            var roles = await userManager.GetRolesAsync(appUser);
+
+            var user = mapper.Map<UserDto>(appUser);
+            user.Role = string.Join(',', roles);
+            return new ApiResponse("Profile data", user);
         }
 
         protected async Task<object> GenerateJwtToken(ApplicationUser user)

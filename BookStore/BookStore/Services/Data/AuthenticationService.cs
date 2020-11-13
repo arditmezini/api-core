@@ -27,6 +27,7 @@ namespace BookStore.Services.Data
             var response = await _genericRepository.Post<UserResponse, LoginRequest>(ApiConstants.AccountLogin, login);
             if (response != null)
             {
+                _settingsService.Username = response.Email;
                 _settingsService.Token = response.Token;
             }
             return response;
@@ -52,6 +53,13 @@ namespace BookStore.Services.Data
         public async Task<List<RoleResponse>> GetRoles()
         {
             var response = await _genericRepository.Get<List<RoleResponse>>(ApiConstants.DataRoles);
+            return response;
+        }
+
+        public async Task<UserResponse> Profile(string email)
+        {
+            var url = ApiConstants.AccountProfile.Replace("{email}", email);
+            var response = await _genericRepository.Get<UserResponse>(url);
             return response;
         }
 

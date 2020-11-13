@@ -14,6 +14,8 @@ namespace BookStore.Converters
 
             switch (type)
             {
+                case MenuItemType.Profile:
+                    return IconConstants.Profile;
                 case MenuItemType.Logout:
                     return IconConstants.Logout;
                 default:

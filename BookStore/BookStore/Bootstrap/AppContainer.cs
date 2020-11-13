@@ -42,6 +42,7 @@ namespace BookStore.Bootstrap
             builder.RegisterType<MainViewModel>();
             builder.RegisterType<MenuViewModel>();
             builder.RegisterType<HomeViewModel>();
+            builder.RegisterType<ProfileViewModel>();
         }
 
         private static void RegisterServices(ContainerBuilder builder)

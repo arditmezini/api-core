@@ -1,7 +1,6 @@
 ﻿using BookStore.Constants;
 using BookStore.Contracts.Services.General;
 using BookStore.Models.Dto;
-using BookStore.Models.Enum;
 using BookStore.Utility.AsyncCommands;
 using BookStore.ViewModels.Base;
 using System.Collections.ObjectModel;
@@ -33,15 +32,11 @@ namespace BookStore.ViewModels
 
         private void LoadMenuItems()
         {
-            MenuItems.Add(new MainMenuItemDto
-            {
-                MenuText = MenuConstants.LogOut,
-                ViewModelToLoad = typeof(LoginViewModel),
-                MenuItemType = MenuItemType.Logout,
-            });
+            MenuItems.Add(MenuConstants.ItemProfile);
+            MenuItems.Add(MenuConstants.ItemLogOut);
         }
 
-        public IAsyncCommand<MainMenuItemDto> MenuItemTappedCommand { get; set; }
+        public AsyncCommand<MainMenuItemDto> MenuItemTappedCommand { get; set; }
 
         private async Task OnMenuItemTapped(MainMenuItemDto menuItem)
         {

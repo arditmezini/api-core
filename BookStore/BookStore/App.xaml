@@ -7,13 +7,24 @@
              x:Class="BookStore.App">
 
     <Application.Resources>
-        <Style x:Key="Title" TargetType="Label">
-            <Setter Property="FontSize" Value="50" />
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="TextDecorations" Value="Underline"/>
-            <Setter Property="HorizontalOptions" Value="Center" />
+
+        <Style x:Key="MainGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="15" />
         </Style>
         
+        <Style x:Key="PageTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="Margin" Value="0,15,0,0" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="BlueLine" TargetType="BoxView">
+            <Setter Property="Color" Value="Blue" />
+            <Setter Property="HeightRequest" Value="2" />
+            <Setter Property="HorizontalOptions" Value="Fill" />
+        </Style>
+
         <!--FontSize-->
         <OnPlatform x:Key="LargeFontSize" x:TypeArguments="x:Double">
             <On Platform="iOS" Value="20" />

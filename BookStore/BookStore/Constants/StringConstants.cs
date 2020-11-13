@@ -19,5 +19,13 @@
         public static string RPRegister = "Register";
         public static string RPBackLogin = "Back to login";
         #endregion
+
+        #region ProfilePage
+        public static string PPTitle = "Profile";
+        public static string PPFirstName = "FirstName:";
+        public static string PPLastName = "LastName:";
+        public static string PPEmail = "Email:";
+        public static string PPRole = "Role:";
+        #endregion
     }
 }
