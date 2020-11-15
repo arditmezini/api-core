@@ -43,7 +43,12 @@ namespace AspNetCoreApi.Api.Controllers
         [ActionName("roles")]
         public async Task<ActionResult<ApiResponse>> GetRoles()
         {
-            var roles = roleManager.Roles.WhereIf(UserRole == Role.User || UserRole == null, x => x.Name == Role.User).ToList();
+            List<IdentityRole> roles = new List<IdentityRole>();
+            await Task.Run(() =>
+            {
+                roles = roleManager.Roles.WhereIf(UserRole == Role.User || UserRole == null, x => x.Name == Role.User).ToList();
+            });
+
             return new ApiResponse("Roles retrived", mapper.Map<IEnumerable<RoleDto>>(roles));
         }
     }

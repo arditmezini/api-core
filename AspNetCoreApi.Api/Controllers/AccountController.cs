@@ -49,18 +49,21 @@ namespace AspNetCoreApi.Api.Controllers
         {
             try
             {
-                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.JwtKey));
-                var validationParams = new TokenValidationParameters
+                await Task.Run(() =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = jwtOptions.JwtIssuer,
-                    ValidAudience = jwtOptions.JwtAudience,
-                    IssuerSigningKey = key
-                };
-                var principal = new JwtSecurityTokenHandler()
-                    .ValidateToken(token.Token, validationParams, out SecurityToken validatedToken);
+                    var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.JwtKey));
+                    var validationParams = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = jwtOptions.JwtIssuer,
+                        ValidAudience = jwtOptions.JwtAudience,
+                        IssuerSigningKey = key
+                    };
+                    var principal = new JwtSecurityTokenHandler()
+                        .ValidateToken(token.Token, validationParams, out SecurityToken validatedToken);
+                });
 
                 return new ApiResponse("Token validated succesfully", true);
             }
