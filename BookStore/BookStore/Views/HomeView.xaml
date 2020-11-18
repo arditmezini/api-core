@@ -27,8 +27,8 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        
-        <flv:FlowListView FlowColumnCount="2" SeparatorVisibility="Default" HasUnevenRows="True" FlowItemsSource="{Binding Statistics}">
+
+        <flv:FlowListView FlowColumnCount="2" SeparatorVisibility="Default" HasUnevenRows="True" FlowItemsSource="{Binding Statistics}" FlowItemTappedCommand="{Binding ItemTappedCommand}">
             <flv:FlowListView.FlowColumnTemplate>
                 <DataTemplate>
                     <Frame Style="{StaticResource Card}" BackgroundColor="Orange">
