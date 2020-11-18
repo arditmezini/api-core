@@ -153,4 +153,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\sm_profile.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sm_author.png" />
+  </ItemGroup>
 </Project>

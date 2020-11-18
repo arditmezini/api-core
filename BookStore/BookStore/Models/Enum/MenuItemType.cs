@@ -2,7 +2,8 @@
 {
     public enum MenuItemType
     {
+        Authors,
         Profile,
-        Logout
+        Logout,
     }
 }

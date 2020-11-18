@@ -33,23 +33,13 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid BackgroundColor="LightCyan">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <Grid BackgroundColor="LightCyan" RowDefinitions="*,*,*">
 
             <StackLayout Grid.Row="0" VerticalOptions="Center">
                 <Label Style="{StaticResource Title}" Text="{x:Static local:StringConstants.LPTitle}"></Label>
             </StackLayout>
 
-            <Grid Grid.Row="1" Style="{StaticResource LoginForm}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Style="{StaticResource LoginForm}" RowDefinitions="*,*,*">
                 <Entry Grid.Row="0" Placeholder="{x:Static local:StringConstants.LPUsername}" Text="{Binding Username}" Style="{StaticResource Username}" />
                 <Entry Grid.Row="1" Placeholder="{x:Static local:StringConstants.LPPassword}" Text="{Binding Password}" Style="{StaticResource Password}" />
                 <Button Grid.Row="2" Text="{x:Static local:StringConstants.LPSignIn}" Style="{StaticResource LoginBtn}" Command="{Binding SignInCommand}"/>

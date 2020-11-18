@@ -15,19 +15,9 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <Grid Style="{StaticResource MainGrid}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
+        <Grid Style="{StaticResource MainGrid}" 
+              RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="5*,5*">
+           
             <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical">
                 <Label Style="{StaticResource PageTitle}" Text="{x:Static local:StringConstants.PPTitle}"></Label>
                 <BoxView Style="{StaticResource BlueLine}"></BoxView>

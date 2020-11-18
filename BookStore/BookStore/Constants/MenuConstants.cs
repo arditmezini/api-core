@@ -14,6 +14,14 @@ namespace BookStore.Constants
             MenuItemType = MenuItemType.Profile
         };
 
+        public const string Authors = "Authors";
+        public static MainMenuItemDto ItemAuthors = new MainMenuItemDto
+        {
+            MenuText = Authors,
+            ViewModelToLoad = typeof(AuthorViewModel),
+            MenuItemType = MenuItemType.Authors
+        };
+
         public const string LogOut = "Log out";
         public static MainMenuItemDto ItemLogOut = new MainMenuItemDto
         {

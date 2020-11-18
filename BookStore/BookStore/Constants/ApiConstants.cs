@@ -30,5 +30,9 @@ namespace BookStore.Constants
 
         public const string StatisticsDashboard = BaseStatistics + "/dashboard";
         #endregion
+
+        #region Author
+        public const string BaseAuthor = "author";
+        #endregion
     }
 }

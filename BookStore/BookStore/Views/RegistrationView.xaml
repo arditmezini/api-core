@@ -9,6 +9,10 @@
              Visual="Material">
     
     <ContentPage.Resources>
+        <Style x:Key="RegistrationGrid" TargetType="Grid">
+            <Setter Property="BackgroundColor" Value="LightCyan" />
+            <Setter Property="Padding" Value="20" />
+        </Style>
         <Style x:Key="RegisterBtn" TargetType="Button">
             <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="VerticalOptions" Value="Center" />
@@ -16,18 +20,8 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <Grid BackgroundColor="LightCyan" Padding="20">
+        <Grid Style="{StaticResource RegistrationGrid}" RowDefinitions="*,*,*,*,*,*,*">
             
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
             <Label Grid.Row="0" Text="{x:Static local:StringConstants.RPTitle}" Style="{StaticResource Title}"/>
             <Entry Grid.Row="1" Placeholder="{x:Static local:StringConstants.RPFirstName}" Text="{Binding FirstName}"/>
             <Entry Grid.Row="2" Placeholder="{x:Static local:StringConstants.RPLastName}" Text="{Binding LastName}"/>
@@ -35,6 +29,7 @@
             <Entry Grid.Row="4" Placeholder="{x:Static local:StringConstants.RPPassword}" IsPassword="True" Text="{Binding Password}"/>
             <Button Grid.Row="5" Text="{x:Static local:StringConstants.RPRegister}" Command="{Binding RegisterCommand}" Style="{StaticResource RegisterBtn}"></Button>
             <Button Grid.Row="6" Text="{x:Static local:StringConstants.RPBackLogin}" Command="{Binding GoToLoginPage}" Style="{StaticResource RegisterBtn}"></Button>
+            
         </Grid>
     </ContentPage.Content>
     

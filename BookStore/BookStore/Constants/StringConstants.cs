@@ -27,5 +27,9 @@
         public static string PPEmail = "Email:";
         public static string PPRole = "Role:";
         #endregion
+
+        #region AuthorPage
+        public static string APTitle = "Authors";
+        #endregion
     }
 }

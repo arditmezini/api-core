@@ -32,6 +32,7 @@ namespace BookStore.ViewModels
 
         private void LoadMenuItems()
         {
+            MenuItems.Add(MenuConstants.ItemAuthors);
             MenuItems.Add(MenuConstants.ItemProfile);
             MenuItems.Add(MenuConstants.ItemLogOut);
         }

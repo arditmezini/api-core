@@ -43,6 +43,7 @@ namespace BookStore.Bootstrap
             builder.RegisterType<MenuViewModel>();
             builder.RegisterType<HomeViewModel>();
             builder.RegisterType<ProfileViewModel>();
+            builder.RegisterType<AuthorViewModel>();
         }
 
         private static void RegisterServices(ContainerBuilder builder)
@@ -50,6 +51,7 @@ namespace BookStore.Bootstrap
             //services - data
             builder.RegisterType<AuthenticationService>().As<IAuthenticationService>();
             builder.RegisterType<StatisticsService>().As<IStatisticsService>();
+            builder.RegisterType<AuthorService>().As<IAuthorService>();
 
             //services - general
             builder.RegisterType<NavigationService>().As<INavigationService>();
