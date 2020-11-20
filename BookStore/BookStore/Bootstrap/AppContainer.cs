@@ -44,6 +44,7 @@ namespace BookStore.Bootstrap
             builder.RegisterType<HomeViewModel>();
             builder.RegisterType<ProfileViewModel>();
             builder.RegisterType<AuthorViewModel>();
+            builder.RegisterType<NewsViewModel>();
         }
 
         private static void RegisterServices(ContainerBuilder builder)

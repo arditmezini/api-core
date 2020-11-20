@@ -1,4 +1,5 @@
 ﻿using AspNetCoreApi.Api.Configurations;
+using AspNetCoreApi.Api.Hubs;
 using AspNetCoreApi.Dal.Extensions;
 using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Service;
@@ -63,6 +64,8 @@ namespace AspNetCoreApi.Api
 
             services.ConfigureMvc();
 
+            services.AddSignalR();
+
             services.ConfigureMailKit(Configuration);
 
             services.AddAutoMapper(typeof(Startup));
@@ -92,9 +95,11 @@ namespace AspNetCoreApi.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(ep =>
+            app.UseEndpoints(routes =>
             {
-                ep.MapControllers();
+                routes.MapControllers();
+
+                routes.MapHub<NewsHub>("/newshub");
             });
 
             app.UseHangfire();

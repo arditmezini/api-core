@@ -4,6 +4,7 @@
     {
         Authors,
         Profile,
+        News,
         Logout,
     }
 }

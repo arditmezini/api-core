@@ -24,6 +24,7 @@
  - *[EntityFrameworkCore](https://github.com/dotnet/efcore)*
  - *[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)*
  - *[MailKit](https://github.com/jstedfast/MailKit)*
+ - *SignalR Hubs*
  
  ## Xamarin.Forms Sample Project 
  - Material renderers
@@ -33,3 +34,4 @@
  - *[ACR User Dialogs](https://github.com/aritchie/userdialogs)*
  - *[Xam.Plugins.Settings](https://github.com/jamesmontemagno/SettingsPlugin)*
  - *[FlowListView](https://github.com/daniel-luberda/DLToolkit.Forms.Controls/tree/master/FlowListView)*
+ - *[SignalR Hubs](Microsoft.AspNetCore.SignalR.Client)*

@@ -14,6 +14,7 @@
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.466" />
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
@@ -45,6 +46,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\NewsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ProfileView.xaml">

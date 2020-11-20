@@ -31,5 +31,9 @@
         #region AuthorPage
         public static string APTitle = "Authors";
         #endregion
+
+        #region NP
+        public static string NPTitle = "News";
+        #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace AspNetCoreApi.Service.Services
 
         public async Task<List<Statistics>> GetStatistics()
         {
-            return await uow.StatisticsRepository.GetStatistics();
+            return await uow.Statistics.GetStatistics();
         }
     }
 }

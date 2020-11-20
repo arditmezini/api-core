@@ -1,7 +1,6 @@
 ﻿using AspNetCoreApi.Dal.Configurations;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
-using AspNetCoreApi.Models.Common.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +33,7 @@ namespace AspNetCoreApi.Data.DataContext
         public virtual DbSet<BookCategory> BookCategories { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
         public virtual DbSet<Countries> Countries { get; set; }
+        public virtual DbSet<News> News { get; set; }
 
         //Views
         public virtual DbSet<Statistics> Statistics { get; set; }
@@ -68,6 +68,7 @@ namespace AspNetCoreApi.Data.DataContext
             builder.ApplyConfiguration(new PublisherConfiguration());
             builder.ApplyConfiguration(new BookAuthorsConfiguration());
             builder.ApplyConfiguration(new StatisticsConfiguration());
+            builder.ApplyConfiguration(new NewsConfiguration());
         }
 
         private void OnBeforeSaving()

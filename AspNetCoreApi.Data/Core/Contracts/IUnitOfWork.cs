@@ -12,7 +12,8 @@ namespace AspNetCoreApi.Dal.Core.Contracts
         IBookRepository Books { get; }
         IPublisherRepository Publishers { get; }
         IGeneralDataRepository GeneralData { get; }
-        IStatisticsRepository StatisticsRepository { get; }
+        IStatisticsRepository Statistics { get; }
+        INewsRepository News { get; }
 
         bool Complete();
         Task<bool> CompleteAsync();

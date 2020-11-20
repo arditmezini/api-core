@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Configurations
 {
@@ -42,6 +43,21 @@ namespace AspNetCoreApi.Api.Configurations
                         ValidIssuer = jwtConfig.JwtIssuer,
                         ValidateAudience = true,
                         ValidAudience = jwtConfig.JwtAudience,
+                    };
+
+                    cfg.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["authorization"];
+
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/newshub"))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 

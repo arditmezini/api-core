@@ -22,6 +22,14 @@ namespace BookStore.Constants
             MenuItemType = MenuItemType.Authors
         };
 
+        public const string News = "News";
+        public static MainMenuItemDto ItemNews = new MainMenuItemDto
+        {
+            MenuText = News,
+            ViewModelToLoad = typeof(NewsViewModel),
+            MenuItemType = MenuItemType.News
+        };
+
         public const string LogOut = "Log out";
         public static MainMenuItemDto ItemLogOut = new MainMenuItemDto
         {

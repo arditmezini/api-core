@@ -84,16 +84,29 @@ namespace AspNetCoreApi.Dal.Core
             }
         }
 
-        private IStatisticsRepository _statisticsRepository;
-        public IStatisticsRepository StatisticsRepository
+        private IStatisticsRepository _statistics;
+        public IStatisticsRepository Statistics
         {
             get
             {
-                if (_statisticsRepository == null)
+                if (_statistics == null)
                 {
-                    _statisticsRepository = new StatisticsRepository(_context);
+                    _statistics = new StatisticsRepository(_context);
                 }
-                return _statisticsRepository;
+                return _statistics;
+            }
+        }
+
+        private INewsRepository _news;
+        public INewsRepository News
+        {
+            get
+            {
+                if (_news == null)
+                {
+                    _news = new NewsRepository(_context);
+                }
+                return _news;
             }
         }
         #endregion

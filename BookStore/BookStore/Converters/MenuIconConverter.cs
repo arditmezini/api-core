@@ -18,6 +18,8 @@ namespace BookStore.Converters
                     return IconConstants.Authors;
                 case MenuItemType.Profile:
                     return IconConstants.Profile;
+                case MenuItemType.News:
+                    return IconConstants.News;
                 case MenuItemType.Logout:
                     return IconConstants.Logout;
                 default:

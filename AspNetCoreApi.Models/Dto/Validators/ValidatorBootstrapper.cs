@@ -14,6 +14,7 @@ namespace AspNetCoreApi.Models.Dto.Validators
             services.AddTransient<IValidator<PublisherDto>, PublisherValidator>();
             services.AddTransient<IValidator<RegisterDto>, RegisterValidator>();
             services.AddTransient<IValidator<LoginDto>, LoginValidator>();
+            services.AddTransient<IValidator<NewsDto>, NewsValidator>();
         }
     }
 }
