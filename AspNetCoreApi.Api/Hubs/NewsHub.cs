@@ -1,6 +1,7 @@
 ﻿using AspNetCoreApi.Common.Constants;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Identity;
+using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +26,7 @@ namespace AspNetCoreApi.Api.Hubs
         public async Task OpenNews()
         {
             IEnumerable<News> news = await newsService.GetAll();
-            await Clients.All.SendAsync(HubConstants.OpenNews, news);
+            await Clients.All.SendAsync(HubConstants.OpenNews, mapper.Map<IEnumerable<NewsDto>>(news));
         }
 
         public async Task SendNews(News news)
@@ -37,9 +38,9 @@ namespace AspNetCoreApi.Api.Hubs
             }
         }
 
-        //public async Task CloseNews()
-        //{
-        //    await Clients.All.SendAsync(HubConstants.CloseNews, new List<string>());
-        //}
+        public async Task CloseNews()
+        {
+            await Clients.All.SendAsync(HubConstants.CloseNews, new List<NewsDto>());
+        }
     }
 }

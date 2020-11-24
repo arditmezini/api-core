@@ -1,6 +1,7 @@
 ﻿using BookStore.Constants;
 using BookStore.Contracts.Services.General;
 using BookStore.Models.Hub;
+using BookStore.Utility.AsyncCommands;
 using BookStore.ViewModels.Base;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Collections.Generic;
@@ -37,6 +38,8 @@ namespace BookStore.ViewModels
             _settingsService = settingsService;
 
             ConfigureNewsHub();
+
+            DisconnectCommand = new AsyncCommand(Disconnect);
         }
 
         private void ConfigureNewsHub()
@@ -66,7 +69,10 @@ namespace BookStore.ViewModels
                 News.Add(news);
             });
 
-            //hubConnection.On<NewsModel>(HubConstants.CloseNews, (news) => { });
+            hubConnection.On<IEnumerable<NewsModel>>(HubConstants.CloseNews, (news) =>
+            {
+                News = new ObservableCollection<NewsModel>(news);
+            });
         }
 
         public override async Task InitializeAsync(object data)
@@ -82,12 +88,13 @@ namespace BookStore.ViewModels
             IsConnected = true;
         }
 
-        //async Task Disconnect()
-        //{
-        //    await hubConnection.InvokeAsync(HubConstants.CloseNews);
-        //    await hubConnection.StopAsync();
+        public IAsyncCommand DisconnectCommand { get; }
+        async Task Disconnect()
+        {
+            await hubConnection.InvokeAsync(HubConstants.CloseNews);
+            await hubConnection.StopAsync();
 
-        //    IsConnected = false;
-        //}
+            IsConnected = false;
+        }
     }
 }
