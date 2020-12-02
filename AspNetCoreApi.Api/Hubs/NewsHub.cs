@@ -29,12 +29,12 @@ namespace AspNetCoreApi.Api.Hubs
             await Clients.All.SendAsync(HubConstants.OpenNews, mapper.Map<IEnumerable<NewsDto>>(news));
         }
 
-        public async Task SendNews(News news)
+        public async Task SendNews(NewsDto entity)
         {
-            bool addNews = await newsService.Add(news);
+            bool addNews = await newsService.Add(mapper.Map<News>(entity));
             if (addNews)
             {
-                await Clients.All.SendAsync(HubConstants.SendNews, news);
+                await Clients.All.SendAsync(HubConstants.SendNews, mapper.Map<NewsDto>(entity));
             }
         }
 

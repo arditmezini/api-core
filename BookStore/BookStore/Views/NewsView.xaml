@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:BookStore.Constants"
              xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView" 
-             xmlns:behaviors="clr-namespace:BookStore.Behaviors"
              x:Class="BookStore.Views.NewsView">
     <ContentPage.Resources>
         <Style x:Key="Title" TargetType="Label">
@@ -15,10 +14,6 @@
             <Setter Property="FontSize" Value="10" />
         </Style>
     </ContentPage.Resources>
-
-    <ContentPage.Behaviors>
-        <behaviors:EventToCommandBehavior EventName="Disappearing" Command="{Binding DisconnectCommand}"/>
-    </ContentPage.Behaviors>
 
     <ContentPage.Content>
 

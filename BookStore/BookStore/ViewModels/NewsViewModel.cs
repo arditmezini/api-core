@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BookStore.ViewModels
 {
@@ -38,8 +39,6 @@ namespace BookStore.ViewModels
             _settingsService = settingsService;
 
             ConfigureNewsHub();
-
-            DisconnectCommand = new AsyncCommand(Disconnect);
         }
 
         private void ConfigureNewsHub()
@@ -73,6 +72,11 @@ namespace BookStore.ViewModels
             {
                 News = new ObservableCollection<NewsModel>(news);
             });
+
+            MessagingCenter.Subscribe<string>(this, MessagingConstants.CloseNewsHub, async (eventSender) =>
+            {
+                await Disconnect();
+            });
         }
 
         public override async Task InitializeAsync(object data)
@@ -88,7 +92,6 @@ namespace BookStore.ViewModels
             IsConnected = true;
         }
 
-        public IAsyncCommand DisconnectCommand { get; }
         async Task Disconnect()
         {
             await hubConnection.InvokeAsync(HubConstants.CloseNews);

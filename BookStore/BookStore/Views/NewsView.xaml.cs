@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BookStore.Constants;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace BookStore.Views
@@ -9,6 +10,11 @@ namespace BookStore.Views
         public NewsView()
         {
             InitializeComponent();
+        }
+
+        protected override void OnDisappearing()
+        {
+            MessagingCenter.Send(MessagingConstants.NewsHub, MessagingConstants.CloseNewsHub);
         }
     }
 }
