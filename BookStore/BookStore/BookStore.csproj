@@ -11,8 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.466" />
-    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.468" />
+    <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="DLToolkit.Forms.Controls.FlowListView" Version="2.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

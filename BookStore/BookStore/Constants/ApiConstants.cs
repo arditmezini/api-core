@@ -5,7 +5,7 @@ namespace BookStore.Constants
     public class ApiConstants
     {
         public static string BaseUrl = DeviceInfo.Platform.Equals(DevicePlatform.Android)
-            ? "https://10.0.2.2:44325/api/" : "https://localhost:44325/api/";
+            ? "https://10.0.2.2:44325/api/1.0/" : "https://localhost:44325/api/1.0/";
         public const string JwtAuthHeader = "authorization";
         public const string JwtBarer = "Bearer ";
         public const string JsonMediaType = "application/json";
