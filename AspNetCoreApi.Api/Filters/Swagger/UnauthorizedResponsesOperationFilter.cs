@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AspNetCoreApi.Api.Filters
+namespace AspNetCoreApi.Api.Filters.Swagger
 {
     public class UnauthorizedResponsesOperationFilter : IOperationFilter
     {

@@ -12,9 +12,10 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize(Policy = Role.Admin)]
-    [Route("api/publisher")]
     [ApiController]
+    [Authorize(Policy = Role.Admin)]
+    [ApiVersion("1.0")]
+    [Route("api/{version:apiVersion}/publisher")]
     public class PublisherController : BaseController
     {
         private readonly IPublisherService publisherService;

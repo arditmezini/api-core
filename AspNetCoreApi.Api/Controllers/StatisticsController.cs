@@ -9,9 +9,11 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize(Policy = Role.User)]
-    [Route("api/statistics/[action]")]
     [ApiController]
+    [Authorize(Policy = Role.User)]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
+    [Route("api/{version:apiVersion}/statistics/[action]")]
     public class StatisticsController : BaseController
     {
         private readonly IStatisticsService statisticsService;
@@ -22,9 +24,18 @@ namespace AspNetCoreApi.Api.Controllers
             this.statisticsService = statisticsService ?? throw new ArgumentNullException(nameof(statisticsService));
         }
 
+        [MapToApiVersion("1.0")]
         [ActionName("dashboard")]
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetStatistics()
+        {
+            return new ApiResponse("Statistics retrived", await statisticsService.GetStatistics());
+        }
+
+        [MapToApiVersion("2.0")]
+        [ActionName("dashboard")]
+        [HttpGet]
+        public async Task<ActionResult<ApiResponse>> GetStatisticsV2()
         {
             return new ApiResponse("Statistics retrived", await statisticsService.GetStatistics());
         }

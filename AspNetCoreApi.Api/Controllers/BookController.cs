@@ -12,9 +12,10 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize(Policy = Role.User)]
-    [Route("api/book")]
     [ApiController]
+    [Authorize(Policy = Role.User)]
+    [ApiVersion("1.0")]
+    [Route("api/{version:apiVersion}/book")]
     public class BookController : BaseController
     {
         private readonly IBookService bookService;

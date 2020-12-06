@@ -1,11 +1,13 @@
-﻿using AspNetCoreApi.Api.Filters;
+﻿using AspNetCoreApi.Api.Filters.Swagger;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace AspNetCoreApi.Api.Configurations
@@ -21,13 +23,45 @@ namespace AspNetCoreApi.Api.Configurations
         /// <param name="services"></param>
         public static void ConfigureSwagger(this IServiceCollection services)
         {
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+
             services.AddSwaggerGen(sg =>
             {
+                sg.ResolveConflictingActions(descriptions =>
+                {
+                    return descriptions.First();
+                });
+
                 sg.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
                         Title = "ASP.NET 5 Web API",
-                        Version = "v1",
+                        Version = "1.0",
+                        Description = "ASP.NET 5 Web API",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "API Support",
+                            Email = "support@api.com",
+                            Url = new Uri("http://wwww.contact.com")
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "Apache 2.0",
+                            Url = new Uri("http://www.apache.org/licenses/LICENSE-2.0.html")
+                        },
+                        TermsOfService = new Uri("http://www.tos.com")
+                    });
+
+                sg.SwaggerDoc("v2",
+                    new OpenApiInfo
+                    {
+                        Title = "ASP.NET 5 Web API",
+                        Version = "2.0",
                         Description = "ASP.NET 5 Web API",
                         Contact = new OpenApiContact
                         {
@@ -44,6 +78,8 @@ namespace AspNetCoreApi.Api.Configurations
                     });
 
                 sg.SwaggerBearerAuth();
+
+                sg.ConfigureSwaggerApiVersioning();
 
                 //sg.AddFluentValidationRules();
 
@@ -64,6 +100,7 @@ namespace AspNetCoreApi.Api.Configurations
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "My API V2");
                 c.DocExpansion(DocExpansion.None);
             });
         }
@@ -95,6 +132,13 @@ namespace AspNetCoreApi.Api.Configurations
             };
 
             sgo.OperationFilter<UnauthorizedResponsesOperationFilter>(securityScheme);
+        }
+
+        private static void ConfigureSwaggerApiVersioning(this SwaggerGenOptions sgo)
+        {
+            sgo.OperationFilter<RemoveVersionFromParameterOperationFilter>();
+
+            sgo.DocumentFilter<ReplaceVersionWithExactValueInPathDocumentFilter>();
         }
     }
 }

@@ -14,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize(Policy = Role.Manager)]
-    [Route("api/author")]
     [ApiController]
+    [Authorize(Policy = Role.Manager)]
+    [ApiVersion("1.0")]
+    [Route("api/{version:apiVersion}/author")]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService authorService;

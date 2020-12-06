@@ -21,8 +21,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Route("api/account/[action]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/{version:apiVersion}/account/[action]")]
     public class AccountController : BaseController
     {
         private readonly IEmailService emailService;

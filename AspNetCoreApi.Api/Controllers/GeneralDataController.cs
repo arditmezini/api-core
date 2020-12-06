@@ -14,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [Authorize(Policy = Role.User)]
-    [Route("api/data/[action]")]
     [ApiController]
+    [Authorize(Policy = Role.User)]
+    [ApiVersion("1.0")]
+    [Route("api/{version:apiVersion}/data/[action]")]
     public class GeneralDataController : BaseController
     {
         private readonly IGeneralDataService generalDataService;

@@ -2,7 +2,7 @@
 using Hangfire.Dashboard;
 using System.Security.Claims;
 
-namespace AspNetCoreApi.Api.Filters
+namespace AspNetCoreApi.Api.Filters.Hangfire
 {
     public class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
     {

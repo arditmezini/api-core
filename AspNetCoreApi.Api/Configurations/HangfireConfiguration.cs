@@ -1,4 +1,4 @@
-﻿using AspNetCoreApi.Api.Filters;
+﻿using AspNetCoreApi.Api.Filters.Hangfire;
 using AspNetCoreApi.Models.Common.Identity;
 using Hangfire;
 using Hangfire.Dashboard;
