@@ -1,4 +1,5 @@
 ﻿using AspNetCoreApi.Api.Filters.Swagger;
+using AspNetCoreApi.Common.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,7 @@ namespace AspNetCoreApi.Api.Configurations
                     new OpenApiInfo
                     {
                         Title = "ASP.NET 5 Web API",
-                        Version = "1.0",
+                        Version = ApiConstants.Version1,
                         Description = "ASP.NET 5 Web API",
                         Contact = new OpenApiContact
                         {
@@ -61,7 +62,7 @@ namespace AspNetCoreApi.Api.Configurations
                     new OpenApiInfo
                     {
                         Title = "ASP.NET 5 Web API",
-                        Version = "2.0",
+                        Version = ApiConstants.Version2,
                         Description = "ASP.NET 5 Web API",
                         Contact = new OpenApiContact
                         {
@@ -81,12 +82,10 @@ namespace AspNetCoreApi.Api.Configurations
 
                 sg.ConfigureSwaggerApiVersioning();
 
+                //todo
                 //sg.AddFluentValidationRules();
 
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                sg.IncludeXmlComments(xmlPath);
+                sg.ConfigureComments();
             });
         }
 
@@ -134,11 +133,26 @@ namespace AspNetCoreApi.Api.Configurations
             sgo.OperationFilter<UnauthorizedResponsesOperationFilter>(securityScheme);
         }
 
+        /// <summary>
+        /// Swagger Api Versioning
+        /// </summary>
+        /// <param name="sgo"></param>
         private static void ConfigureSwaggerApiVersioning(this SwaggerGenOptions sgo)
         {
             sgo.OperationFilter<RemoveVersionFromParameterOperationFilter>();
 
             sgo.DocumentFilter<ReplaceVersionWithExactValueInPathDocumentFilter>();
+        }
+
+        /// <summary>
+        /// XML comments
+        /// </summary>
+        /// <param name="sgo"></param>
+        private static void ConfigureComments(this SwaggerGenOptions sgo)
+        {
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            sgo.IncludeXmlComments(xmlPath);
         }
     }
 }

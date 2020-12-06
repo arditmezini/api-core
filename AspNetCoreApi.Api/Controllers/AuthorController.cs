@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Common.Constants;
+﻿using AspNetCoreApi.Api.Controllers.Base;
+using AspNetCoreApi.Common.Constants;
 using AspNetCoreApi.Common.LinqExtensions;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Identity;
@@ -14,10 +15,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [ApiController]
     [Authorize(Policy = Role.Manager)]
-    [ApiVersion("1.0")]
-    [Route("api/{version:apiVersion}/author")]
+    [ApiVersion(ApiConstants.Version1)]
+    [Route(ApiConstants.BaseAuthor)]
     public class AuthorController : BaseController
     {
         private readonly IAuthorService authorService;

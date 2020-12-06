@@ -1,4 +1,6 @@
-﻿using AspNetCoreApi.Common.Mail;
+﻿using AspNetCoreApi.Api.Controllers.Base;
+using AspNetCoreApi.Common.Constants;
+using AspNetCoreApi.Common.Mail;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Models.Common.Emails;
@@ -21,9 +23,8 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [ApiController]
-    [ApiVersion("1.0")]
-    [Route("api/{version:apiVersion}/account/[action]")]
+    [ApiVersion(ApiConstants.Version1)]
+    [Route(ApiConstants.BaseAccount)]
     public class AccountController : BaseController
     {
         private readonly IEmailService emailService;

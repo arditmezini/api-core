@@ -1,4 +1,6 @@
-﻿using AspNetCoreApi.Dal.Entities;
+﻿using AspNetCoreApi.Api.Controllers.Base;
+using AspNetCoreApi.Common.Constants;
+using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Common.Paging;
 using AspNetCoreApi.Models.Dto;
@@ -12,10 +14,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [ApiController]
     [Authorize(Policy = Role.User)]
-    [ApiVersion("1.0")]
-    [Route("api/{version:apiVersion}/book")]
+    [ApiVersion(ApiConstants.Version1)]
+    [Route(ApiConstants.BaseBook)]
     public class BookController : BaseController
     {
         private readonly IBookService bookService;

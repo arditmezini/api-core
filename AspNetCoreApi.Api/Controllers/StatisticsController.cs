@@ -1,4 +1,6 @@
-﻿using AspNetCoreApi.Models.Common.Identity;
+﻿using AspNetCoreApi.Api.Controllers.Base;
+using AspNetCoreApi.Common.Constants;
+using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using AutoWrapper.Wrappers;
@@ -9,12 +11,11 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [ApiController]
     [Authorize(Policy = Role.User)]
-    [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
-    [Route("api/{version:apiVersion}/statistics/[action]")]
-    public class StatisticsController : BaseController
+    [ApiVersion(ApiConstants.Version1)]
+    [ApiVersion(ApiConstants.Version2)]
+    [Route(ApiConstants.BaseStatistics)]
+    public partial class StatisticsController : BaseController
     {
         private readonly IStatisticsService statisticsService;
 
@@ -24,7 +25,7 @@ namespace AspNetCoreApi.Api.Controllers
             this.statisticsService = statisticsService ?? throw new ArgumentNullException(nameof(statisticsService));
         }
 
-        [MapToApiVersion("1.0")]
+        [MapToApiVersion(ApiConstants.Version1)]
         [ActionName("dashboard")]
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetStatistics()
@@ -32,7 +33,7 @@ namespace AspNetCoreApi.Api.Controllers
             return new ApiResponse("Statistics retrived", await statisticsService.GetStatistics());
         }
 
-        [MapToApiVersion("2.0")]
+        [MapToApiVersion(ApiConstants.Version2)]
         [ActionName("dashboard")]
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetStatisticsV2()

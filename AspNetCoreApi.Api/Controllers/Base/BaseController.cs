@@ -4,8 +4,9 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 
-namespace AspNetCoreApi.Api.Controllers
+namespace AspNetCoreApi.Api.Controllers.Base
 {
+    [ApiController]
     public class BaseController : ControllerBase
     {
         protected readonly IMapper mapper;

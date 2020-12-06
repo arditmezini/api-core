@@ -1,4 +1,6 @@
-﻿using AspNetCoreApi.Dal.Entities;
+﻿using AspNetCoreApi.Api.Controllers.Base;
+using AspNetCoreApi.Common.Constants;
+using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
@@ -12,10 +14,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [ApiController]
     [Authorize(Policy = Role.Admin)]
-    [ApiVersion("1.0")]
-    [Route("api/{version:apiVersion}/publisher")]
+    [ApiVersion(ApiConstants.Version1)]
+    [Route(ApiConstants.BasePublisher)]
     public class PublisherController : BaseController
     {
         private readonly IPublisherService publisherService;

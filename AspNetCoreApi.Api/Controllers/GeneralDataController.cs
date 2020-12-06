@@ -1,4 +1,6 @@
-﻿using AspNetCoreApi.Common.LinqExtensions;
+﻿using AspNetCoreApi.Api.Controllers.Base;
+using AspNetCoreApi.Common.Constants;
+using AspNetCoreApi.Common.LinqExtensions;
 using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
 using AspNetCoreApi.Service.Contracts;
@@ -14,10 +16,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Api.Controllers
 {
-    [ApiController]
     [Authorize(Policy = Role.User)]
-    [ApiVersion("1.0")]
-    [Route("api/{version:apiVersion}/data/[action]")]
+    [ApiVersion(ApiConstants.Version1)]
+    [Route(ApiConstants.BaseData)]
     public class GeneralDataController : BaseController
     {
         private readonly IGeneralDataService generalDataService;

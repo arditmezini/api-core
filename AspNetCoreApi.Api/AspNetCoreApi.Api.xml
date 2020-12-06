@@ -151,5 +151,17 @@
             </summary>
             <param name="sgo"></param>
         </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.ConfigureSwaggerApiVersioning(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <summary>
+            Swagger Api Versioning
+            </summary>
+            <param name="sgo"></param>
+        </member>
+        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.ConfigureComments(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
+            <summary>
+            XML comments
+            </summary>
+            <param name="sgo"></param>
+        </member>
     </members>
 </doc>
