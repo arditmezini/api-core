@@ -35,3 +35,7 @@
  - *[Xam.Plugins.Settings](https://github.com/jamesmontemagno/SettingsPlugin)*
  - *[FlowListView](https://github.com/daniel-luberda/DLToolkit.Forms.Controls/tree/master/FlowListView)*
  - *[SignalR Hubs](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)*
+ 
+ ## Angular Sample Project
+ 
+ ### Packages used:
