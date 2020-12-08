@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Android", "BookSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.iOS", "BookStore\BookStore.iOS\BookStore.iOS.csproj", "{363AFD80-E251-4E39-AC41-47FA6349CCEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore", "BookStore\BookStore\BookStore.csproj", "{BA291C7B-7CC4-48E0-82B3-2FC67EF6BE3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore", "BookStore\BookStore\BookStore.csproj", "{BA291C7B-7CC4-48E0-82B3-2FC67EF6BE3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
