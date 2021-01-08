@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -82,8 +83,7 @@ namespace AspNetCoreApi.Api.Configurations
 
                 sg.ConfigureSwaggerApiVersioning();
 
-                //todo
-                //sg.AddFluentValidationRules();
+                sg.AddFluentValidationRules();
 
                 sg.ConfigureComments();
             });
