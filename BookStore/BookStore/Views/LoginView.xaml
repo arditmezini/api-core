@@ -36,7 +36,7 @@
         <Grid BackgroundColor="LightCyan" RowDefinitions="*,*,*">
 
             <StackLayout Grid.Row="0" VerticalOptions="Center">
-                <Label Style="{StaticResource Title}" Text="{x:Static local:StringConstants.LPTitle}"></Label>
+                <Label Style="{StaticResource PageTitle}" Text="{x:Static local:StringConstants.LPTitle}"></Label>
             </StackLayout>
 
             <Grid Grid.Row="1" Style="{StaticResource LoginForm}" RowDefinitions="*,*,*">

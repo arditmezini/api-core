@@ -3,6 +3,9 @@ using BookStore.Constants;
 using BookStore.Contracts.Services.General;
 using BookStore.Utility;
 using DLToolkit.Forms.Controls;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -24,6 +27,9 @@ namespace BookStore
         private void InitializeCustomComponents()
         {
             FlowListView.Init();
+
+            AppCenter.Start(AppCenterConstants.IOSKey + /* AppCenterConstants.UwpKey + */ AppCenterConstants.AndroidKey,
+                typeof(Analytics), typeof(Crashes));
         }
 
         private void InitializeApp()
