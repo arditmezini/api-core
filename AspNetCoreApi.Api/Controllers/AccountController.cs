@@ -9,6 +9,7 @@ using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -20,6 +21,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace AspNetCoreApi.Api.Controllers
 {
@@ -110,6 +112,9 @@ namespace AspNetCoreApi.Api.Controllers
             var result = await userManager.CreateAsync(appUser, model.Password);
             if (result.Succeeded)
             {
+                var confirmationToken = await userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                var confirmationLink = BaseUrl + $"/api/{ApiVersion}/account/confirm-email?token=" + HttpUtility.UrlEncode(confirmationToken) + $"&email={appUser.Email}";
+
                 await userManager.AddToRoleAsync(appUser, model.Role);
                 await signInManager.SignInAsync(appUser, false);
                 var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser,
@@ -137,6 +142,21 @@ namespace AspNetCoreApi.Api.Controllers
             var user = mapper.Map<UserDto>(appUser);
             user.Role = string.Join(',', roles);
             return new ApiResponse("Profile data", user);
+        }
+
+        [ActionName("confirm-email")]
+        [HttpGet]
+        public async Task<ActionResult<ApiResponse>> ConfirmEmail(string token, string email)
+        {
+            var appUser = await userManager.FindByEmailAsync(email);
+            if (appUser == null)
+                return new ApiResponse(404, new ApiError("User not found"));
+
+            var result = await userManager.ConfirmEmailAsync(appUser, token);
+            if (result.Succeeded)
+                return new ApiResponse("Email confirmend", true);
+            else
+                return new ApiResponse("Email not confirmend", false);
         }
 
         protected async Task<object> GenerateJwtToken(ApplicationUser user)
