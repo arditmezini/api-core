@@ -9,13 +9,13 @@ using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -113,13 +113,14 @@ namespace AspNetCoreApi.Api.Controllers
             if (result.Succeeded)
             {
                 var confirmationToken = await userManager.GenerateEmailConfirmationTokenAsync(appUser);
-                var confirmationLink = BaseUrl + $"/api/{ApiVersion}/account/confirm-email?token=" + HttpUtility.UrlEncode(confirmationToken) + $"&email={appUser.Email}";
+                var confirmationLink = BaseUrl + $"/api/{ApiVersion}/account/confirm-email?token={HttpUtility.UrlEncode(confirmationToken)}&email={appUser.Email}";
 
                 await userManager.AddToRoleAsync(appUser, model.Role);
                 await signInManager.SignInAsync(appUser, false);
                 var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser,
                     new EmailAddress { Name = "Support", Address = "support@site.com" },
-                    new EmailAddress { Name = appUser.FirstName, Address = appUser.Email });
+                    new EmailAddress { Name = appUser.FirstName, Address = appUser.Email },
+                    confirmationLink);
                 hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
                 var user = mapper.Map<UserDto>(appUser);
                 user.Token = (string)await GenerateJwtToken(appUser);
@@ -131,7 +132,7 @@ namespace AspNetCoreApi.Api.Controllers
         [Authorize]
         [ActionName("profile")]
         [HttpGet("{email}")]
-        public async Task<ActionResult<ApiResponse>> Profile(string email)
+        public async Task<ActionResult<ApiResponse>> Profile([Required, EmailAddress] string email)
         {
             var appUser = userManager.Users.SingleOrDefault(x => x.Email == email);
             if (appUser == null)
@@ -146,17 +147,53 @@ namespace AspNetCoreApi.Api.Controllers
 
         [ActionName("confirm-email")]
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> ConfirmEmail(string token, string email)
+        public async Task<ActionResult<ApiResponse>> ConfirmEmail([Required] string token, [Required, EmailAddress] string email)
         {
             var appUser = await userManager.FindByEmailAsync(email);
             if (appUser == null)
                 return new ApiResponse(404, new ApiError("User not found"));
 
             var result = await userManager.ConfirmEmailAsync(appUser, token);
-            if (result.Succeeded)
-                return new ApiResponse("Email confirmend", true);
-            else
+            if (!result.Succeeded)
                 return new ApiResponse("Email not confirmend", false);
+
+            return new ApiResponse("Email confirmend", true);
+        }
+
+        [ActionName("forget-password")]
+        [HttpPost("{email}")]
+        public async Task<ActionResult<ApiResponse>> ForgetPassword([Required, EmailAddress] string email)
+        {
+            var appUser = await userManager.FindByEmailAsync(email);
+            if (appUser == null)
+                return new ApiResponse(404, new ApiError("User not found"));
+
+            var passwordToken = await userManager.GeneratePasswordResetTokenAsync(appUser);
+            var passwordLink = $"urltofrontend?token={HttpUtility.UrlEncode(passwordToken)}&email={email}";
+
+            var mailBuilder = MailHelper.BuildMail(MailTypeEnum.NewUser,
+                    new EmailAddress { Name = "Support", Address = "support@site.com" },
+                    new EmailAddress { Name = appUser.FirstName, Address = appUser.Email },
+                    passwordLink);
+            hangfireJobService.ProcessFireAndForgetJobs<IEmailService>(x => x.Send(mailBuilder));
+
+            return new ApiResponse("Reset password link was sent", true);
+        }
+
+        [ActionName("reset-password")]
+        [HttpPost]
+        public async Task<ActionResult<ApiResponse>> ResetPassword(ResetPasswordDto model)
+        {
+            var appUser = await userManager.FindByEmailAsync(model.Email);
+            if (appUser == null)
+                return new ApiResponse(404, new ApiError("User not found"));
+
+            var resetPasswordResult = await userManager.ResetPasswordAsync(appUser, model.Token, model.Password);
+            if (!resetPasswordResult.Succeeded)
+                return new ApiResponse("Password reset error", false);
+
+            return new ApiResponse("Password reset correctly", true);
+
         }
 
         protected async Task<object> GenerateJwtToken(ApplicationUser user)

@@ -7,7 +7,7 @@ namespace AspNetCoreApi.Common.Mail
 {
     public static class MailHelper
     {
-        public static EmailMessage BuildMail(MailTypeEnum type, EmailAddress from = null, EmailAddress to = null)
+        public static EmailMessage BuildMail(MailTypeEnum type, EmailAddress from = null, EmailAddress to = null, string link = "")
         {
             var emailMsg = new EmailMessage();
 
@@ -19,7 +19,7 @@ namespace AspNetCoreApi.Common.Mail
             switch (type)
             {
                 case MailTypeEnum.NewUser:
-                    emailMsg.Subject = "New Users";
+                    emailMsg.Subject = "New User";
                     emailMsg.Body = GetTemplate(MailTypeEnum.NewUser.ToString()) ?? "";
 
                     //Replace
@@ -33,6 +33,26 @@ namespace AspNetCoreApi.Common.Mail
                     //Replace
                     emailMsg.Body = emailMsg.Body.Replace("@name@", to.Name);
                     emailMsg.Body = emailMsg.Body.Replace("@time@", DateTime.Now.ToString());
+
+                    break;
+
+                case MailTypeEnum.ConfirmEmail:
+                    emailMsg.Subject = "Confirm eamil";
+                    emailMsg.Body = GetTemplate(MailTypeEnum.ConfirmEmail.ToString()) ?? "";
+
+                    //Replace
+                    emailMsg.Body = emailMsg.Body.Replace("@name@", to.Name);
+                    emailMsg.Body = emailMsg.Body.Replace("@link@", link);
+
+                    break;
+
+                case MailTypeEnum.ForgetPassword:
+                    emailMsg.Subject = "Forget Password";
+                    emailMsg.Body = GetTemplate(MailTypeEnum.ForgetPassword.ToString()) ?? "";
+
+                    //Replace
+                    emailMsg.Body = emailMsg.Body.Replace("@name@", to.Name);
+                    emailMsg.Body = emailMsg.Body.Replace("@link@", link);
 
                     break;
                 default:
