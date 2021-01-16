@@ -3,6 +3,7 @@ using AspNetCoreApi.Common.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -93,7 +94,8 @@ namespace AspNetCoreApi.Api.Configurations
         /// Use SwaggerWithUI
         /// </summary>
         /// <param name="app"></param>
-        public static void UseSwaggerWithUI(this IApplicationBuilder app)
+        /// <param name="env"></param>
+        public static void UseSwaggerWithUI(this IApplicationBuilder app, IHostEnvironment env)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -101,6 +103,11 @@ namespace AspNetCoreApi.Api.Configurations
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "My API V2");
                 c.DocExpansion(DocExpansion.None);
+
+                if (!env.IsDevelopment())
+                {
+                    c.RoutePrefix = string.Empty;
+                }
             });
         }
 

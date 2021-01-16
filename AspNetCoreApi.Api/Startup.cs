@@ -82,6 +82,7 @@ namespace AspNetCoreApi.Api
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();
@@ -104,10 +105,7 @@ namespace AspNetCoreApi.Api
 
             app.UseHangfire();
 
-            if (env.IsDevelopment())
-            {
-                app.UseSwaggerWithUI();
-            }
+            app.UseSwaggerWithUI(env);
 
             app.UseHealthChecks(Configuration);
         }

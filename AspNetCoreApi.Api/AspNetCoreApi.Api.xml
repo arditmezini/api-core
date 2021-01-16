@@ -139,11 +139,12 @@
             </summary>
             <param name="services"></param>
         </member>
-        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.UseSwaggerWithUI(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.UseSwaggerWithUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             Use SwaggerWithUI
             </summary>
             <param name="app"></param>
+            <param name="env"></param>
         </member>
         <member name="M:AspNetCoreApi.Api.Configurations.SwaggerConfiguration.SwaggerBearerAuth(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions)">
             <summary>

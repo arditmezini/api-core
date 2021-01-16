@@ -14,6 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Mail\EmailTemplates\ConfirmEmail.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Mail\EmailTemplates\ForgetPassword.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Mail\EmailTemplates\LoginUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
