@@ -51,6 +51,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "bookstore-angular", "bookst
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "51900"
+		SlnRelativePath = "bookstore-angular\"
 	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "bookstore-react", "bookstore-react\", "{8174EDBA-588C-4FDA-96C3-C6A833EF464D}"
@@ -71,6 +72,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "bookstore-react", "bookstor
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "51950"
+		SlnRelativePath = "bookstore-react\"
 	EndProjectSection
 EndProject
 Global
