@@ -16,6 +16,8 @@ namespace AspNetCoreApi.Dal.Extensions
             services.AddDbContext<ApiContext>(options, contextLifetime, optionsLifetime);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<ILoggedInUser, LoggedInUser>();
         }
     }
 }

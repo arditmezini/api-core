@@ -75,6 +75,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "bookstore-react", "bookstor
 		SlnRelativePath = "bookstore-react\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreApi.Dal.IntegrationTests", "AspNetCoreApi.Dal.IntegrationTests\AspNetCoreApi.Dal.IntegrationTests.csproj", "{4C2E34C5-6379-408C-96F9-B18817614BEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -239,6 +241,18 @@ Global
 		{8174EDBA-588C-4FDA-96C3-C6A833EF464D}.Release|iPhone.Build.0 = Debug|Any CPU
 		{8174EDBA-588C-4FDA-96C3-C6A833EF464D}.Release|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{8174EDBA-588C-4FDA-96C3-C6A833EF464D}.Release|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Release|iPhone.Build.0 = Release|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{4C2E34C5-6379-408C-96F9-B18817614BEE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -259,6 +273,7 @@ Global
 		{363AFD80-E251-4E39-AC41-47FA6349CCEC} = {1114F2BC-A57B-47F6-921B-6EF6717A5667}
 		{C58E5E7C-D07B-4B0B-B9BD-7355EE2980B4} = {D5DD6EF4-5A31-442C-86D9-F6EEA6DFABDE}
 		{8174EDBA-588C-4FDA-96C3-C6A833EF464D} = {D5DD6EF4-5A31-442C-86D9-F6EEA6DFABDE}
+		{4C2E34C5-6379-408C-96F9-B18817614BEE} = {0100929F-4069-4C23-957B-AE5E95D4A682}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {012DD2EE-CCB8-4B2E-8143-067C85116D86}

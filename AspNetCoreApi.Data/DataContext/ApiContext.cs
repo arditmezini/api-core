@@ -1,13 +1,11 @@
 ﻿using AspNetCoreApi.Dal.Configurations;
+using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,12 +13,12 @@ namespace AspNetCoreApi.Data.DataContext
 {
     public class ApiContext : IdentityDbContext<ApplicationUser>
     {
-        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly ILoggedInUser _loggedInUser;
 
-        public ApiContext(DbContextOptions<ApiContext> options, IHttpContextAccessor httpContextAccessor)
+        public ApiContext(DbContextOptions<ApiContext> options, ILoggedInUser loggedInUser)
             : base(options)
         {
-            this.httpContextAccessor = httpContextAccessor;
+            this._loggedInUser = loggedInUser;
         }
 
         #region DbSets
@@ -76,19 +74,17 @@ namespace AspNetCoreApi.Data.DataContext
             var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity &&
                     (x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted));
 
-            var username = httpContextAccessor?.HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-
             foreach (var entity in entities)
             {
                 if (entity.State == EntityState.Added)
                 {
                     ((BaseEntity)entity.Entity).DateCreated = DateTime.Now;
-                    ((BaseEntity)entity.Entity).UserCreated = username;
+                    ((BaseEntity)entity.Entity).UserCreated = _loggedInUser.Username;
                 }
                 else if (entity.State == EntityState.Modified)
                 {
                     ((BaseEntity)entity.Entity).DateModified = DateTime.Now;
-                    ((BaseEntity)entity.Entity).UserModified = username;
+                    ((BaseEntity)entity.Entity).UserModified = _loggedInUser.Username;
                 }
                 else if (entity.State == EntityState.Deleted)
                 {
