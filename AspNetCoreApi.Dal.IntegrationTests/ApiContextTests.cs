@@ -1,5 +1,6 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
 using AspNetCoreApi.Dal.Entities;
+using AspNetCoreApi.Dal.IntegrationTests.Mocks;
 using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -12,20 +13,17 @@ namespace AspNetCoreApi.Dal.IntegrationTests
     {
         private readonly ApiContext _apiContext;
         private readonly Mock<ILoggedInUser> _loggedInUser;
-        private readonly string _loggedInUserName;
 
         public ApiContextTests()
         {
             var dbContextOptions = new DbContextOptionsBuilder<ApiContext>()
                     .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
 
-            _loggedInUserName = "Admin";
-            _loggedInUser = new Mock<ILoggedInUser>();
-            _loggedInUser.Setup(o => o.Username).Returns(_loggedInUserName);
+            _loggedInUser = LoggedInUserMock.GetLoggedInUser();
 
             _apiContext = new ApiContext(dbContextOptions, _loggedInUser.Object);
         }
-
+        
         [Fact]
         public async void SaveBookCategory_SetCreatedByProperty()
         {
@@ -34,7 +32,7 @@ namespace AspNetCoreApi.Dal.IntegrationTests
             await _apiContext.SaveChangesAsync();
 
             Assert.NotEmpty(bookCategory.UserCreated);
-            Assert.Equal(_loggedInUserName, bookCategory.UserCreated);
+            Assert.Equal(_loggedInUser.Object.Username, bookCategory.UserCreated);
         }
     }
 }
