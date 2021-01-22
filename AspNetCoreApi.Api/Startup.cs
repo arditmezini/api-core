@@ -85,14 +85,14 @@ namespace AspNetCoreApi.Api
                 app.UseHsts();
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
+            
             app.UseResponseCompression();
 
             app.UseAutoWrapper();
 
             app.UseCorsPolicy(Configuration);
+
+            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();

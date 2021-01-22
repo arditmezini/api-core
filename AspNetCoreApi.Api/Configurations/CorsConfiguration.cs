@@ -22,7 +22,8 @@ namespace AspNetCoreApi.Api.Configurations
             services.AddCors(options =>
             {
                 options.AddPolicy(cors.PolicyName,
-                    builder => builder.WithOrigins(cors.CorsOrigin));
+                    builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins(cors.CorsOrigin)
+                );
             });
         }
 
