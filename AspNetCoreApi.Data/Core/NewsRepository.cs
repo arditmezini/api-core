@@ -1,10 +1,10 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using AspNetCoreApi.Models.Entity;
 
 namespace AspNetCoreApi.Dal.Core
 {

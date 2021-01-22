@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Reflection;
 
 namespace AspNetCoreApi.Api
 {
@@ -28,7 +29,7 @@ namespace AspNetCoreApi.Api
         {
             services.ConfigureHealthChecks(Configuration);
 
-            services.AddDbContextWithLazyLoading(options =>
+            services.AddDalBootstrapper(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                     sqlServerOptionsAction: sqlOptions =>
                     {
@@ -56,7 +57,7 @@ namespace AspNetCoreApi.Api
 
             services.ConfigureSwagger();
 
-            services.RegisterServicesDependencyInjection();
+            services.AddServiceBootstrapper();
 
             services.ConfigureIdentity();
 
@@ -68,7 +69,7 @@ namespace AspNetCoreApi.Api
 
             services.ConfigureMailKit(Configuration);
 
-            services.AddAutoMapper(typeof(Startup));
+            services.ConfigureAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,6 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Dal.IntegrationTests.Mocks;
+using AspNetCoreApi.Models.Entity;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;

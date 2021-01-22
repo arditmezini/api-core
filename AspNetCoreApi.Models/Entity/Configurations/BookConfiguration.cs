@@ -1,4 +1,5 @@
-﻿using AspNetCoreApi.Dal.Entities;
+﻿using AspNetCoreApi.Models.Entity;
+using AspNetCoreApi.Models.Entity.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

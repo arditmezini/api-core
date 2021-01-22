@@ -1,6 +1,4 @@
-﻿using AspNetCoreApi.Models;
-
-namespace AspNetCoreApi.Dal.Entities
+﻿namespace AspNetCoreApi.Models.Entity
 {
     public partial class AuthorContact : BaseEntity
     {

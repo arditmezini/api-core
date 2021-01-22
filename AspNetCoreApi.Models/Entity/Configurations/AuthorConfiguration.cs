@@ -1,8 +1,7 @@
-﻿using AspNetCoreApi.Dal.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspNetCoreApi.Dal.Configurations
+namespace AspNetCoreApi.Models.Entity.Configurations
 {
     public class AuthorConfiguration : BaseConfiguration<Author>
     {

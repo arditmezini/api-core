@@ -1,10 +1,10 @@
 ﻿using AspNetCoreApi.Api.Controllers.Base;
 using AspNetCoreApi.Common.Constants;
 using AspNetCoreApi.Common.Mail;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Models.Common.Emails;
 using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Models.Entity;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using AutoWrapper.Wrappers;

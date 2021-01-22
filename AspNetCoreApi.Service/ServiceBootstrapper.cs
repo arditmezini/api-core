@@ -6,7 +6,7 @@ namespace AspNetCoreApi.Service
 {
     public static class ServiceBootstrapper
     {
-        public static void RegisterServicesDependencyInjection(this IServiceCollection services)
+        public static void AddServiceBootstrapper(this IServiceCollection services)
         {
             services.AddTransient<IGeneralDataService, GeneralDataService>();
             services.AddTransient<IAuthorService, AuthorService>();

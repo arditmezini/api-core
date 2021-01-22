@@ -1,6 +1,6 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
+using AspNetCoreApi.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿using AspNetCoreApi.Dal.Entities;
+﻿using AspNetCoreApi.Models.Entity;
 
 namespace AspNetCoreApi.Dal.Core.Contracts
 {

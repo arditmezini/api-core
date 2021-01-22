@@ -1,8 +1,7 @@
-﻿using AspNetCoreApi.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspNetCoreApi.Dal.Configurations
+namespace AspNetCoreApi.Models.Entity.Configurations
 {
     public class BaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
         where TEntity : BaseEntity

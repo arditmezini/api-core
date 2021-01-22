@@ -1,7 +1,8 @@
 ﻿using AspNetCoreApi.Dal.Configurations;
 using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models;
+using AspNetCoreApi.Models.Entity;
+using AspNetCoreApi.Models.Entity.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,12 +19,12 @@ namespace AspNetCoreApi.Data.DataContext
         public ApiContext(DbContextOptions<ApiContext> options, ILoggedInUser loggedInUser)
             : base(options)
         {
-            this._loggedInUser = loggedInUser;
+            _loggedInUser = loggedInUser;
         }
 
         #region DbSets
 
-        //Tables
+        /* --- Tables --- */
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<AuthorContact> AuthorContacts { get; set; }
         public virtual DbSet<Book> Books { get; set; }
@@ -33,7 +34,7 @@ namespace AspNetCoreApi.Data.DataContext
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<News> News { get; set; }
 
-        //Views
+        /* --- Views --- */
         public virtual DbSet<Statistics> Statistics { get; set; }
 
         #endregion
@@ -45,19 +46,7 @@ namespace AspNetCoreApi.Data.DataContext
             AddEntityConfigurations(builder);
         }
 
-        public override int SaveChanges()
-        {
-            OnBeforeSaving();
-            return base.SaveChanges();
-        }
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            OnBeforeSaving();
-            return await base.SaveChangesAsync(true, cancellationToken);
-        }
-
-        private void AddEntityConfigurations(ModelBuilder builder)
+        private static void AddEntityConfigurations(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new AuthorConfiguration());
             builder.ApplyConfiguration(new AuthorContactConfiguration());
@@ -69,6 +58,19 @@ namespace AspNetCoreApi.Data.DataContext
             builder.ApplyConfiguration(new NewsConfiguration());
         }
 
+        #region Custom SaveChanges
+        public override int SaveChanges()
+        {
+            OnBeforeSaving();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            OnBeforeSaving();
+            return await base.SaveChangesAsync(true, cancellationToken);
+        }
+        
         private void OnBeforeSaving()
         {
             var entities = ChangeTracker.Entries().Where(x => x.Entity is BaseEntity &&
@@ -93,5 +95,6 @@ namespace AspNetCoreApi.Data.DataContext
                 }
             }
         }
+        #endregion
     }
 }

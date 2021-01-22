@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreApi.Dal.Entities
+﻿namespace AspNetCoreApi.Models.Entity
 {
     public partial class BookAuthors
     {

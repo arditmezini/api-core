@@ -1,7 +1,6 @@
-﻿using AspNetCoreApi.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace AspNetCoreApi.Dal.Entities
+namespace AspNetCoreApi.Models.Entity
 {
     public partial class Author : BaseEntity
     {

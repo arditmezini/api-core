@@ -1,8 +1,8 @@
 ﻿using AspNetCoreApi.Api.Controllers.Base;
 using AspNetCoreApi.Common.Constants;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Identity;
 using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Models.Entity;
 using AspNetCoreApi.Service.Contracts;
 using AutoMapper;
 using AutoWrapper.Wrappers;

@@ -2,7 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 
-namespace AspNetCoreApi.Api.Mapping
+namespace AspNetCoreApi.Common.Mapping
 {
     public class RolesMapping : Profile
     {

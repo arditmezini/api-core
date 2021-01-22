@@ -1,8 +1,8 @@
-﻿using AspNetCoreApi.Dal.Entities;
-using AspNetCoreApi.Models.Dto;
+﻿using AspNetCoreApi.Models.Dto;
+using AspNetCoreApi.Models.Entity;
 using AutoMapper;
 
-namespace AspNetCoreApi.Api.Mapping
+namespace AspNetCoreApi.Common.Mapping
 {
     public class BookCategoryMapping : Profile
     {

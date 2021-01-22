@@ -1,7 +1,7 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Dal.IntegrationTests.Mocks;
 using AspNetCoreApi.Data.DataContext;
+using AspNetCoreApi.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;

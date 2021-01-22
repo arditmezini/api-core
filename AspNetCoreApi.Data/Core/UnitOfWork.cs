@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Dal.Core
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ApiContext _context;
+        private bool disposed = false;
 
         public UnitOfWork(ApiContext context)
         {
@@ -25,9 +26,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_authors == null)
-                {
                     _authors = new AuthorRepository(_context);
-                }
+
                 return _authors;
             }
         }
@@ -38,9 +38,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_bookCategorys == null)
-                {
                     _bookCategorys = new BookCategoryRepository(_context);
-                }
+
                 return _bookCategorys;
             }
         }
@@ -51,9 +50,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_books == null)
-                {
                     _books = new BookRepository(_context);
-                }
+
                 return _books;
             }
         }
@@ -64,9 +62,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_publishers == null)
-                {
                     _publishers = new PublisherRepository(_context);
-                }
+
                 return _publishers;
             }
         }
@@ -77,9 +74,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_generalData == null)
-                {
                     _generalData = new GeneralDataRepository(_context);
-                }
+
                 return _generalData;
             }
         }
@@ -90,9 +86,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_statistics == null)
-                {
                     _statistics = new StatisticsRepository(_context);
-                }
+
                 return _statistics;
             }
         }
@@ -103,9 +98,8 @@ namespace AspNetCoreApi.Dal.Core
             get
             {
                 if (_news == null)
-                {
                     _news = new NewsRepository(_context);
-                }
+
                 return _news;
             }
         }
@@ -141,11 +135,21 @@ namespace AspNetCoreApi.Dal.Core
         {
             _context.Database.RollbackTransaction();
         }
+        #endregion
+
+        #region Dispose
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+                if (disposing)
+                    _context.Dispose();
+
+            disposed = true;
+        }
 
         public void Dispose()
         {
-            _context?.Dispose();
-
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
         #endregion

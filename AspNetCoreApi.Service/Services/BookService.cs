@@ -1,6 +1,6 @@
 ﻿using AspNetCoreApi.Dal.Core.Contracts;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Models.Common.Paging;
+using AspNetCoreApi.Models.Entity;
 using AspNetCoreApi.Service.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System;

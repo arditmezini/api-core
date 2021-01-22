@@ -1,6 +1,6 @@
 ﻿using AspNetCoreApi.Common.TokenProviders;
-using AspNetCoreApi.Dal.Entities;
 using AspNetCoreApi.Data.DataContext;
+using AspNetCoreApi.Models.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;

@@ -1,5 +1,5 @@
-﻿using AspNetCoreApi.Dal.Entities;
-using AspNetCoreApi.Models.Common.Paging;
+﻿using AspNetCoreApi.Models.Common.Paging;
+using AspNetCoreApi.Models.Entity;
 using System.Threading.Tasks;
 
 namespace AspNetCoreApi.Service.Contracts
