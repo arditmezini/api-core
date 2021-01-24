@@ -39,3 +39,9 @@
  ## Angular Sample Project
  
  ### Packages used:
+ - *[Bootstrap](https://www.npmjs.com/package/bootstrap)*
+ - *[jquery](https://www.npmjs.com/package/jquery)*
+ 
+ ## React Sample Project
+ 
+ ### Packages used:
