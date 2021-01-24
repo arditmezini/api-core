@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ApiV1 } from '../common/constants/ApiVersions';
 
 @Injectable({
     providedIn: 'root'
@@ -39,6 +40,6 @@ export class UserService {
           Password: this.formModel.value.Passwords.Password,
           Role: 'User'
         };
-        return this.httpClient.post('https://localhost:44325/api/1.0/account/register',body);
+        return this.httpClient.post(`${ApiV1}/account/register`,body);
       }
 }
