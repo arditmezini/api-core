@@ -41,6 +41,7 @@
  ### Packages used:
  - *[Bootstrap](https://www.npmjs.com/package/bootstrap)*
  - *[jquery](https://www.npmjs.com/package/jquery)*
+ - *[ngx-toastr](https://www.npmjs.com/package/ngx-toastr)*
  
  ## React Sample Project
  
