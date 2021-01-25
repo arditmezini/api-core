@@ -12,6 +12,7 @@ import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { UserService } from './shared/user.service';
 import { BaseUrlInterceptor } from './common/interceptor/BaseUrlInterceptor';
+import { ErrorInterceptor } from './common/interceptor/ErrorInterceptor';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,9 @@ import { BaseUrlInterceptor } from './common/interceptor/BaseUrlInterceptor';
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi:true
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true
     },
     UserService
   ],

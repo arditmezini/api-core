@@ -1,9 +1,12 @@
 ﻿using AspNetCoreApi.Models.Common.Configurations;
 using AspNetCoreApi.Models.Common.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,11 +41,13 @@ namespace AspNetCoreApi.Api.Configurations
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = key,
                         ValidateIssuer = true,
-                        ValidIssuer = jwtConfig.JwtIssuer,
                         ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        ValidIssuer = jwtConfig.JwtIssuer,
                         ValidAudience = jwtConfig.JwtAudience,
+                        IssuerSigningKey = key,
                     };
 
                     cfg.Events = new JwtBearerEvents
