@@ -2,8 +2,8 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { ApiService, JwtService, LoaderService, UserService } from ".";
-import { BaseUrlInterceptor, ErrorInterceptor, LoaderInterceptor, TokenInterceptor } from ".";
+import { ApiService, JwtService, LoaderService, UserService } from "./services";
+import { BaseUrlInterceptor, ErrorInterceptor, LoaderInterceptor, TokenInterceptor } from "./interceptors";
 
 
 @NgModule({
