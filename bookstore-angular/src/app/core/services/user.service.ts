@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { AppSettings } from '../common';
+
+import { ApiService } from '.';
+import { AppSettings } from '..';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    constructor(private fb:FormBuilder, private httpClient: HttpClient)
-    {}
+
+    constructor(private fb:FormBuilder, private api: ApiService){ }
 
     formModel = this.fb.group({
         FirstName: ['', Validators.required],
@@ -40,6 +41,6 @@ export class UserService {
           Password: this.formModel.value.Passwords.Password,
           Role: 'User'
         };
-        return this.httpClient.post(`${AppSettings.ApiV1}/account/register`,body);
+        return this.api.post(`${AppSettings.ApiV1}/account/register`, body);
       }
 }

@@ -5,7 +5,12 @@ import { ToastrService } from "ngx-toastr";
 import { Observable, throwError } from "rxjs";
 import { retry,  catchError } from 'rxjs/operators';
 
-@Injectable()
+/*
+  Adds a default error handeler to all requests.
+*/
+@Injectable({
+  providedIn: 'root'
+})
 export class ErrorInterceptor  implements HttpInterceptor {
 
     constructor(public router: Router, public toasterService: ToastrService) {}

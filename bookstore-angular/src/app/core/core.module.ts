@@ -2,12 +2,9 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { BaseUrlInterceptor } from "./interceptors/BaseUrlInterceptor";
-import { ErrorInterceptor } from "./interceptors/ErrorInterceptor";
-import { LoaderInterceptor } from "./interceptors/LoaderInterceptor";
+import { ApiService, JwtService, LoaderService, UserService } from ".";
+import { BaseUrlInterceptor, ErrorInterceptor, LoaderInterceptor, TokenInterceptor } from ".";
 
-import { UserService } from "./services/user.service";
-import { LoaderService } from "./services/loader.service";
 
 @NgModule({
     imports: [
@@ -23,8 +20,13 @@ import { LoaderService } from "./services/loader.service";
           {
             provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true
           },
+          {
+            provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true
+          },
+          ApiService,
           UserService,
-          LoaderService
+          LoaderService,
+          JwtService
     ],
     declarations: []
 })
