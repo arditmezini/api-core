@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <a class="navbar-brand" routerLink="/">Book Store</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="auth/login" routerLinkActive="active"
+          >Sign in</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="auth/register" routerLinkActive="active"
+          >Sign up</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Show this for logged in users
+      <ul *appShowAuthed="true"
+        class="nav navbar-nav pull-xs-right">
+  
+        <li class="nav-item">
+          <a class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }">
+            Home
+          </a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link"
+            routerLink="/editor"
+            routerLinkActive="active">
+            <i class="ion-compose"></i>&nbsp;New Article
+          </a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link"
+            routerLink="/settings"
+            routerLinkActive="active">
+            <i class="ion-gear-a"></i>&nbsp;Settings
+          </a>
+        </li>
+  
+        <li class="nav-item">
+          <a class="nav-link"
+            [routerLink]="['/profile', currentUser.username]"
+            routerLinkActive="active">
+            <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
+            {{ currentUser.username }}
+          </a>
+        </li>
+  
+      </ul> -->

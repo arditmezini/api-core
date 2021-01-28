@@ -23,7 +23,7 @@ export class RegistrationComponent implements OnInit {
     this.userService.register().subscribe(
       (res: any) => {
         this.toastr.success('New user created!', 'Registration successful');
-        this.router.navigate(['user/login']);
+        this.router.navigate(['auth/login']);
       },
       (err) => {
         console.log(err);

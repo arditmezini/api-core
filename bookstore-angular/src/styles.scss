@@ -44,3 +44,11 @@ form{
 div.side-header{
     border:3px solid black;
 }
+
+
+.inner-body {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
