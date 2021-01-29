@@ -42,6 +42,7 @@
  - *[Bootstrap](https://www.npmjs.com/package/bootstrap)*
  - *[jquery](https://www.npmjs.com/package/jquery)*
  - *[ngx-toastr](https://www.npmjs.com/package/ngx-toastr)*
+ - *[jwt-decode](https://www.npmjs.com/package/jwt-decode)*
  
  ## React Sample Project
  
