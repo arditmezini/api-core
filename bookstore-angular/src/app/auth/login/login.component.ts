@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/core';
+import { JwtService, UserService } from 'src/app/core';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService, private jwtService: JwtService) { }
 
   ngOnInit(): void { }
 

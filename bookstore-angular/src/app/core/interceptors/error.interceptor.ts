@@ -4,12 +4,14 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
+import { AppSettings } from '../common/index';
 
 /*
   Adds a default error handeler to all requests.
@@ -24,9 +26,17 @@ export class ErrorInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('Intercepted');
     return next.handle(req).pipe(
-      retry(1),
+      //Retry
+      retry(AppSettings.RetryApiCall),
+      //Response
+      map((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          console.log('event--->>>', event);
+        }
+        return event;
+      }),
+      //Error
       catchError((err: HttpErrorResponse) => {
         let errorMessage = '';
         if (err.error instanceof ErrorEvent) {
@@ -37,6 +47,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           errorMessage = `Error Code: ${err.status}\nMessage: ${err.message}`;
 
           switch (err.status) {
+            case 0: //api not working
+              break;
+
+            case 400: //Bad request
+              break;
+
             case 401: //login
               this.router.navigateByUrl('/login');
               break;

@@ -27,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const token = this.jwtService.getToken();
 
     if (token) {
-      headersConfig['Authorization'] = `Barer ${token}`;
+      headersConfig['Authorization'] = `Bearer ${token}`;
     }
 
     const request = req.clone({ setHeaders: headersConfig });

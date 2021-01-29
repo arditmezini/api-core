@@ -3,12 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ApiService } from './api.service';
 import { AppSettings } from '../common';
+import { JwtService } from './jwt.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private fb: FormBuilder, private api: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private jwtService: JwtService
+  ) {}
 
   formModel = this.fb.group({
     FirstName: ['', Validators.required],
@@ -59,5 +64,25 @@ export class UserService {
       Password: this.formLogin.value.Password,
     };
     return this.api.post(`${AppSettings.ApiV1}/account/login`, body);
+  }
+
+  isUserAuthenticated() {
+    const token = this.jwtService.getToken();
+    if (token) {
+      this.jwtService.validateToken(token).subscribe(
+        (response) => {
+          if (response.result) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+        (err) => {
+          return false;
+        }
+      );
+    } else {
+      return false;
+    }
   }
 }
