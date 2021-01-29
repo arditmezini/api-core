@@ -61,6 +61,8 @@ namespace AspNetCoreApi.Api.Controllers
                         ValidateIssuerSigningKey = true,
                         ValidateIssuer = true,
                         ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
                         ValidIssuer = jwtOptions.JwtIssuer,
                         ValidAudience = jwtOptions.JwtAudience,
                         IssuerSigningKey = key

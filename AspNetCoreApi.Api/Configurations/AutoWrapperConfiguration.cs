@@ -19,7 +19,6 @@ namespace AspNetCoreApi.Api.Configurations
                 IsApiOnly = false,
                 EnableResponseLogging = true,
                 EnableExceptionLogging = true,
-                UseCustomSchema = true
             });
         }
     }
