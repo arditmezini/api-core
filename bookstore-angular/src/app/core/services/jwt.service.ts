@@ -8,11 +8,11 @@ import { ApiService } from './api.service';
 export class JwtService {
   constructor(private api: ApiService) {}
 
-  getToken(): String {
+  getToken(): string {
     return window.localStorage[AppSettings.JwtToken];
   }
 
-  saveToken(token: String) {
+  saveToken(token: string) {
     window.localStorage[AppSettings.JwtToken] = token;
   }
 
@@ -20,7 +20,7 @@ export class JwtService {
     window.localStorage.removeItem(AppSettings.JwtToken);
   }
 
-  validateToken(tokenValue: String) {
+  validateToken(tokenValue: string) {
     var body = {
       token: tokenValue
     };
