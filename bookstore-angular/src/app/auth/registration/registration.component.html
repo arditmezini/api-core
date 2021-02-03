@@ -8,39 +8,39 @@
     </div>
         
     <div class="row justify-content-center mt-5">
-        <form [formGroup]="userService.formModel" autocomplete="off" (submit)="onSubmit()">
+        <form [formGroup]="formRegister" autocomplete="off" (submit)="onSubmit()">
             <div class="form-group required">
               <label>FirstName</label>
               <input class="form-control" formControlName="FirstName">
-              <label class="text-danger" *ngIf="userService.formModel.get('FirstName').touched && userService.formModel.get('FirstName').errors?.required">This field is mandatory.</label>
+              <label class="text-danger" *ngIf="formRegister.get('FirstName').touched && formRegister.get('FirstName').errors?.required">This field is mandatory.</label>
             </div>
             <div class="form-group required">
                 <label>LastName</label>
                 <input class="form-control" formControlName="LastName">
-                <label class="text-danger" *ngIf="userService.formModel.get('LastName').touched && userService.formModel.get('LastName').errors?.required">This field is mandatory.</label>
+                <label class="text-danger" *ngIf="formRegister.get('LastName').touched && formRegister.get('LastName').errors?.required">This field is mandatory.</label>
               </div>
             <div class="form-group required">
               <label>Email</label>
               <input class="form-control" formControlName="Email">
-              <label class="text-danger" *ngIf="userService.formModel.get('Email').touched && userService.formModel.get('Email').errors?.email">Invalid email address.</label>
+              <label class="text-danger" *ngIf="formRegister.get('Email').touched && formRegister.get('Email').errors?.email">Invalid email address.</label>
             </div>
             <div formGroupName="Passwords">
               <div class="form-group required">
                 <label>Password</label>
                 <input type="password" class="form-control" formControlName="Password">
-                <label class="text-danger" *ngIf="userService.formModel.get('Passwords.Password').touched && userService.formModel.get('Passwords.Password').errors?.required">This field is mandatory.</label>
-                <label class="text-danger" *ngIf="userService.formModel.get('Passwords.Password').touched && userService.formModel.get('Passwords.Password').errors?.minlength">Minimum 4 characters required.</label>
+                <label class="text-danger" *ngIf="formRegister.get('Passwords.Password').touched && formRegister.get('Passwords.Password').errors?.required">This field is mandatory.</label>
+                <label class="text-danger" *ngIf="formRegister.get('Passwords.Password').touched && formRegister.get('Passwords.Password').errors?.minlength">Minimum 4 characters required.</label>
               </div>
               <div class="form-group required">
                 <label>Confirm Password</label>
                 <input type="password" class="form-control" formControlName="ConfirmPassword">
-                <label class="text-danger" *ngIf="userService.formModel.get('Passwords.ConfirmPassword').touched && userService.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
-                <label class="text-danger" *ngIf="userService.formModel.get('Passwords.ConfirmPassword').touched && userService.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
+                <label class="text-danger" *ngIf="formRegister.get('Passwords.ConfirmPassword').touched && formRegister.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory.</label>
+                <label class="text-danger" *ngIf="formRegister.get('Passwords.ConfirmPassword').touched && formRegister.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Confirm Password does not match.</label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-8 offset-md-2">
-                <button type="submit" class="btn btn-lg btn-block" [disabled]="!userService.formModel.valid">Sign Up</button>
+                <button type="submit" class="btn btn-lg btn-block" [disabled]="!formRegister.valid">Sign Up</button>
               </div>
             </div>
         </form>
