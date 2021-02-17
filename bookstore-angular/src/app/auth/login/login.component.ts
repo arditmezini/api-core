@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JwtService, User, UserService, Response, Login } from 'src/app/core';
 
 @Component({
@@ -11,6 +12,7 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
 
   constructor(
+    private router: Router,
     public userService: UserService,
     private jwtService: JwtService,
     private fb: FormBuilder
@@ -29,10 +31,11 @@ export class LoginComponent implements OnInit {
       password: this.formLogin.value.Password,
     };
 
-    this.userService.login(login).subscribe(
+    return this.userService.login(login).subscribe(
       (res: Response<User>) => {
         var user = res.result;
         this.jwtService.saveToken(user.token);
+        this.router.navigate(['dashboard']);
       },
       (err) => {
         console.log(err);

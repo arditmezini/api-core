@@ -41,13 +41,14 @@ export class ErrorInterceptor implements HttpInterceptor {
         let errorMessage = '';
         if (err.error instanceof ErrorEvent) {
           // client-side error
-          errorMessage = `Error: ${err.message}`;
+          errorMessage = `CLIENT - Error: ${err.message}`;
         } else {
           // server-side error
-          errorMessage = `Error Code: ${err.status}\nMessage: ${err.message}`;
+          errorMessage = `SERVER - Error Code: ${err.status}\nMessage: ${err.message}`;
 
           switch (err.status) {
             case 0: //api not working
+              errorMessage = `SERVER - Error: API not reachable, please try again later.`;
               break;
 
             case 400: //Bad request
@@ -58,11 +59,11 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
 
             case 403: //forbidden
-              this.router.navigateByUrl('/unauthoried');
+              this.router.navigateByUrl('/not-found');
               break;
 
             default:
-              console.log('Unknown error');
+              errorMessage = `SERVER - Error : An error has occured, please try again.`;
               break;
           }
         }

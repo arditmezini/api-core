@@ -8,6 +8,7 @@ import { Login, Register } from '../models';
   providedIn: 'root',
 })
 export class UserService {
+
   constructor(private api: ApiService, private jwtService: JwtService) {}
 
   register(register: Register) {
@@ -18,23 +19,7 @@ export class UserService {
     return this.api.post(`${AppSettings.ApiV1}/account/login`, login);
   }
 
-  isUserAuthenticated() {
-    const token = this.jwtService.getToken();
-    if (token) {
-      this.jwtService.validateToken(token).subscribe(
-        (response) => {
-          if (response.result) {
-            return true;
-          } else {
-            return false;
-          }
-        },
-        (err) => {
-          return false;
-        }
-      );
-    } else {
-      return false;
-    }
+  logout(){
+    return this.jwtService.destroyToken();
   }
 }

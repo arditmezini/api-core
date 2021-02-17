@@ -20,7 +20,7 @@ export class RoleAuthGuardService implements CanActivate {
     const tokenPayload = decode<JwtPayload>(token);
 
     if (
-      !this.userService.isUserAuthenticated() ||
+      !this.jwtService.isTokenExpired() ||
       tokenPayload.role !== expectedRole
     ) {
       this.router.navigate(['auth/login']);
