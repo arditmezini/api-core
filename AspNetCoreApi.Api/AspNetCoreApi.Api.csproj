@@ -31,7 +31,7 @@
     <PackageReference Include="Hangfire.Dashboard.Authorization" Version="3.0.0" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.23" />
     <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.2.0" />
