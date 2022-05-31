@@ -3,8 +3,8 @@ using BookStore.Contracts.Repository;
 using BookStore.Contracts.Services.General;
 using BookStore.Models.Response;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -18,10 +18,6 @@ namespace BookStore.Repository
     {
         private static HttpClient client;
         private readonly HttpClientHandler httpClientHandler;
-        private static JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver()
-        };
 
         protected readonly IConnectionService _connectionService;
         protected readonly ISettingsService _settingsService;
@@ -60,18 +56,18 @@ namespace BookStore.Repository
                     return default;
                 }
 
-                var responseRequest = await client.GetAsync(url).ConfigureAwait(false);
+                var responseRequest = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
                 if (!responseRequest.IsSuccessStatusCode)
                     return default;
 
-                var responseData = await responseRequest.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var response = JsonConvert.DeserializeObject<ApiResponse<T>>(responseData);
+                var responseData = await responseRequest.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var response = DeserializeJsonFromStream<ApiResponse<T>>(responseData);
                 return response.Result;
             }
             catch (Exception ex)
             {
-                return default;
+                return default(T);
             }
         }
 
@@ -91,13 +87,27 @@ namespace BookStore.Repository
                 if (!responseRequest.IsSuccessStatusCode)
                     return default;
 
-                var responseData = await responseRequest.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var response = JsonConvert.DeserializeObject<ApiResponse<TOut>>(responseData, jsonSerializerSettings);
+                var responseData = await responseRequest.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var response = DeserializeJsonFromStream<ApiResponse<TOut>>(responseData);
                 return response.Result;
             }
             catch (Exception ex)
             {
-                return default;
+                return default(TOut);
+            }
+        }
+
+        private static T DeserializeJsonFromStream<T>(Stream stream)
+        {
+            if (stream == null || stream.CanRead == false)
+                return default(T);
+
+            using (var sr = new StreamReader(stream))
+            using (var jtr = new JsonTextReader(sr))
+            {
+                var js = new JsonSerializer();
+                var searchResult = js.Deserialize<T>(jtr);
+                return searchResult;
             }
         }
     }
